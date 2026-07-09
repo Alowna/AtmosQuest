@@ -11,13 +11,20 @@ config_version=5
 [application]
 
 config/name="AtmosQuest"
+run/main_scene="uid://cm73thr6ugt6p"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/size/viewport_width=180
+window/size/viewport_height=320
+window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [physics]
 
@@ -25,5 +32,6 @@ window/stretch/aspect="expand"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
