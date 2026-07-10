@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://br1wuoj3js7vm"]
+
+[ext_resource type="Script" uid="uid://bqebfp1vloeps" path="res://scripts/obstacle/obstacle.gd" id="1_hof70"]
+
+[node name="Obstacle" type="CharacterBody2D" unique_id=1278500318]
+script = ExtResource("1_hof70")
