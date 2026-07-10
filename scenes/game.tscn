@@ -3,9 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dda1gvpleu474" path="res://scenes/player/player_ship.tscn" id="2_iywne"]
 [ext_resource type="Texture2D" uid="uid://bjmax1slbkeq3" path="res://assets/enviroment/terrain/LandingFloorAlpha.png" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dxwsjt6a7b4by" path="res://scenes/world/background_manager.tscn" id="3_iywne"]
-[ext_resource type="Script" uid="uid://do2pyhlvkgsjg" path="res://scripts/enviroment/collision_spawner.gd" id="4_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://b2iqhb3w3doht" path="res://scenes/obstacles/troposphere/cloud.tscn" id="5_iywne"]
-[ext_resource type="PackedScene" uid="uid://6rlbg16jdwv7" path="res://scenes/obstacles/troposphere/plane.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://jqn0ih7xrrij" path="res://scenes/world/collision_spawner.tscn" id="4_lbhrr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(480, 24)
@@ -29,10 +27,5 @@ texture = ExtResource("2_lnu2h")
 
 [node name="BackgroundManager" parent="." unique_id=183005817 instance=ExtResource("3_iywne")]
 
-[node name="CollisionSpawner" type="Node2D" parent="." unique_id=1097809877 node_paths=PackedStringArray("player")]
-script = ExtResource("4_lbhrr")
+[node name="CollisionSpawner" parent="." unique_id=1483215837 node_paths=PackedStringArray("player") instance=ExtResource("4_lbhrr")]
 player = NodePath("../PlayerShip")
-obstacle_scenes = Array[PackedScene]([ExtResource("5_iywne"), ExtResource("6_p57ef")])
-
-[node name="SpawnTimer" type="Timer" parent="CollisionSpawner" unique_id=751920843]
-wait_time = 1.462
