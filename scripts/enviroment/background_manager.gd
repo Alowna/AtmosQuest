@@ -31,7 +31,7 @@ func _ready():
 
 
 
-func _process(delta):
+func _process(_delta):
 	# Get the player's current horizontal position.
 	var player_x = player.global_position.x
 
