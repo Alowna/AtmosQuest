@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b2iqhb3w3doht"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_wfkml"]
+[ext_resource type="Script" uid="uid://eroc5nw474fg" path="res://scripts/obstacle/troposphere/cloud.gd" id="2_1een5"]
+[ext_resource type="Texture2D" uid="uid://qognhcjsr6lc" path="res://assets/obstacles/troposphere/clouds/CloudsAlpha T1.png" id="3_1een5"]
+[ext_resource type="Texture2D" uid="uid://caj8aedlwg1wh" path="res://assets/obstacles/troposphere/clouds/CloudsAlpha T2.png" id="4_htfoj"]
+[ext_resource type="Texture2D" uid="uid://ijpi03iisebe" path="res://assets/obstacles/troposphere/clouds/CloudsAlpha T3.png" id="5_bumgl"]
+[ext_resource type="Texture2D" uid="uid://d2ylujbbw3hpi" path="res://assets/obstacles/troposphere/clouds/CloudsAlpha T4.png" id="6_7p7ch"]
+[ext_resource type="Texture2D" uid="uid://d03ale3lxob6p" path="res://assets/obstacles/troposphere/clouds/CloudsAlpha T5.png" id="7_kiw57"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
+size = Vector2(28, 20)
+
+[node name="Cloud" unique_id=1278500318 instance=ExtResource("1_wfkml")]
+script = ExtResource("2_1een5")
+cloud_textures = Array[Texture2D]([ExtResource("3_1een5"), ExtResource("4_htfoj"), ExtResource("5_bumgl"), ExtResource("6_7p7ch"), ExtResource("7_kiw57")])
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0" unique_id=1617282050]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1" unique_id=1754257998]
+shape = SubResource("RectangleShape2D_bhunq")
