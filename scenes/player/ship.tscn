@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cx0rjkf28bmg1"]
 
-[ext_resource type="Script" uid="uid://dglpvcyv8yafe" path="res://scripts/ship.gd" id="1_yie7n"]
+[ext_resource type="Script" uid="uid://dglpvcyv8yafe" path="res://scripts/ship/ship.gd" id="1_yie7n"]
 [ext_resource type="Texture2D" uid="uid://c15xmgyne75x8" path="res://assets/ships/ShipAlpha.png" id="2_yie7n"]
 
 [node name="Ship" type="CharacterBody2D" unique_id=1983180390]
