@@ -21,6 +21,6 @@ func move_ship(direction: Vector2):
 	move_and_slide()
 
 #Physics for testing
-func _physics_process(delta):
+func _physics_process(_delta):
 	var direction = Vector2.UP
 	move_ship(direction)
