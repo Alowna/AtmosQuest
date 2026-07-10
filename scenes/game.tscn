@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cm73thr6ugt6p"]
 
 [ext_resource type="PackedScene" uid="uid://dda1gvpleu474" path="res://scenes/player/player_ship.tscn" id="2_iywne"]
-[ext_resource type="Texture2D" uid="uid://dyn67v5mtdppl" path="res://assets/LandingFloorAlpha.svg" id="2_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://bjmax1slbkeq3" path="res://assets/enviroment/terrain/LandingFloorAlpha.png" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dxwsjt6a7b4by" path="res://scenes/world/background_manager.tscn" id="3_iywne"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
@@ -20,8 +20,8 @@ position = Vector2(-496, -7)
 position = Vector2(254, -5)
 shape = SubResource("RectangleShape2D_bhunq")
 
-[node name="LandingFloorAlpha" type="Sprite2D" parent="LandingFloor" unique_id=1630910938]
-position = Vector2(256, -93)
-texture = ExtResource("2_lbhrr")
+[node name="LandingFloorAlpha2" type="Sprite2D" parent="LandingFloor" unique_id=575468881]
+position = Vector2(254, -93)
+texture = ExtResource("2_lnu2h")
 
 [node name="BackgroundManager" parent="." unique_id=183005817 instance=ExtResource("3_iywne")]

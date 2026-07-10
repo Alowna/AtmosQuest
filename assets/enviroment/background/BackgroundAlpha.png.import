@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyn67v5mtdppl"
-path="res://.godot/imported/LandingFloorAlpha.svg-c04d7533b0205f70d24e3306fe521b73.ctex"
+uid="uid://dv1ulmvipqqt0"
+path="res://.godot/imported/BackgroundAlpha.png-65595d4aa007205dc33f616a3b772dc1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/LandingFloorAlpha.svg"
-dest_files=["res://.godot/imported/LandingFloorAlpha.svg-c04d7533b0205f70d24e3306fe521b73.ctex"]
+source_file="res://assets/enviroment/background/BackgroundAlpha.png"
+dest_files=["res://.godot/imported/BackgroundAlpha.png-65595d4aa007205dc33f616a3b772dc1.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

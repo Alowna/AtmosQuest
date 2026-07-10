@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cidt156yc64tf"
-path="res://.godot/imported/BackgroundAlpha.svg-77400f35e85f69cd99af9d7ede396139.ctex"
+uid="uid://c15xmgyne75x8"
+path="res://.godot/imported/ShipAlpha.png-ba4c8bc5ff96695a75521102fd8f5b4b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BackgroundAlpha.svg"
-dest_files=["res://.godot/imported/BackgroundAlpha.svg-77400f35e85f69cd99af9d7ede396139.ctex"]
+source_file="res://assets/ships/ShipAlpha.png"
+dest_files=["res://.godot/imported/ShipAlpha.png-ba4c8bc5ff96695a75521102fd8f5b4b.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

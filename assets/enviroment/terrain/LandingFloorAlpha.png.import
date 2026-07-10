@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0yfp5evkpm5r"
-path="res://.godot/imported/ShipAlpha.svg-590ef39de8028906cb057db3f621a85f.ctex"
+uid="uid://bjmax1slbkeq3"
+path="res://.godot/imported/LandingFloorAlpha.png-8f029edd1db12ecf040377aea0a1d4de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ShipAlpha.svg"
-dest_files=["res://.godot/imported/ShipAlpha.svg-590ef39de8028906cb057db3f621a85f.ctex"]
+source_file="res://assets/enviroment/terrain/LandingFloorAlpha.png"
+dest_files=["res://.godot/imported/LandingFloorAlpha.png-8f029edd1db12ecf040377aea0a1d4de.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
