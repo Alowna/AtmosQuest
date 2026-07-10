@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dxwsjt6a7b4by"]
+
+[ext_resource type="Script" uid="uid://cpmapw4ufkkyg" path="res://scripts/background_manager.gd" id="1_jwtsk"]
+[ext_resource type="Texture2D" uid="uid://cidt156yc64tf" path="res://assets/BackgroundAlpha.svg" id="2_cdwt3"]
+
+[node name="BackgroundManager" type="Node2D" unique_id=183005817 node_paths=PackedStringArray("player")]
+script = ExtResource("1_jwtsk")
+player = NodePath("")
+
+[node name="BackgroundAlpha" type="Sprite2D" parent="." unique_id=307662445]
+z_index = -1
+position = Vector2(-233, -2716)
+scale = Vector2(1, 0.543)
+texture = ExtResource("2_cdwt3")
+
+[node name="BackgroundAlpha2" type="Sprite2D" parent="." unique_id=906997402]
+z_index = -1
+position = Vector2(-711, -2716)
+scale = Vector2(1, 0.543)
+texture = ExtResource("2_cdwt3")
+
+[node name="BackgroundAlpha3" type="Sprite2D" parent="." unique_id=670955461]
+z_index = -1
+position = Vector2(236, -2716)
+scale = Vector2(1, 0.543)
+texture = ExtResource("2_cdwt3")
