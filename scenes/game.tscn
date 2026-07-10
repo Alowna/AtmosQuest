@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cm73thr6ugt6p"]
+
+[ext_resource type="PackedScene" uid="uid://dda1gvpleu474" path="res://scenes/player/player_ship.tscn" id="2_iywne"]
+[ext_resource type="Texture2D" uid="uid://dyn67v5mtdppl" path="res://assets/LandingFloorAlpha.svg" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://dxwsjt6a7b4by" path="res://scenes/world/background_manager.tscn" id="3_iywne"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
+size = Vector2(480, 24)
+
+[node name="game" type="Node2D" unique_id=1309740570]
+position = Vector2(337, 205)
+
+[node name="PlayerShip" parent="." unique_id=535543817 instance=ExtResource("2_iywne")]
+position = Vector2(-246, -52)
+
+[node name="LandingFloor" type="StaticBody2D" parent="." unique_id=1930167788]
+position = Vector2(-496, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LandingFloor" unique_id=2039736233]
+position = Vector2(254, -5)
+shape = SubResource("RectangleShape2D_bhunq")
+
+[node name="LandingFloorAlpha" type="Sprite2D" parent="LandingFloor" unique_id=1630910938]
+position = Vector2(256, -93)
+texture = ExtResource("2_lbhrr")
+
+[node name="BackgroundManager" parent="." unique_id=183005817 instance=ExtResource("3_iywne")]
