@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://wqrdil6xl6vq"]
+
+[ext_resource type="Texture2D" uid="uid://birmqrhikxdx1" path="res://assets/HUD/MainMenu/MainMenuBaseAlpha.png" id="1_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://jlrxu47bkdmp" path="res://assets/HUD/MainMenu/MainMenuNeonAlpha-Sheet.png" id="2_oa1go"]
+[ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="3_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://1drnb4d7y6iv" path="res://assets/HUD/MainMenu/MainMenuPlaySolo.png" id="4_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://bquynslyhqqv3" path="res://assets/HUD/MainMenu/MainMenuOnline.png" id="5_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://d21km6okumk6n" path="res://assets/HUD/MainMenu/MainMenuOptions.png" id="6_lgwnu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o4t1"]
+atlas = ExtResource("2_oa1go")
+region = Rect2(0, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k4wn"]
+atlas = ExtResource("2_oa1go")
+region = Rect2(180, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5v2v"]
+atlas = ExtResource("2_oa1go")
+region = Rect2(360, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iotk1"]
+atlas = ExtResource("2_oa1go")
+region = Rect2(540, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w44g7"]
+atlas = ExtResource("2_oa1go")
+region = Rect2(720, 0, 180, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0o4t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k4wn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5v2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iotk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w44g7")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MainMenu" type="Control" unique_id=535924887]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="MainMenuBaseAlpha" type="Sprite2D" parent="." unique_id=314799007]
+position = Vector2(90, 160)
+texture = ExtResource("1_rtw2f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=280124845]
+position = Vector2(90, 160)
+sprite_frames = SubResource("SpriteFrames_bhunq")
+
+[node name="PlayButton" parent="." unique_id=1862010026 instance=ExtResource("3_tbmy8")]
+layout_mode = 0
+texture_normal = ExtResource("4_jk1qb")
+target_scene = "uid://cm73thr6ugt6p"
+
+[node name="OnlineButton" parent="." unique_id=295234190 instance=ExtResource("3_tbmy8")]
+layout_mode = 0
+texture_normal = ExtResource("5_5dd4i")
+
+[node name="OptionsButton" parent="." unique_id=876353857 instance=ExtResource("3_tbmy8")]
+layout_mode = 0
+texture_normal = ExtResource("6_lgwnu")
