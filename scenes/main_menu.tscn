@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://1drnb4d7y6iv" path="res://assets/HUD/MainMenu/MainMenuPlaySolo.png" id="4_jk1qb"]
 [ext_resource type="Texture2D" uid="uid://bquynslyhqqv3" path="res://assets/HUD/MainMenu/MainMenuOnline.png" id="5_5dd4i"]
 [ext_resource type="Texture2D" uid="uid://d21km6okumk6n" path="res://assets/HUD/MainMenu/MainMenuOptions.png" id="6_lgwnu"]
+[ext_resource type="AudioStream" uid="uid://dsqeei2c3y1e2" path="res://assets/HUD/MainMenu/Sounds/ButtonPressed.wav" id="7_oa1go"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0o4t1"]
 atlas = ExtResource("2_oa1go")
@@ -62,15 +63,21 @@ texture = ExtResource("1_rtw2f")
 position = Vector2(90, 160)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 
-[node name="PlayButton" parent="." unique_id=1862010026 instance=ExtResource("3_tbmy8")]
+[node name="PlayButton" parent="." unique_id=1862010026 node_paths=PackedStringArray("click_sound") instance=ExtResource("3_tbmy8")]
 layout_mode = 0
 texture_normal = ExtResource("4_jk1qb")
 target_scene = "uid://cm73thr6ugt6p"
+click_sound = NodePath("../ButtonPressed")
 
-[node name="OnlineButton" parent="." unique_id=295234190 instance=ExtResource("3_tbmy8")]
+[node name="OnlineButton" parent="." unique_id=295234190 node_paths=PackedStringArray("click_sound") instance=ExtResource("3_tbmy8")]
 layout_mode = 0
 texture_normal = ExtResource("5_5dd4i")
+click_sound = NodePath("../ButtonPressed")
 
-[node name="OptionsButton" parent="." unique_id=876353857 instance=ExtResource("3_tbmy8")]
+[node name="OptionsButton" parent="." unique_id=876353857 node_paths=PackedStringArray("click_sound") instance=ExtResource("3_tbmy8")]
 layout_mode = 0
 texture_normal = ExtResource("6_lgwnu")
+click_sound = NodePath("../ButtonPressed")
+
+[node name="ButtonPressed" type="AudioStreamPlayer" parent="." unique_id=1757828828]
+stream = ExtResource("7_oa1go")
