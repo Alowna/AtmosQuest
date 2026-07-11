@@ -44,6 +44,9 @@ func _physics_process(_delta):
 		# If the obstacle is too far from the player, remove it from memory.
 		if distance > delete_distance:
 			queue_free()
+	
+	if get_slide_collision_count() > 0:
+		queue_free()
 
 func move_obstacle(direction: Vector2):
 	# Calculate the movement velocity based on the given direction.
