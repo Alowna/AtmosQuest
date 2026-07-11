@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="AtmosQuest"
-run/main_scene="uid://cm73thr6ugt6p"
+run/main_scene="uid://wqrdil6xl6vq"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
@@ -19,12 +19,16 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=180
 window/size/viewport_height=320
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/stretch/mode="canvas_items"
 
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[layer_names]
+
+2d_render/layer_1="Player"
+2d_render/layer_2="CollisionObjects"
 
 [physics]
 
