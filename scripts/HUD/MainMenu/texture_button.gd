@@ -67,6 +67,10 @@ func _on_pressed():
 	# Wait until the button animation finishes before changing scenes
 	await tween.finished
 
+	# Wait until the sound finishes playing
+	if click_sound:
+		await click_sound.finished
+
 	# Load the assigned scene if one was configured in the Inspector
 	if target_scene:
 		get_tree().change_scene_to_file(target_scene)
