@@ -84,6 +84,7 @@ animations = [{
 }]
 
 [node name="Plane" unique_id=1278500318 instance=ExtResource("1_ne8du")]
+collision_layer = 2
 script = ExtResource("2_2pwkk")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="0" unique_id=251038810]

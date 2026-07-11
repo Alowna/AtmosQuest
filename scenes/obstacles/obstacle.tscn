@@ -3,4 +3,5 @@
 [ext_resource type="Script" uid="uid://bqebfp1vloeps" path="res://scripts/obstacle/obstacle.gd" id="1_hof70"]
 
 [node name="Obstacle" type="CharacterBody2D" unique_id=1278500318]
+collision_layer = 2
 script = ExtResource("1_hof70")

@@ -12,6 +12,7 @@
 size = Vector2(28, 20)
 
 [node name="Cloud" unique_id=1278500318 instance=ExtResource("1_wfkml")]
+collision_layer = 2
 script = ExtResource("2_1een5")
 cloud_textures = Array[Texture2D]([ExtResource("3_1een5"), ExtResource("4_htfoj"), ExtResource("5_bumgl"), ExtResource("6_7p7ch"), ExtResource("7_kiw57")])
 
