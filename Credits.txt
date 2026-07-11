@@ -1,0 +1,4 @@
+GUI Notification Alert by [Headphaze]
+Licensed under CC BY 4.0
+Used as a UI notification sound.
+Source: https://freesound.org/people/Headphaze/sounds/277031/
