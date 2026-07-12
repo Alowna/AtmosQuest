@@ -24,6 +24,21 @@ var turn_right := false
 # Stores if the player is currently holding the right side of the screen.
 
 
+# Detachable rocket parts
+# These references are assigned from the Inspector.
+@export var propeller: Node2D
+@export var right_wing: Node2D
+@export var left_wing: Node2D
+@export var coffer: Node2D
+
+
+# Prevents the same part from being detached multiple times.
+var propeller_detached := false
+var right_wing_detached := false
+var left_wing_detached := false
+var coffer_detached := false
+
+
 
 func _ready():
 	# Adds this ship to the player group.
@@ -88,6 +103,10 @@ func _physics_process(delta):
 
 func _process(delta):
 	altitude_km = get_altitude()
+	
+	# Checks if any rocket parts should be detached
+	# based on the current atmospheric layer.
+	check_detach_events()
 
 	altitude_label.text = format_altitude(altitude_km)
 
@@ -177,3 +196,48 @@ func format_altitude(altitude):
 	else:
 		var gigameters = altitude / 1000000.0
 		return str(snapped(gigameters, 0.1)).trim_suffix(".0") + " Gm"
+		
+func check_detach_events():
+
+	# ==========================================
+	# STRATOSPHERE ENTRY (12 km)
+	# Detach the main propeller/booster section.
+	# ==========================================
+	if altitude_km >= 12 and not propeller_detached:
+
+		propeller_detached = true
+
+		if propeller:
+			propeller.detach()
+
+
+
+	# ==========================================
+	# MESOSPHERE ENTRY (50 km)
+	# Detach the left and right wings.
+	# ==========================================
+	if altitude_km >= 50 and not right_wing_detached:
+
+		right_wing_detached = true
+
+		if right_wing:
+			right_wing.detach()
+	if altitude_km >= 55 and not left_wing_detached:
+
+		left_wing_detached = true
+
+		if left_wing:
+			left_wing.detach()
+
+
+
+	# ==========================================
+	# EXOSPHERE ENTRY (700 km)
+	# Detach the final compartment/payload cover.
+	# ==========================================
+	if altitude_km >= 700 and not coffer_detached:
+
+		coffer_detached = true
+
+		if coffer:
+			coffer.detach()
