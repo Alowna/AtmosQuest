@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ctnekyphahaeh" path="res://assets/HUD/ShipHud/Hull/HUDAlpha.png" id="5_p57ef"]
 [ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="7_gee14"]
 [ext_resource type="Texture2D" uid="uid://5eorpnqta7ev" path="res://assets/HUD/ShipHud/HullLights/HUDLightsAlpha-Sheet.png" id="7_u5sy4"]
+[ext_resource type="AudioStream" uid="uid://7lms56sgdnwr" path="res://assets/HUD/MainMenu/Sounds/MainMenuSong.wav" id="9_0tnpc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(480, 24)
@@ -88,6 +89,7 @@ animations = [{
 position = Vector2(337, 205)
 
 [node name="PlayerShip" parent="." unique_id=535543817 node_paths=PackedStringArray("altitude_label", "atmosphere_label", "speed_label") instance=ExtResource("2_iywne")]
+position = Vector2(0, -20)
 altitude_label = NodePath("../CanvasLayer/AltitudeLabel")
 atmosphere_label = NodePath("../CanvasLayer/AtmosphereLabel")
 speed_label = NodePath("../CanvasLayer/SpeedLabel")
@@ -164,3 +166,7 @@ text = "2km/s"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+
+[node name="MainMenuSong" type="AudioStreamPlayer" parent="." unique_id=1559900521]
+stream = ExtResource("9_0tnpc")
+autoplay = true
