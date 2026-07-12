@@ -3,9 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://cx0rjkf28bmg1" path="res://scenes/player/ship.tscn" id="1_8ddl6"]
 [ext_resource type="Script" uid="uid://wmk4qe2dhn5d" path="res://scripts/ship/player_ship.gd" id="2_euhl3"]
 
-[node name="Ship" unique_id=1983180390 instance=ExtResource("1_8ddl6")]
+[node name="PlayerShip" unique_id=1983180390 node_paths=PackedStringArray("propeller", "right_wing", "left_wing", "coffer") instance=ExtResource("1_8ddl6")]
 collision_mask = 2
 script = ExtResource("2_euhl3")
 rotation_speed = 1.5
+propeller = NodePath("Propeller")
+right_wing = NodePath("RightWing")
+left_wing = NodePath("LeftWing")
+coffer = NodePath("Coffer")
 
 [node name="Camera2D" type="Camera2D" parent="." index="2" unique_id=421650301]
