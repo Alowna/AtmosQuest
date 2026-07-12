@@ -1,4 +1,9 @@
 GUI Notification Alert by [Headphaze]
 Licensed under CC BY 4.0
-Used as a UI notification sound.
+Used with permission as a UI notification sound.
 Source: https://freesound.org/people/Headphaze/sounds/277031/
+
+Boo (I Got You Good) by Victor_Natas
+Copyright © Victor_Natas. All rights reserved.
+Used with permission as main menu song.
+Source: https://freesound.org/people/Victor_Natas/sounds/653475/
