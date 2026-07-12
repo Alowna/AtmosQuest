@@ -3,10 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://birmqrhikxdx1" path="res://assets/HUD/MainMenu/MainMenuBaseAlpha.png" id="1_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://jlrxu47bkdmp" path="res://assets/HUD/MainMenu/MainMenuNeonAlpha-Sheet.png" id="2_oa1go"]
 [ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="3_tbmy8"]
-[ext_resource type="Texture2D" uid="uid://1drnb4d7y6iv" path="res://assets/HUD/MainMenu/MainMenuPlaySolo.png" id="4_jk1qb"]
-[ext_resource type="Texture2D" uid="uid://bquynslyhqqv3" path="res://assets/HUD/MainMenu/MainMenuOnline.png" id="5_5dd4i"]
-[ext_resource type="Texture2D" uid="uid://d21km6okumk6n" path="res://assets/HUD/MainMenu/MainMenuOptions.png" id="6_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://doqi71gfedcat" path="res://assets/HUD/MainMenu/MainMenuPlaySolo.png" id="4_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://dje4f6js4kiqk" path="res://assets/HUD/MainMenu/MainMenuOnline.png" id="5_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://l80s2cbm7ap4" path="res://assets/HUD/MainMenu/MainMenuOptions.png" id="6_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://bmphlr3wr3e70" path="res://assets/HUD/MainMenu/MainMenuSoundAlpha.png" id="7_jk1qb"]
 [ext_resource type="AudioStream" uid="uid://dsqeei2c3y1e2" path="res://assets/HUD/MainMenu/Sounds/ButtonPressed.wav" id="7_oa1go"]
+[ext_resource type="Script" uid="uid://buush2gikjqdl" path="res://scripts/HUD/MainMenu/sound_button.gd" id="8_5dd4i"]
+[ext_resource type="AudioStream" uid="uid://7lms56sgdnwr" path="res://assets/HUD/MainMenu/Sounds/MainMenuSong.wav" id="8_tbmy8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0o4t1"]
 atlas = ExtResource("2_oa1go")
@@ -62,22 +65,50 @@ texture = ExtResource("1_rtw2f")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=280124845]
 position = Vector2(90, 160)
 sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
 
 [node name="PlayButton" parent="." unique_id=1862010026 node_paths=PackedStringArray("click_sound") instance=ExtResource("3_tbmy8")]
 layout_mode = 0
+offset_left = 55.0
+offset_top = 99.0
+offset_right = 123.0
+offset_bottom = 139.0
 texture_normal = ExtResource("4_jk1qb")
 target_scene = "uid://cm73thr6ugt6p"
 click_sound = NodePath("../ButtonPressed")
 
 [node name="OnlineButton" parent="." unique_id=295234190 node_paths=PackedStringArray("click_sound") instance=ExtResource("3_tbmy8")]
 layout_mode = 0
+offset_left = 54.0
+offset_top = 136.0
+offset_right = 123.0
+offset_bottom = 176.0
 texture_normal = ExtResource("5_5dd4i")
+target_scene = "uid://bjwr5jwn67hxu"
 click_sound = NodePath("../ButtonPressed")
 
 [node name="OptionsButton" parent="." unique_id=876353857 node_paths=PackedStringArray("click_sound") instance=ExtResource("3_tbmy8")]
 layout_mode = 0
+offset_left = 72.0
+offset_top = 174.0
+offset_right = 112.0
+offset_bottom = 214.0
 texture_normal = ExtResource("6_lgwnu")
 click_sound = NodePath("../ButtonPressed")
 
+[node name="SoundButton" parent="." unique_id=722179466 node_paths=PackedStringArray("background_music") instance=ExtResource("3_tbmy8")]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 7.0
+offset_right = 192.0
+offset_bottom = 47.0
+texture_normal = ExtResource("7_jk1qb")
+script = ExtResource("8_5dd4i")
+background_music = NodePath("../MainMenuSong")
+
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="." unique_id=1757828828]
 stream = ExtResource("7_oa1go")
+
+[node name="MainMenuSong" type="AudioStreamPlayer" parent="." unique_id=2071791831]
+stream = ExtResource("8_tbmy8")
+autoplay = true
