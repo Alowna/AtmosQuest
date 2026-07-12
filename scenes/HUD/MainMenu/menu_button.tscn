@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b8jgf88uft0jk"]
 
-[ext_resource type="Script" uid="uid://in1q60rhsqyu" path="res://scripts/HUD/MainMenu/texture_button.gd" id="1_5fc1q"]
+[ext_resource type="Script" uid="uid://in1q60rhsqyu" path="res://scripts/HUD/MainMenu/menu_button.gd" id="1_5fc1q"]
 
 [node name="MenuButton" type="TextureButton" unique_id=1862010026]
 offset_right = 40.0
