@@ -15,7 +15,6 @@ func move_ship(direction: Vector2):
 	# Creates the movement velocity based on the given direction.
 	# Any ship can use this function by providing a movement direction.
 	velocity = direction * speed
-	print(position.y)
 
 
 	# Applies the velocity and moves the CharacterBody2D.
