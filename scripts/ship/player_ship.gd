@@ -45,6 +45,8 @@ func _ready():
 	# Other systems can find the local player using this group.
 	add_to_group("player")
 	last_altitude_km = get_altitude()
+	
+	apply_skin()
 
 
 
@@ -241,3 +243,17 @@ func check_detach_events():
 
 		if coffer:
 			coffer.detach()
+			
+func apply_skin():
+
+	$ShipFinal.texture = PlayerConfig.ship_skin["body"]
+	
+	$Pilot.texture = PlayerConfig.pilot_skin
+
+	$Propeller/ShipPropeller.texture = PlayerConfig.ship_skin["propeller"]
+
+	$RightWing/ShipRightWing.texture = PlayerConfig.ship_skin["right_wing"]
+
+	$LeftWing/ShipLeftWing.texture = PlayerConfig.ship_skin["left_wing"]
+
+	$Coffer/ShipCoffer.texture = PlayerConfig.ship_skin["coffer"]
