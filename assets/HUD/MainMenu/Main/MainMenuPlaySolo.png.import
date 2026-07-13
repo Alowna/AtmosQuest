@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jlrxu47bkdmp"
-path="res://.godot/imported/MainMenuNeonAlpha-Sheet.png-93f15dbbbd4c08441045aadbb8d7239f.ctex"
+uid="uid://doqi71gfedcat"
+path="res://.godot/imported/MainMenuPlaySolo.png-0484afaf4f24dace8c8f531074746218.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HUD/MainMenu/MainMenuNeonAlpha-Sheet.png"
-dest_files=["res://.godot/imported/MainMenuNeonAlpha-Sheet.png-93f15dbbbd4c08441045aadbb8d7239f.ctex"]
+source_file="res://assets/HUD/MainMenu/Main/MainMenuPlaySolo.png"
+dest_files=["res://.godot/imported/MainMenuPlaySolo.png-0484afaf4f24dace8c8f531074746218.ctex"]
 
 [params]
 
