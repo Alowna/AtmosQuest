@@ -15,6 +15,10 @@ run/main_scene="uid://wqrdil6xl6vq"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PlayerConfig="*uid://dlxplfxm7m6vq"
+
 [display]
 
 window/size/viewport_width=180
