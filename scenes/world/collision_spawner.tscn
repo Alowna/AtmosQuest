@@ -4,10 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://b2iqhb3w3doht" path="res://scenes/obstacles/troposphere/cloud.tscn" id="2_4v53j"]
 [ext_resource type="PackedScene" uid="uid://6rlbg16jdwv7" path="res://scenes/obstacles/troposphere/plane.tscn" id="3_c7jci"]
 
-[node name="CollisionSpawner" type="Node2D" unique_id=1483215837 node_paths=PackedStringArray("player")]
+[node name="CollisionSpawner" type="Node2D" unique_id=1483215837]
 script = ExtResource("1_1ivpn")
-player = NodePath("")
 obstacle_scenes = Array[PackedScene]([ExtResource("2_4v53j"), ExtResource("3_c7jci")])
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=1388962130]
-wait_time = 1.462
+wait_time = 0.8
