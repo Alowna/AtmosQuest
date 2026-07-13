@@ -1,19 +1,17 @@
 [gd_scene format=3 uid="uid://cx0rjkf28bmg1"]
 
 [ext_resource type="Script" uid="uid://dglpvcyv8yafe" path="res://scripts/ship/ship.gd" id="1_yie7n"]
-[ext_resource type="Texture2D" uid="uid://br0rb87yknc03" path="res://assets/ships/Ship Classic/ClassicShipFinal.png" id="2_yie7n"]
 [ext_resource type="Script" uid="uid://dvr0fusefb54f" path="res://scripts/ship/detachable_part.gd" id="3_ubi8f"]
-[ext_resource type="Texture2D" uid="uid://e2r8grvttu5a" path="res://assets/ships/Ship Classic/ClassicShipPropeller.png" id="4_tjbcf"]
-[ext_resource type="Texture2D" uid="uid://clifkx0xoyhpv" path="res://assets/ships/Ship Classic/ClassicShipRightWing.png" id="5_2ko6j"]
-[ext_resource type="Texture2D" uid="uid://bqki02lbkc06v" path="res://assets/ships/Ship Classic/ClassicShipLeftWing.png" id="6_7a2ln"]
-[ext_resource type="Texture2D" uid="uid://wbujkmu60sfu" path="res://assets/ships/Ship Classic/ClassicShipCoffer.png" id="7_5lh7k"]
 
 [node name="Ship" type="CharacterBody2D" unique_id=1983180390]
 input_pickable = true
 script = ExtResource("1_yie7n")
 
+[node name="Pilot" type="Sprite2D" parent="." unique_id=329952918]
+position = Vector2(0, -2)
+
 [node name="ShipFinal" type="Sprite2D" parent="." unique_id=2063154975]
-texture = ExtResource("2_yie7n")
+z_index = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=146630552]
 polygon = PackedVector2Array(0, -20, 0, -20, -11, -7, -11, 17, -4, 20, 4, 20, 11, 17, 11, -7)
@@ -23,28 +21,24 @@ script = ExtResource("3_ubi8f")
 
 [node name="ShipPropeller" type="Sprite2D" parent="Propeller" unique_id=115581573]
 position = Vector2(0, 36)
-texture = ExtResource("4_tjbcf")
 
 [node name="RightWing" type="Node2D" parent="." unique_id=985321582]
 script = ExtResource("3_ubi8f")
 
-[node name="ClassicShipRightWing" type="Sprite2D" parent="RightWing" unique_id=1217852658]
+[node name="ShipRightWing" type="Sprite2D" parent="RightWing" unique_id=1217852658]
 position = Vector2(16, 25)
-texture = ExtResource("5_2ko6j")
 
 [node name="LeftWing" type="Node2D" parent="." unique_id=1564376094]
 script = ExtResource("3_ubi8f")
 
-[node name="ClassicShipLeftWing" type="Sprite2D" parent="LeftWing" unique_id=475559106]
+[node name="ShipLeftWing" type="Sprite2D" parent="LeftWing" unique_id=475559106]
 position = Vector2(-16, 26)
-texture = ExtResource("6_7a2ln")
 
 [node name="Coffer" type="Node2D" parent="." unique_id=1649520352]
 script = ExtResource("3_ubi8f")
 
-[node name="ClassicShipCoffer" type="Sprite2D" parent="Coffer" unique_id=1549308765]
+[node name="ShipCoffer" type="Sprite2D" parent="Coffer" unique_id=1549308765]
 position = Vector2(0, 25)
-texture = ExtResource("7_5lh7k")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
