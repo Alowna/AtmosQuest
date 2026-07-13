@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://dwaw05mi1fffk"]
+
+[ext_resource type="Texture2D" uid="uid://chfabt4alot2m" path="res://assets/HUD/MainMenu/Config/ConfigAlphaBase.png" id="1_14yi8"]
+[ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="2_fu4ru"]
+[ext_resource type="Texture2D" uid="uid://c7gj3bk28yheh" path="res://assets/HUD/MainMenu/Config/ConfigAlphaButton-Sheet-Transparent.png" id="3_fu4ru"]
+[ext_resource type="Script" uid="uid://f700q5wj7sa6" path="res://scripts/HUD/MainMenu/ship_skin_button.gd" id="4_o4f72"]
+[ext_resource type="Texture2D" uid="uid://doqi71gfedcat" path="res://assets/HUD/MainMenu/Main/MainMenuPlaySolo.png" id="5_fu4ru"]
+[ext_resource type="Script" uid="uid://csvt5n8lv1ish" path="res://scripts/HUD/MainMenu/pilot_skin_button.gd.gd" id="5_o4f72"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgwnu"]
+atlas = ExtResource("3_fu4ru")
+region = Rect2(0, 0, 63, 67.272)
+
+[sub_resource type="Animation" id="Animation_y6n8j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 63, 67.272)]
+}
+
+[sub_resource type="Animation" id="Animation_1dbib"]
+resource_name = "idle_animation"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 63, 67.272), Rect2(63, 0, 63, 67.272), Rect2(126, 0, 63, 67.272), Rect2(189, 0, 63, 67.272), Rect2(252, 0, 63, 67.272)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gapwa"]
+_data = {
+&"RESET": SubResource("Animation_y6n8j"),
+&"idle_animation": SubResource("Animation_1dbib")
+}
+
+[node name="Config" type="Control" unique_id=980605055]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConfigAlphaBase" type="Sprite2D" parent="." unique_id=1036505219]
+position = Vector2(90, 160)
+texture = ExtResource("1_14yi8")
+
+[node name="SkinButton" parent="." unique_id=1862010026 instance=ExtResource("2_fu4ru")]
+z_index = 2
+layout_mode = 0
+offset_left = 61.0
+offset_top = 205.0
+offset_right = 124.0
+offset_bottom = 277.0
+texture_normal = SubResource("AtlasTexture_lgwnu")
+script = ExtResource("4_o4f72")
+
+[node name="ShipExample" type="Sprite2D" parent="SkinButton" unique_id=1845787626]
+z_index = -1
+position = Vector2(33, 33)
+scale = Vector2(0.85, 0.85)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SkinButton" unique_id=1885177486]
+libraries/ = SubResource("AnimationLibrary_gapwa")
+autoplay = &"idle_animation"
+
+[node name="SkinButton2" parent="." unique_id=890112679 instance=ExtResource("2_fu4ru")]
+z_index = 2
+layout_mode = 0
+offset_left = 69.0
+offset_top = 153.0
+offset_right = 132.0
+offset_bottom = 220.0
+scale = Vector2(0.7, 0.7)
+texture_normal = SubResource("AtlasTexture_lgwnu")
+script = ExtResource("5_o4f72")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SkinButton2" unique_id=533951520]
+libraries/ = SubResource("AnimationLibrary_gapwa")
+autoplay = &"idle_animation"
+
+[node name="PilotExample" type="Sprite2D" parent="SkinButton2" unique_id=1384167977]
+position = Vector2(32.857143, 31.428598)
+scale = Vector2(3.5, 3.5)
+
+[node name="PlayButton" parent="." unique_id=478858096 instance=ExtResource("2_fu4ru")]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 99.0
+offset_right = 123.0
+offset_bottom = 139.0
+texture_normal = ExtResource("5_fu4ru")
+target_scene = "uid://cm73thr6ugt6p"
