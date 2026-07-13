@@ -6,8 +6,8 @@ extends Node
 var ship_skin = {
 	"body": preload("res://assets/ships/ClassicShip/ClassicShipFinal.png"),
 	"propeller": preload("res://assets/ships/ClassicShip/ClassicShipPropeller.png"),
-	"left_wing": preload("res://assets/ships/ClassicShip/ClassicShipRightWing.png"),
-	"right_wing": preload("res://assets/ships/ClassicShip/ClassicShipLeftWing.png"),
+	"left_wing": preload("res://assets/ships/ClassicShip/ClassicShipLeftWing.png"),
+	"right_wing": preload("res://assets/ships/ClassicShip/ClassicShipRightWing.png"),
 	"coffer": preload("res://assets/ships/ClassicShip/ClassicShipCoffer.png")
 }
 
