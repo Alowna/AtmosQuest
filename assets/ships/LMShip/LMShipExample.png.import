@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1a3khw24w3gw"
-path="res://.godot/imported/LMShipPropeller.png-da6183a7110a29ef04c8cc64e504533a.ctex"
+uid="uid://83i72ep2w4vf"
+path="res://.godot/imported/LMShipExample.png-cae98147bccd236d965fc15e0370228d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/Ship LM/LMShipPropeller.png"
-dest_files=["res://.godot/imported/LMShipPropeller.png-da6183a7110a29ef04c8cc64e504533a.ctex"]
+source_file="res://assets/ships/LMShip/LMShipExample.png"
+dest_files=["res://.godot/imported/LMShipExample.png-cae98147bccd236d965fc15e0370228d.ctex"]
 
 [params]
 

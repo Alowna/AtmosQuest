@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1iurk7a3h0ho"
-path="res://.godot/imported/LMShipCoffer.png-14912e0baf4252660da15e4dbee144aa.ctex"
+uid="uid://bj1fr4d488djp"
+path="res://.godot/imported/DarkShipExample.png-e3b16660b02233232e094376b7383191.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/Ship LM/LMShipCoffer.png"
-dest_files=["res://.godot/imported/LMShipCoffer.png-14912e0baf4252660da15e4dbee144aa.ctex"]
+source_file="res://assets/ships/DarkShip/DarkShipExample.png"
+dest_files=["res://.godot/imported/DarkShipExample.png-e3b16660b02233232e094376b7383191.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d10iungbgdy4i"
-path="res://.godot/imported/ClassicShipExample.png-3e88c549382020d41633108a02182545.ctex"
+uid="uid://e2r8grvttu5a"
+path="res://.godot/imported/ClassicShipPropeller.png-8369e2baf2b39250f8749c07fc5ba165.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/Ship Classic/ClassicShipExample.png"
-dest_files=["res://.godot/imported/ClassicShipExample.png-3e88c549382020d41633108a02182545.ctex"]
+source_file="res://assets/ships/ClassicShip/ClassicShipPropeller.png"
+dest_files=["res://.godot/imported/ClassicShipPropeller.png-8369e2baf2b39250f8749c07fc5ba165.ctex"]
 
 [params]
 

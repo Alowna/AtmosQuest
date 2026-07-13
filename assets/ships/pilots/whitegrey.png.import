@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba6ua31tny7df"
-path="res://.godot/imported/LMShipRightWing.png-bdfafd2000bc0e64febab2b7874e9c23.ctex"
+uid="uid://spnqcqyml224"
+path="res://.godot/imported/whitegrey.png-0f51829132c513c07ad2a860247013c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/Ship LM/LMShipRightWing.png"
-dest_files=["res://.godot/imported/LMShipRightWing.png-bdfafd2000bc0e64febab2b7874e9c23.ctex"]
+source_file="res://assets/ships/pilots/whitegrey.png"
+dest_files=["res://.godot/imported/whitegrey.png-0f51829132c513c07ad2a860247013c1.ctex"]
 
 [params]
 

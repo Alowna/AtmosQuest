@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c418hap5etk6k"
-path="res://.godot/imported/LMShipLeftWing.png-f7abc2e586c272ae75ec3f18312da414.ctex"
+path="res://.godot/imported/LMShipLeftWing.png-00f8214a1fa08534a392dbf219fb6865.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/Ship LM/LMShipLeftWing.png"
-dest_files=["res://.godot/imported/LMShipLeftWing.png-f7abc2e586c272ae75ec3f18312da414.ctex"]
+source_file="res://assets/ships/LMShip/LMShipLeftWing.png"
+dest_files=["res://.godot/imported/LMShipLeftWing.png-00f8214a1fa08534a392dbf219fb6865.ctex"]
 
 [params]
 

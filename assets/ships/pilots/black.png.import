@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvq2oyw0kvs2n"
-path="res://.godot/imported/LMShipFinal.png-c1b56379076345bd045071f4b25f0f0f.ctex"
+uid="uid://1qh5i3ja4yo2"
+path="res://.godot/imported/black.png-90b0506c676b7a2358091dd3743d55f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/Ship LM/LMShipFinal.png"
-dest_files=["res://.godot/imported/LMShipFinal.png-c1b56379076345bd045071f4b25f0f0f.ctex"]
+source_file="res://assets/ships/pilots/black.png"
+dest_files=["res://.godot/imported/black.png-90b0506c676b7a2358091dd3743d55f2.ctex"]
 
 [params]
 

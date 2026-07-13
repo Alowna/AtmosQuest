@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br0rb87yknc03"
-path="res://.godot/imported/ClassicShipFinal.png-0617c8e2b7a64022c0bdce64ae3fded4.ctex"
+uid="uid://bqki02lbkc06v"
+path="res://.godot/imported/ClassicShipLeftWing.png-5f5885fdcba48a8dbce83e3307c25c68.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/Ship Classic/ClassicShipFinal.png"
-dest_files=["res://.godot/imported/ClassicShipFinal.png-0617c8e2b7a64022c0bdce64ae3fded4.ctex"]
+source_file="res://assets/ships/ClassicShip/ClassicShipLeftWing.png"
+dest_files=["res://.godot/imported/ClassicShipLeftWing.png-5f5885fdcba48a8dbce83e3307c25c68.ctex"]
 
 [params]
 
