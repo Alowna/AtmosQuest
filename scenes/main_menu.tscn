@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://wqrdil6xl6vq"]
 
-[ext_resource type="Texture2D" uid="uid://birmqrhikxdx1" path="res://assets/HUD/MainMenu/MainMenuBaseAlpha.png" id="1_rtw2f"]
-[ext_resource type="Texture2D" uid="uid://jlrxu47bkdmp" path="res://assets/HUD/MainMenu/MainMenuNeonAlpha-Sheet.png" id="2_oa1go"]
+[ext_resource type="Script" uid="uid://dgehm8js2mqvj" path="res://scripts/HUD/MainMenu/main_menu.gd" id="1_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://birmqrhikxdx1" path="res://assets/HUD/MainMenu/Main/MainMenuBaseAlpha.png" id="1_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://jlrxu47bkdmp" path="res://assets/HUD/MainMenu/Main/MainMenuNeonAlpha-Sheet.png" id="2_oa1go"]
 [ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="3_tbmy8"]
-[ext_resource type="Texture2D" uid="uid://doqi71gfedcat" path="res://assets/HUD/MainMenu/MainMenuPlaySolo.png" id="4_jk1qb"]
-[ext_resource type="Texture2D" uid="uid://dje4f6js4kiqk" path="res://assets/HUD/MainMenu/MainMenuOnline.png" id="5_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://doqi71gfedcat" path="res://assets/HUD/MainMenu/Main/MainMenuPlaySolo.png" id="4_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://dje4f6js4kiqk" path="res://assets/HUD/MainMenu/Main/MainMenuOnline.png" id="5_5dd4i"]
 [ext_resource type="Texture2D" uid="uid://l80s2cbm7ap4" path="res://assets/HUD/MainMenu/MainMenuOptions.png" id="6_lgwnu"]
 [ext_resource type="Texture2D" uid="uid://bmphlr3wr3e70" path="res://assets/HUD/MainMenu/MainMenuSoundAlpha.png" id="7_jk1qb"]
 [ext_resource type="AudioStream" uid="uid://dsqeei2c3y1e2" path="res://assets/HUD/MainMenu/Sounds/ButtonPressed.wav" id="7_oa1go"]
@@ -57,6 +58,7 @@ animations = [{
 [node name="MainMenu" type="Control" unique_id=535924887]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_lgwnu")
 
 [node name="MainMenuBaseAlpha" type="Sprite2D" parent="." unique_id=314799007]
 position = Vector2(90, 160)
@@ -94,6 +96,7 @@ offset_top = 174.0
 offset_right = 112.0
 offset_bottom = 214.0
 texture_normal = ExtResource("6_lgwnu")
+target_scene = "uid://dwaw05mi1fffk"
 click_sound = NodePath("../ButtonPressed")
 
 [node name="SoundButton" parent="." unique_id=722179466 node_paths=PackedStringArray("background_music") instance=ExtResource("3_tbmy8")]
