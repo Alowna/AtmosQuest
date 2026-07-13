@@ -12,4 +12,8 @@ right_wing = NodePath("RightWing")
 left_wing = NodePath("LeftWing")
 coffer = NodePath("Coffer")
 
+[node name="Pilot" parent="." index="0" unique_id=329952918]
+position = Vector2(0, 3)
+scale = Vector2(1.3, 1.3)
+
 [node name="Camera2D" type="Camera2D" parent="." index="2" unique_id=421650301]
