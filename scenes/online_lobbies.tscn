@@ -2,12 +2,15 @@
 
 [ext_resource type="AudioStream" uid="uid://7lms56sgdnwr" path="res://assets/HUD/MainMenu/Sounds/MainMenuSong.wav" id="1_5tlpq"]
 [ext_resource type="Texture2D" uid="uid://l1a1cofukhjb" path="res://assets/HUD/MainMenu/Online/OnlineLobbiesBaseAlpha.png" id="2_60vl2"]
+[ext_resource type="Texture2D" uid="uid://cwgvu5t47sn1s" path="res://assets/HUD/MainMenu/BackButton.png" id="2_l5cxq"]
+[ext_resource type="Script" uid="uid://dlsyuitk2tb7d" path="res://scripts/HUD/MainMenu/leave_lobbies_button.gd" id="3_ab4iw"]
 [ext_resource type="Texture2D" uid="uid://ddvl563fwpnw" path="res://assets/HUD/MainMenu/Online/OnlineLobbiesNeon-Sheet.png" id="3_l5cxq"]
 [ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="4_ab4iw"]
 [ext_resource type="Texture2D" uid="uid://bmphlr3wr3e70" path="res://assets/HUD/MainMenu/MainMenuSoundAlpha.png" id="5_10wa6"]
 [ext_resource type="Script" uid="uid://buush2gikjqdl" path="res://scripts/HUD/MainMenu/sound_button.gd" id="6_ttt1w"]
 [ext_resource type="Texture2D" uid="uid://ch05ktxuxj0h6" path="res://assets/HUD/MainMenu/Online/OnlineLobbyButtonAlpha-Sheet.png" id="7_tia8r"]
 [ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="8_qpndm"]
+[ext_resource type="AudioStream" uid="uid://dsqeei2c3y1e2" path="res://assets/HUD/MainMenu/Sounds/ButtonPressed.wav" id="11_ab4iw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_faayq"]
 atlas = ExtResource("3_l5cxq")
@@ -102,6 +105,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="BackButton" parent="." unique_id=1862010026 node_paths=PackedStringArray("click_sound") instance=ExtResource("4_ab4iw")]
+z_index = 1
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 25.0
+offset_bottom = 22.0
+texture_normal = ExtResource("2_l5cxq")
+script = ExtResource("3_ab4iw")
+target_scene = "uid://wqrdil6xl6vq"
+click_sound = NodePath("../ButtonPressed")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="BackButton" unique_id=1956649395]
+
 [node name="MainMenuSong" type="AudioStreamPlayer" parent="." unique_id=982917369]
 stream = ExtResource("1_5tlpq")
 autoplay = true
@@ -116,7 +133,7 @@ sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
 frame_progress = 0.8863039
 
-[node name="SoundButton" parent="." unique_id=1862010026 node_paths=PackedStringArray("background_music") instance=ExtResource("4_ab4iw")]
+[node name="SoundButton" parent="." unique_id=278703627 node_paths=PackedStringArray("background_music") instance=ExtResource("4_ab4iw")]
 layout_mode = 0
 offset_left = 152.0
 offset_top = 7.0
@@ -128,10 +145,10 @@ background_music = NodePath("../MainMenuSong")
 
 [node name="LobbyButton" parent="." unique_id=667144094 instance=ExtResource("4_ab4iw")]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 98.0
-offset_right = 129.0
-offset_bottom = 138.0
+offset_left = 57.0
+offset_top = 227.0
+offset_right = 126.0
+offset_bottom = 267.0
 texture_normal = SubResource("AtlasTexture_bhunq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LobbyButton" unique_id=264500647]
@@ -149,3 +166,6 @@ theme_override_colors/font_shadow_color = Color(0.0043002805, 0.33631477, 0.1610
 theme_override_fonts/font = ExtResource("8_qpndm")
 theme_override_font_sizes/font_size = 19
 text = "Sala 1"
+
+[node name="ButtonPressed" type="AudioStreamPlayer" parent="." unique_id=2078871703]
+stream = ExtResource("11_ab4iw")
