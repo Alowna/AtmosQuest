@@ -248,7 +248,7 @@ func apply_skin():
 
 	$ShipFinal.texture = PlayerConfig.ship_skin["body"]
 	
-	$Pilot.texture = PlayerConfig.pilot_skin
+	$Pilot.texture = PlayerConfig.pilot_skin["skin"]
 
 	$Propeller/ShipPropeller.texture = PlayerConfig.ship_skin["propeller"]
 

@@ -12,15 +12,41 @@ extends TextureButton
 # Prevents the button from being pressed multiple times
 var used := false
 
-# Ordered list of available ship skins
-var skin_names := ["orange", "mixed", "black", "whitegrey", "banana"]
-
-# Index of the currently selected skin
+# Currently selected pilot skin index
 var current_skin_index := 0
 
 # Stores the default playback speed of the AnimationPlayer
 var default_animation_speed: float = 1.0
 
+
+# Ordered list of available pilot skins
+var pilot_skins := [
+	{
+		"id": 0,
+		"name": "orange",
+		"texture": preload("res://assets/ships/pilots/orange.png")
+	},
+	{
+		"id": 1,
+		"name": "mixed",
+		"texture": preload("res://assets/ships/pilots/mixed.png")
+	},
+	{
+		"id": 2,
+		"name": "black",
+		"texture": preload("res://assets/ships/pilots/black.png")
+	},
+	{
+		"id": 3,
+		"name": "whitegrey",
+		"texture": preload("res://assets/ships/pilots/whitegrey.png")
+	},
+	{
+		"id": 4,
+		"name": "banana",
+		"texture": preload("res://assets/ships/pilots/banana.png")
+	}
+]
 
 
 func _ready():
@@ -33,13 +59,13 @@ func _ready():
 	# Applies the initial skin to the player configuration
 	apply_skin_to_player_config()
 
-	# Makes any scaling animation happen from the center of the button
+	# Makes scaling animation happen from the center of the button
 	pivot_offset = size / 2
 
 	# Stores the original animation playback speed
 	default_animation_speed = button_animation.speed_scale
 
-	# Connects the pressed signal to the custom handler
+	# Connects the pressed signal
 	pressed.connect(_on_pressed)
 
 
@@ -48,76 +74,67 @@ func create_click_mask():
 	if texture_normal:
 		var bitmap := BitMap.new()
 
-		# Uses the texture alpha channel so only visible pixels are clickable
+		# Uses texture alpha so only visible pixels are clickable
 		bitmap.create_from_image_alpha(texture_normal.get_image())
 
-		# Applies the generated click mask
+		# Applies generated click mask
 		texture_click_mask = bitmap
 
 
 func _on_pressed():
-	# Ignores additional presses while the button is busy
+	# Ignores additional presses while busy
 	if used:
 		return
 
 	used = true
 
-	# Plays the click sound if one is assigned
+	# Plays click sound
 	if click_sound:
 		click_sound.play()
 
-	# Temporarily speeds up the button idle animation
+	# Temporarily speeds up button animation
 	button_animation.speed_scale = default_animation_speed * 2.0
 
-	# Keeps the animation accelerated for a short moment
+	# Keeps animation accelerated briefly
 	await get_tree().create_timer(0.2).timeout
 
-	# Restores the original animation speed
+	# Restores animation speed
 	button_animation.speed_scale = default_animation_speed
 
-	# Waits until the click sound finishes playing
+	# Waits for click sound to finish
 	if click_sound:
 		await click_sound.finished
 
-	# Selects and applies the next skin
+	# Selects and applies next skin
 	select_next_skin()
 
-	# Allows the button to be pressed again
+	# Allows button to be pressed again
 	used = false
 
 
 func update_skin_preview() -> void:
-	# Gets the currently selected skin texture
-	var skin_texture: Texture2D = skins[skin_names[current_skin_index]]
+	# Gets the selected pilot skin
+	var selected_skin = pilot_skins[current_skin_index]
 
-	# Updates the preview image
-	pilot_example.texture = skin_texture
+	# Updates preview sprite
+	pilot_example.texture = selected_skin["texture"]
 
 
 func apply_skin_to_player_config() -> void:
-	# Gets the currently selected skin texture
-	var skin_texture: Texture2D = skins[skin_names[current_skin_index]]
+	# Gets the selected pilot skin
+	var selected_skin = pilot_skins[current_skin_index]
 
-	# Saves the selected pilot skin globally
-	PlayerConfig.pilot_skin = skin_texture
+	# Saves selected pilot skin globally
+	PlayerConfig.pilot_skin["skin"] = selected_skin["texture"]
+	PlayerConfig.pilot_skin["id"] = selected_skin["id"]
 
 
 func select_next_skin() -> void:
-	# Advances to the next skin, looping back to the beginning
-	current_skin_index = (current_skin_index + 1) % skin_names.size()
+	# Moves to next skin and loops back at the end
+	current_skin_index = (current_skin_index + 1) % pilot_skins.size()
 
-	# Updates the preview image
+	# Updates preview
 	update_skin_preview()
 
-	# Applies the selected skin
+	# Saves selection globally
 	apply_skin_to_player_config()
-
-
-# Dictionary containing every available player skin asset
-var skins: Dictionary[String, Texture2D] = {
-	"orange": preload("res://assets/ships/pilots/orange.png"),
-	"mixed": preload("res://assets/ships/pilots/mixed.png"),
-	"black": preload("res://assets/ships/pilots/black.png"),
-	"whitegrey": preload("res://assets/ships/pilots/whitegrey.png"),
-	"banana": preload("res://assets/ships/pilots/banana.png")
-}
