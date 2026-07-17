@@ -18,9 +18,10 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlayerConfig="*uid://dlxplfxm7m6vq"
-Env="*uid://chbikt8h3shkh"
 AudioManager="*uid://wndj7vs6njo2"
 CurrentLobby="*uid://ddopu7mnxp5is"
+Env="*uid://chbikt8h3shkh"
+SkinManager="*uid://dlf056bxruckw"
 
 [display]
 
