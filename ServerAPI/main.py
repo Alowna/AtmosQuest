@@ -18,11 +18,12 @@ class Player(BaseModel):
     id: Optional[int] = None
     username: str
     rocketSkin: int
-    playerSkin: int
+    pilotSkin: int
 
 #Lobby class
 class Lobby(BaseModel):
     key: str
+    ownerId: int
     players: list[Player] = Field(default_factory=list)
 
 
@@ -35,8 +36,7 @@ def generate_lobby_key(length=6):
     chars = (
         string.ascii_uppercase +
         string.ascii_lowercase +
-        string.digits
-         + "!@#$%"  
+        string.digits  
     )
 
     return ''.join(secrets.choice(chars) for _ in range(length))
@@ -56,7 +56,7 @@ def createPlayer(player: Player):
         id=playerid, 
         username=player.username, 
         rocketSkin=player.rocketSkin, 
-        playerSkin=player.playerSkin
+        pilotSkin=player.pilotSkin
     )
     Players.append(new_player)
     return new_player
@@ -66,7 +66,10 @@ def createPlayer(player: Player):
 def createLobby(ownerId: int):
     lobbyKey = generate_unique_lobby_key()
 
-    lobby = Lobby(key=lobbyKey)
+    lobby = Lobby(
+        key=lobbyKey,
+        ownerId=ownerId
+    )
 
     for player in Players:
         if player.id == ownerId:
@@ -80,9 +83,9 @@ def createLobby(ownerId: int):
         "lobby": lobby
     }
 
-#Receive players joining a lobby through key
 @app.post("/join_lobby")
 def joinLobby(lobbyKey: str, playerId: int):
+
     joiningPlayer = None
 
     # Find player
@@ -97,15 +100,92 @@ def joinLobby(lobbyKey: str, playerId: int):
     # Find lobby
     for lobby in Lobbies:
         if lobby.key == lobbyKey:
+
+            # Prevent duplicate join
+            for player in lobby.players:
+                if player.id == playerId:
+                    return {
+                        "lobbyKey": lobby.key,
+                        "players": lobby.players
+                    }
+
+            # Check lobby capacity
+            if len(lobby.players) >= 10:
+                return {"error": "Lobby full"}
+
             lobby.players.append(joiningPlayer)
-            return lobby
+
+            return {
+                "lobbyKey": lobby.key,
+                "players": lobby.players
+            }
 
     return {"error": "Lobby not found"}
+
+
+#Receive players leaving a lobby through key and id
+@app.post("/leave_lobby")
+def leaveLobby(lobbyKey: str, playerId: int):
+
+    # Find the lobby
+    lobby = next((l for l in Lobbies if l.key == lobbyKey), None)
+
+    if lobby is None:
+        raise HTTPException(status_code=404, detail="Lobby not found")
+
+    # Find the player inside the lobby
+    player = next((p for p in lobby.players if p.id == playerId), None)
+
+    if player is None:
+        raise HTTPException(status_code=404, detail="Player not found in lobby")
+
+    # Remove the player from the lobby
+    lobby.players.remove(player)
+
+    # Remove the player from the global player list (returned to the main menu)
+    Players[:] = [p for p in Players if p.id != playerId]
+
+    # If the player was the lobby owner, transfer ownership
+    if lobby.ownerId == playerId:
+        if lobby.players:
+            lobby.ownerId = lobby.players[0].id
+        else:
+            # No players left, delete the lobby
+            Lobbies.remove(lobby)
+            return {
+                "message": "Lobby deleted because it became empty"
+            }
+
+    return {
+        "message": "Player left the lobby",
+        "ownerId": lobby.ownerId,
+        "players": lobby.players
+    }
 
 #Get lobbies for loading lobbies menu
 @app.get("/get_lobbies")
 def getLobbies():
     return Lobbies
+
+# Get current lobby state
+@app.get("/get_lobby/{lobbyKey}")
+def getLobby(lobbyKey: str):
+
+    for lobby in Lobbies:
+
+        if lobby.key == lobbyKey:
+
+            return {
+                "lobbyKey": lobby.key,
+                "ownerId": lobby.ownerId,
+                "players": lobby.players
+            }
+
+
+    raise HTTPException(
+        status_code=404,
+        detail="Lobby not found"
+    )
 
 @app.get("/get_players")
 def getPlayers():
@@ -144,7 +224,7 @@ class gamePlayer(BaseModel):
     username: str
 
     rocketSkin: int
-    playerSkin: int
+    pilotSkin: int
 
 
     ############################
@@ -282,7 +362,7 @@ def createGame(lobbyKey: str):
 
                     # Player customization
                     rocketSkin=player.rocketSkin,
-                    playerSkin=player.playerSkin,
+                    pilotSkin=player.pilotSkin,
 
 
                     ####################

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://nptwmvlt46eb"]
+
+[ext_resource type="Script" uid="uid://3ax0ute3rxsm" path="res://scripts/ship/lobby_ship.gd" id="1_onnkw"]
+[ext_resource type="Texture2D" uid="uid://c2qu1mkyxfhfx" path="res://assets/ships/pilots/orange.png" id="2_o00s8"]
+[ext_resource type="Texture2D" uid="uid://d10iungbgdy4i" path="res://assets/ships/ClassicShip/ClassicShipExample.png" id="3_kc1wy"]
+[ext_resource type="FontFile" uid="uid://drrgek5v5b1p3" path="res://assets/fonts/Doto,Pixelify_Sans/Doto/static/Doto-Black.ttf" id="4_kc1wy"]
+
+[node name="LobbyShip" type="Node2D" unique_id=1615707592]
+script = ExtResource("1_onnkw")
+
+[node name="PilotVisual" type="Sprite2D" parent="." unique_id=398983859]
+position = Vector2(0, -5)
+texture = ExtResource("2_o00s8")
+
+[node name="ShipVisual" type="Sprite2D" parent="." unique_id=458349372]
+texture = ExtResource("3_kc1wy")
+
+[node name="Username" type="Label" parent="." unique_id=26576001]
+offset_left = -40.0
+offset_top = -46.0
+offset_right = 40.0
+offset_bottom = -23.0
+theme_override_colors/font_color = Color(1.4616048, 1.3011019, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_kc1wy")
+theme_override_font_sizes/font_size = 9
+text = "Username"
+horizontal_alignment = 1
+vertical_alignment = 1

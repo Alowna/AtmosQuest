@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bwmko1pv237gj"]
+
+[ext_resource type="Script" uid="uid://3ax0ute3rxsm" path="res://scripts/ship/lobby_ship.gd" id="1_r6a3u"]
+
+[node name="LobbyShip" type="Node2D" unique_id=1615707592]
+script = ExtResource("1_r6a3u")
+
+[node name="Pilot" type="Sprite2D" parent="." unique_id=398983859]
+position = Vector2(0, 1)
+
+[node name="ShipExample" type="Sprite2D" parent="." unique_id=458349372]

@@ -1,0 +1,297 @@
+[gd_scene format=3 uid="uid://cw132bkf7n2ll"]
+
+[ext_resource type="Script" uid="uid://dncxbdbrwmrtj" path="res://scripts/HUD/MainMenu/current_lobby_scene.gd" id="1_766x3"]
+[ext_resource type="Texture2D" uid="uid://ckjoel5tfpwod" path="res://assets/HUD/MainMenu/Online/CurrentLobby/JoinLobbySheetAnimation.png" id="1_duufu"]
+[ext_resource type="Texture2D" uid="uid://b7y2gy7w3dnn4" path="res://assets/HUD/MainMenu/Online/CurrentLobby/JoinLobbySkiesSheet.png" id="2_b5vi8"]
+[ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="4_wtstd"]
+[ext_resource type="Texture2D" uid="uid://buf1e0aylc6dl" path="res://assets/HUD/MainMenu/Online/CurrentLobby/CurrentLobbyButtons.png" id="5_0hacy"]
+[ext_resource type="Texture2D" uid="uid://cwgvu5t47sn1s" path="res://assets/HUD/MainMenu/BackButton.png" id="5_exk7c"]
+[ext_resource type="Script" uid="uid://dvj1onjpt5v7" path="res://scripts/HUD/MainMenu/lobby_key_button.gd" id="6_766x3"]
+[ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="7_qqjy5"]
+[ext_resource type="Script" uid="uid://bu53eilbnu3rq" path="res://scripts/HUD/MainMenu/leave_lobby_button.gd" id="9_qqjy5"]
+[ext_resource type="PackedScene" uid="uid://nptwmvlt46eb" path="res://scenes/player/lobby_ship.tscn" id="10_exk7c"]
+[ext_resource type="Script" uid="uid://cjgftys4sw3ec" path="res://scripts/HUD/MainMenu/lobby_manager.gd" id="10_qqjy5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ee4kq"]
+atlas = ExtResource("1_duufu")
+region = Rect2(0, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dawgn"]
+atlas = ExtResource("1_duufu")
+region = Rect2(180, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwfv1"]
+atlas = ExtResource("1_duufu")
+region = Rect2(360, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_766x3"]
+atlas = ExtResource("1_duufu")
+region = Rect2(540, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtstd"]
+atlas = ExtResource("1_duufu")
+region = Rect2(720, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hacy"]
+atlas = ExtResource("1_duufu")
+region = Rect2(900, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exk7c"]
+atlas = ExtResource("1_duufu")
+region = Rect2(1080, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqjy5"]
+atlas = ExtResource("1_duufu")
+region = Rect2(1260, 0, 180, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ee4kq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dawgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwfv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_766x3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtstd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hacy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exk7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqjy5")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2rf7"]
+atlas = ExtResource("2_b5vi8")
+region = Rect2(0, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hi52"]
+atlas = ExtResource("2_b5vi8")
+region = Rect2(180, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llfnm"]
+atlas = ExtResource("2_b5vi8")
+region = Rect2(360, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3fug"]
+atlas = ExtResource("2_b5vi8")
+region = Rect2(540, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih06e"]
+atlas = ExtResource("2_b5vi8")
+region = Rect2(720, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7oxeu"]
+atlas = ExtResource("2_b5vi8")
+region = Rect2(900, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpgmo"]
+atlas = ExtResource("2_b5vi8")
+region = Rect2(1080, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5m2u"]
+atlas = ExtResource("2_b5vi8")
+region = Rect2(1260, 0, 180, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_riqys"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2rf7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hi52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llfnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3fug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ih06e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7oxeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpgmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5m2u")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4f72"]
+atlas = ExtResource("5_0hacy")
+region = Rect2(0, 0, 87, 53)
+
+[sub_resource type="Animation" id="Animation_n2rf7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LobbyKeyButton:texture_normal:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 87, 53)]
+}
+
+[sub_resource type="Animation" id="Animation_4hi52"]
+resource_name = "idle_animation"
+length = 0.73333335
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LobbyKeyButton:texture_normal:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 87, 53), Rect2(87, 0, 87, 53), Rect2(174, 0, 87, 53), Rect2(261, 0, 87, 53), Rect2(348, 0, 87, 53), Rect2(435, 0, 87, 53), Rect2(522, 0, 87, 53), Rect2(609, 0, 87, 53)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_llfnm"]
+_data = {
+&"RESET": SubResource("Animation_n2rf7"),
+&"idle_animation": SubResource("Animation_4hi52")
+}
+
+[node name="CurrentLobby" type="Control" unique_id=1636703502]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_766x3")
+
+[node name="Base" type="AnimatedSprite2D" parent="." unique_id=2063657704]
+z_index = -1
+position = Vector2(90, 160)
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame = 7
+frame_progress = 1.0
+
+[node name="Skies" type="AnimatedSprite2D" parent="." unique_id=1505852554]
+z_index = -2
+position = Vector2(90, 160)
+sprite_frames = SubResource("SpriteFrames_riqys")
+autoplay = "default"
+
+[node name="LobbyKeyButton" parent="." unique_id=1331231132 instance=ExtResource("4_wtstd")]
+z_index = -1
+layout_mode = 0
+offset_left = 46.0
+offset_top = 14.0
+offset_right = 133.0
+offset_bottom = 68.0
+texture_normal = SubResource("AtlasTexture_o4f72")
+script = ExtResource("6_766x3")
+target_position = Vector2(46, 14)
+start_offset = Vector2(46, 300)
+
+[node name="Label" type="Label" parent="LobbyKeyButton" unique_id=827063956]
+z_index = -1
+layout_mode = 0
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 77.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0.99999994, 0.2253524, 0.57833105, 1)
+theme_override_fonts/font = ExtResource("7_qqjy5")
+theme_override_font_sizes/font_size = 20
+text = "XD2FXC"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LobbyKeyButton" unique_id=1657558635]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_llfnm")
+autoplay = &"idle_animation"
+speed_scale = 1.343
+
+[node name="BackButton" parent="." unique_id=1862010026 instance=ExtResource("4_wtstd")]
+z_index = 1
+layout_mode = 0
+offset_left = 111.0
+offset_top = 301.0
+offset_right = 129.0
+offset_bottom = 318.0
+texture_normal = ExtResource("5_exk7c")
+script = ExtResource("9_qqjy5")
+target_scene = "uid://wqrdil6xl6vq"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="BackButton" unique_id=358815594]
+
+[node name="LobbyManager" type="Node2D" parent="." unique_id=1160149996 node_paths=PackedStringArray("lobby_ship_slots")]
+script = ExtResource("10_qqjy5")
+lobby_ship_slots = [NodePath("LobbyShip1"), NodePath("LobbyShip2"), NodePath("LobbyShip3"), NodePath("LobbyShip4"), NodePath("LobbyShip5"), NodePath("LobbyShip6"), NodePath("LobbyShip7"), NodePath("LobbyShip8"), NodePath("LobbyShip9"), NodePath("LobbyShip10")]
+
+[node name="HTTPRequest" type="HTTPRequest" parent="LobbyManager" unique_id=205282790]
+
+[node name="LobbyShip1" parent="LobbyManager" unique_id=1615707592 instance=ExtResource("10_exk7c")]
+position = Vector2(90, 82)
+scale = Vector2(0.6, 0.6)
+
+[node name="LobbyShip2" parent="LobbyManager" unique_id=1377533561 instance=ExtResource("10_exk7c")]
+position = Vector2(135, 109)
+scale = Vector2(0.6, 0.6)
+
+[node name="LobbyShip3" parent="LobbyManager" unique_id=1095933969 instance=ExtResource("10_exk7c")]
+position = Vector2(45, 109)
+scale = Vector2(0.6, 0.6)
+
+[node name="LobbyShip4" parent="LobbyManager" unique_id=473752223 instance=ExtResource("10_exk7c")]
+position = Vector2(90, 147)
+scale = Vector2(0.6, 0.6)
+
+[node name="LobbyShip5" parent="LobbyManager" unique_id=939194296 instance=ExtResource("10_exk7c")]
+position = Vector2(155, 172)
+scale = Vector2(0.6, 0.6)
+
+[node name="LobbyShip6" parent="LobbyManager" unique_id=1947331148 instance=ExtResource("10_exk7c")]
+position = Vector2(25, 172)
+scale = Vector2(0.6, 0.6)
+
+[node name="LobbyShip7" parent="LobbyManager" unique_id=2007836613 instance=ExtResource("10_exk7c")]
+position = Vector2(90, 212)
+scale = Vector2(0.6, 0.6)
+
+[node name="LobbyShip8" parent="LobbyManager" unique_id=922612802 instance=ExtResource("10_exk7c")]
+position = Vector2(135, 227)
+scale = Vector2(0.6, 0.6)
+
+[node name="LobbyShip9" parent="LobbyManager" unique_id=226826017 instance=ExtResource("10_exk7c")]
+position = Vector2(45, 227)
+scale = Vector2(0.6, 0.6)
+
+[node name="LobbyShip10" parent="LobbyManager" unique_id=1767595993 instance=ExtResource("10_exk7c")]
+position = Vector2(90, 277)
+scale = Vector2(0.6, 0.6)

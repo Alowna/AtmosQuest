@@ -7,37 +7,37 @@
 input_pickable = true
 script = ExtResource("1_yie7n")
 
-[node name="Pilot" type="Sprite2D" parent="." unique_id=329952918]
-position = Vector2(0, -2)
-
-[node name="ShipFinal" type="Sprite2D" parent="." unique_id=2063154975]
-z_index = 1
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=146630552]
 polygon = PackedVector2Array(0, -20, 0, -20, -11, -7, -11, 17, -4, 20, 4, 20, 11, 17, 11, -7)
 
-[node name="Propeller" type="Node2D" parent="." unique_id=1412121512]
+[node name="Pilot" type="Sprite2D" parent="." unique_id=457922127]
+position = Vector2(0, 5)
+
+[node name="ShipFinal" type="Sprite2D" parent="." unique_id=292409850]
+z_index = 1
+
+[node name="Propeller" type="Node2D" parent="." unique_id=1186610800]
 script = ExtResource("3_ubi8f")
 
-[node name="ShipPropeller" type="Sprite2D" parent="Propeller" unique_id=115581573]
+[node name="ShipPropeller" type="Sprite2D" parent="Propeller" unique_id=2057244928]
 position = Vector2(0, 36)
 
-[node name="RightWing" type="Node2D" parent="." unique_id=985321582]
+[node name="RightWing" type="Node2D" parent="." unique_id=1898350142]
 script = ExtResource("3_ubi8f")
 
-[node name="ShipRightWing" type="Sprite2D" parent="RightWing" unique_id=1217852658]
+[node name="ShipRightWing" type="Sprite2D" parent="RightWing" unique_id=511065286]
 position = Vector2(16, 25)
 
-[node name="LeftWing" type="Node2D" parent="." unique_id=1564376094]
+[node name="LeftWing" type="Node2D" parent="." unique_id=1133119966]
 script = ExtResource("3_ubi8f")
 
-[node name="ShipLeftWing" type="Sprite2D" parent="LeftWing" unique_id=475559106]
+[node name="ShipLeftWing" type="Sprite2D" parent="LeftWing" unique_id=1877083275]
 position = Vector2(-16, 26)
 
-[node name="Coffer" type="Node2D" parent="." unique_id=1649520352]
+[node name="Coffer" type="Node2D" parent="." unique_id=137743845]
 script = ExtResource("3_ubi8f")
 
-[node name="ShipCoffer" type="Sprite2D" parent="Coffer" unique_id=1549308765]
+[node name="ShipCoffer" type="Sprite2D" parent="Coffer" unique_id=1088578168]
 position = Vector2(0, 25)
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -1,4 +1,30 @@
 extends Node2D
+
+func get_ship_skin_by_id(id:int) -> Dictionary:
+
+	for skin_name in ship_skins:
+
+		var skin = ship_skins[skin_name]
+
+		if skin["id"] == id:
+			return skin
+
+	return ship_skins["Classic"] # fallback
+
+
+
+func get_pilot_skin_by_id(id:int) -> Dictionary:
+
+	for skin_name in pilot_skins:
+
+		var skin = pilot_skins[skin_name]
+
+		if skin["id"] == id:
+			return skin
+
+	return pilot_skins["orange"] # fallback
+	
+
 # Dictionary containing every available ship skin and its assets
 var ship_skins: Dictionary = {
 	"Classic":

@@ -10,7 +10,7 @@ var used := false
 @onready var http_request: HTTPRequest = $HTTPRequest
 
 func _ready():
-	# Creates a pixel-perfect click area based on the button texture transparency
+	# Creates a pixel-perfect click area based on the button texture transparencylobby_key_button
 	create_click_mask()
 
 	# Makes the scale animation happen from the center of the button
