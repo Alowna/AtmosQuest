@@ -4,3 +4,5 @@
 
 # Env ignore
 env.cfg
+
+__pycache__/
