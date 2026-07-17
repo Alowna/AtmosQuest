@@ -5,7 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://c7gj3bk28yheh" path="res://assets/HUD/MainMenu/Config/ConfigAlphaButton-Sheet-Transparent.png" id="3_fu4ru"]
 [ext_resource type="Script" uid="uid://f700q5wj7sa6" path="res://scripts/HUD/MainMenu/ship_skin_button.gd" id="4_o4f72"]
 [ext_resource type="Texture2D" uid="uid://doqi71gfedcat" path="res://assets/HUD/MainMenu/Main/MainMenuPlaySolo.png" id="5_fu4ru"]
-[ext_resource type="Script" uid="uid://csvt5n8lv1ish" path="res://scripts/HUD/MainMenu/pilot_skin_button.gd.gd" id="5_o4f72"]
+[ext_resource type="Script" uid="uid://csvt5n8lv1ish" path="res://scripts/HUD/MainMenu/pilot_skin_button.gd" id="5_o4f72"]
+[ext_resource type="Texture2D" uid="uid://c6oeqitogjtv7" path="res://assets/HUD/MainMenu/Config/ConfigAlphaNeon-Sheet.png" id="7_o4f72"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lgwnu"]
 atlas = ExtResource("3_fu4ru")
@@ -49,6 +50,49 @@ _data = {
 &"idle_animation": SubResource("Animation_1dbib")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6n8j"]
+atlas = ExtResource("7_o4f72")
+region = Rect2(0, 0, 42, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dbib"]
+atlas = ExtResource("7_o4f72")
+region = Rect2(42, 0, 42, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gapwa"]
+atlas = ExtResource("7_o4f72")
+region = Rect2(84, 0, 42, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbxg0"]
+atlas = ExtResource("7_o4f72")
+region = Rect2(126, 0, 42, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d33r4"]
+atlas = ExtResource("7_o4f72")
+region = Rect2(168, 0, 42, 37)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6n8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dbib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gapwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbxg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d33r4")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Config" type="Control" unique_id=980605055]
 layout_mode = 3
 anchors_preset = 15
@@ -61,49 +105,53 @@ grow_vertical = 2
 position = Vector2(90, 160)
 texture = ExtResource("1_14yi8")
 
-[node name="SkinButton" parent="." unique_id=1862010026 instance=ExtResource("2_fu4ru")]
+[node name="ShipSkinButton" parent="." unique_id=1862010026 instance=ExtResource("2_fu4ru")]
 z_index = 2
 layout_mode = 0
-offset_left = 61.0
-offset_top = 205.0
-offset_right = 124.0
-offset_bottom = 277.0
+offset_left = 62.0
+offset_top = 192.0
+offset_right = 125.0
+offset_bottom = 264.0
 texture_normal = SubResource("AtlasTexture_lgwnu")
 script = ExtResource("4_o4f72")
 
-[node name="ShipExample" type="Sprite2D" parent="SkinButton" unique_id=1845787626]
+[node name="ShipExample" type="Sprite2D" parent="ShipSkinButton" unique_id=1845787626]
 z_index = -1
 position = Vector2(33, 33)
 scale = Vector2(0.85, 0.85)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SkinButton" unique_id=1885177486]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ShipSkinButton" unique_id=1885177486]
 libraries/ = SubResource("AnimationLibrary_gapwa")
 autoplay = &"idle_animation"
 
-[node name="SkinButton2" parent="." unique_id=890112679 instance=ExtResource("2_fu4ru")]
+[node name="PilotSkinButton" parent="." unique_id=890112679 instance=ExtResource("2_fu4ru")]
 z_index = 2
 layout_mode = 0
-offset_left = 69.0
-offset_top = 153.0
-offset_right = 132.0
-offset_bottom = 220.0
-scale = Vector2(0.7, 0.7)
+offset_left = 62.0
+offset_top = 117.0
+offset_right = 125.0
+offset_bottom = 184.0
 texture_normal = SubResource("AtlasTexture_lgwnu")
 script = ExtResource("5_o4f72")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SkinButton2" unique_id=533951520]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PilotSkinButton" unique_id=533951520]
 libraries/ = SubResource("AnimationLibrary_gapwa")
 autoplay = &"idle_animation"
 
-[node name="PilotExample" type="Sprite2D" parent="SkinButton2" unique_id=1384167977]
+[node name="PilotExample" type="Sprite2D" parent="PilotSkinButton" unique_id=1384167977]
 position = Vector2(32.857143, 31.428598)
 scale = Vector2(3.5, 3.5)
 
 [node name="PlayButton" parent="." unique_id=478858096 instance=ExtResource("2_fu4ru")]
 layout_mode = 0
-offset_left = 55.0
-offset_top = 99.0
-offset_right = 123.0
-offset_bottom = 139.0
+offset_left = 56.0
+offset_top = 58.0
+offset_right = 124.0
+offset_bottom = 98.0
 texture_normal = ExtResource("5_fu4ru")
 target_scene = "uid://cm73thr6ugt6p"
+
+[node name="ConfigNeon" type="AnimatedSprite2D" parent="." unique_id=90454841]
+position = Vector2(89, 28)
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
