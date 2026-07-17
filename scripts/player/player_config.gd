@@ -18,3 +18,5 @@ var pilot_skin = {
 } 
 
 var username = "Tester"
+
+var online_id: int = 0
