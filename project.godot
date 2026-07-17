@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 PlayerConfig="*uid://dlxplfxm7m6vq"
 Env="*uid://chbikt8h3shkh"
 AudioManager="*uid://wndj7vs6njo2"
+CurrentLobby="*uid://ddopu7mnxp5is"
 
 [display]
 
