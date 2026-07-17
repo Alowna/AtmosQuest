@@ -21,14 +21,6 @@ var current_skin_index := 0
 # Stores the default playback speed of the AnimationPlayer
 var default_animation_speed: float = 1.0
 
-# Scale used during the preview pop animation
-const POP_SCALE := Vector2(1.12, 1.12)
-
-# Duration of the pop expansion
-const POP_GROW_TIME := 0.08
-
-# Duration of the pop return animation
-const POP_SHRINK_TIME := 0.15
 
 
 func _ready():
@@ -77,9 +69,6 @@ func _on_pressed():
 	# Temporarily speeds up the button idle animation
 	button_animation.speed_scale = default_animation_speed * 2.0
 
-	# Plays a pop animation on the ship preview
-	play_preview_pop()
-
 	# Keeps the animation accelerated for a short moment
 	await get_tree().create_timer(0.2).timeout
 
@@ -95,30 +84,6 @@ func _on_pressed():
 
 	# Allows the button to be pressed again
 	used = false
-
-
-func play_preview_pop() -> void:
-	# Resets the preview scale before starting the animation
-	pilot_example.scale = Vector2.ONE
-
-	# Creates a tween for the pop animation
-	var tween := create_tween()
-
-	# Slightly enlarges the preview
-	tween.tween_property(
-		pilot_example,
-		"scale",
-		POP_SCALE,
-		POP_GROW_TIME
-	)
-
-	# Smoothly returns to the original size
-	tween.tween_property(
-		pilot_example,
-		"scale",
-		Vector2.ONE,
-		POP_SHRINK_TIME
-	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 func update_skin_preview() -> void:
