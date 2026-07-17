@@ -18,7 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlayerConfig="*uid://dlxplfxm7m6vq"
-Env="*uid://jtingn6ufvc1"
+Env="*uid://chbikt8h3shkh"
+AudioManager="*uid://wndj7vs6njo2"
 
 [display]
 

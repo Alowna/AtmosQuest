@@ -1,7 +1,5 @@
 extends TextureButton
 
-# Optional audio player used for the button click sound
-@export var click_sound: AudioStreamPlayer
 
 # Reference to the ship preview image
 @onready var ship_example: Sprite2D = $ShipExample
@@ -71,8 +69,7 @@ func _on_pressed():
 	used = true
 
 	# Plays the click sound if one is assigned
-	if click_sound:
-		click_sound.play()
+	AudioManager.play_ui_sound("button")
 
 	# Temporarily speeds up the button idle animation
 	button_animation.speed_scale = default_animation_speed * 2.0
@@ -85,10 +82,6 @@ func _on_pressed():
 
 	# Restores the original animation speed
 	button_animation.speed_scale = default_animation_speed
-
-	# Waits until the click sound finishes playing
-	if click_sound:
-		await click_sound.finished
 
 	# Selects and applies the next skin
 	select_next_skin()

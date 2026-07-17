@@ -3,9 +3,6 @@ extends TextureButton
 # The scene that will be loaded after this button animation finishes
 @export_file("*.tscn") var target_scene: String
 
-# Optional audio player used for the button click sound
-@export var click_sound: AudioStreamPlayer
-
 # Prevents the button from being pressed multiple times while transitioning
 var used := false
 
@@ -42,9 +39,8 @@ func _on_pressed():
 
 	used = true
 
-	# Play the assigned click sound, if one exists
-	if click_sound:
-		click_sound.play()
+	# Play the click sound, 
+	AudioManager.play_ui_sound("button")
 
 	# Creates the press animation:
 	# The button shrinks slightly and then returns to its original size
@@ -66,10 +62,6 @@ func _on_pressed():
 
 	# Wait until the button animation finishes before changing scenes
 	await tween.finished
-
-	# Wait until the sound finishes playing
-	if click_sound:
-		await click_sound.finished
 
 	# Load the assigned scene if one was configured in the Inspector
 	if target_scene:
