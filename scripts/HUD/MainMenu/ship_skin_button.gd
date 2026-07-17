@@ -11,7 +11,7 @@ extends TextureButton
 var used := false
 
 # Ordered list of available ship skins
-var skin_names := ["Classic", "Dark", "Banana", "LM"]
+var skin_names: Array = []
 
 # Index of the currently selected skin
 var current_skin_index := 0
@@ -32,6 +32,9 @@ const POP_SHRINK_TIME := 0.15
 func _ready():
 	# Creates a pixel-perfect clickable area based on the button texture
 	create_click_mask()
+	
+	# Get skins from skin manager
+	skin_names = SkinManager.ship_skins.keys()
 
 	# Displays the initial skin preview
 	update_skin_preview()
@@ -116,7 +119,8 @@ func play_preview_pop() -> void:
 
 func update_skin_preview() -> void:
 	# Retrieves the currently selected skin
-	var skin: Dictionary = skins[skin_names[current_skin_index]]
+	var skin: Dictionary = SkinManager.ship_skins[skin_names[current_skin_index]]
+
 
 	# Updates the preview image
 	ship_example.texture = load(skin["example"])
@@ -124,7 +128,8 @@ func update_skin_preview() -> void:
 
 func apply_skin_to_player_config() -> void:
 	# Retrieves the currently selected skin
-	var skin: Dictionary = skins[skin_names[current_skin_index]]
+	var skin: Dictionary = SkinManager.ship_skins[skin_names[current_skin_index]]
+
 
 	# Applies every ship part to the player configuration
 	PlayerConfig.ship_skin["body"] = load(skin["body"])
@@ -143,44 +148,3 @@ func select_next_skin() -> void:
 
 	# Applies the selected skin
 	apply_skin_to_player_config()
-
-
-# Dictionary containing every available ship skin and its assets
-var skins: Dictionary = {
-	"Classic":
-	{
-		"example": "res://assets/ships/ClassicShip/ClassicShipExample.png",
-		"body": "res://assets/ships/ClassicShip/ClassicShipFinal.png",
-		"propeller": "res://assets/ships/ClassicShip/ClassicShipPropeller.png",
-		"coffer": "res://assets/ships/ClassicShip/ClassicShipCoffer.png",
-		"right_wing": "res://assets/ships/ClassicShip/ClassicShipRightWing.png",
-		"left_wing": "res://assets/ships/ClassicShip/ClassicShipLeftWing.png"
-	},
-	"Dark":
-	{
-		"example": "res://assets/ships/DarkShip/DarkShipExample.png",
-		"body": "res://assets/ships/DarkShip/DarkShipFinal.png",
-		"propeller": "res://assets/ships/DarkShip/DarkShipPropeller.png",
-		"coffer": "res://assets/ships/DarkShip/DarkShipCoffer.png",
-		"right_wing": "res://assets/ships/DarkShip/DarkShipRightWing.png",
-		"left_wing": "res://assets/ships/DarkShip/DarkShipLeftWing.png"
-	},
-	"Banana":
-	{
-		"example": "res://assets/ships/BananaShip/BananaShipExample.png",
-		"body": "res://assets/ships/BananaShip/BananaShipFinal.png",
-		"propeller": "res://assets/ships/BananaShip/BananaShipPropeller.png",
-		"coffer": "res://assets/ships/BananaShip/BananaShipCoffer.png",
-		"right_wing": "res://assets/ships/BananaShip/BananaShipRightWing.png",
-		"left_wing": "res://assets/ships/BananaShip/BananaShipLeftWing.png"
-	},
-	"LM":
-	{
-		"example": "res://assets/ships/LMShip/LMShipExample.png",
-		"body": "res://assets/ships/LMShip/LMShipFinal.png",
-		"propeller": "res://assets/ships/LMShip/LMShipPropeller.png",
-		"coffer": "res://assets/ships/LMShip/LMShipCoffer.png",
-		"right_wing": "res://assets/ships/LMShip/LMShipRightWing.png",
-		"left_wing": "res://assets/ships/LMShip/LMShipLeftWing.png"
-	}
-}

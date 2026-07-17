@@ -18,39 +18,13 @@ var default_animation_speed: float = 1.0
 
 
 # Ordered list of available pilot skins
-var pilot_skins := [
-	{
-		"id": 0,
-		"name": "orange",
-		"texture": preload("res://assets/ships/pilots/orange.png")
-	},
-	{
-		"id": 1,
-		"name": "mixed",
-		"texture": preload("res://assets/ships/pilots/mixed.png")
-	},
-	{
-		"id": 2,
-		"name": "black",
-		"texture": preload("res://assets/ships/pilots/black.png")
-	},
-	{
-		"id": 3,
-		"name": "whitegrey",
-		"texture": preload("res://assets/ships/pilots/whitegrey.png")
-	},
-	{
-		"id": 4,
-		"name": "banana",
-		"texture": preload("res://assets/ships/pilots/banana.png")
-	}
-]
+var pilot_skins: Array = []
 
 
 func _ready():
 	# Creates a pixel-perfect clickable area based on the button texture
 	create_click_mask()
-
+	pilot_skins = SkinManager.pilot_skins.keys()
 	# Displays the initial skin preview
 	update_skin_preview()
 
@@ -105,18 +79,18 @@ func _on_pressed():
 
 
 func update_skin_preview() -> void:
-	# Gets the selected pilot skin
-	var selected_skin = pilot_skins[current_skin_index]
+	var skin_name = pilot_skins[current_skin_index]
 
-	# Updates preview sprite
+	var selected_skin: Dictionary = SkinManager.pilot_skins[skin_name]
+
 	pilot_example.texture = selected_skin["texture"]
 
 
 func apply_skin_to_player_config() -> void:
-	# Gets the selected pilot skin
-	var selected_skin = pilot_skins[current_skin_index]
+	var skin_name = pilot_skins[current_skin_index]
 
-	# Saves selected pilot skin globally
+	var selected_skin: Dictionary = SkinManager.pilot_skins[skin_name]
+
 	PlayerConfig.pilot_skin["skin"] = selected_skin["texture"]
 	PlayerConfig.pilot_skin["id"] = selected_skin["id"]
 
