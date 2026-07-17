@@ -3,6 +3,10 @@ extends TextureButton
 # The scene that will be loaded after this button animation finishes
 @export_file("*.tscn") var target_scene: String
 
+# Optional audio player used for the button click sound
+@export var click_sound: AudioStreamPlayer
+
+
 # Prevents the button from being pressed multiple times while transitioning
 var used := false
 
@@ -42,24 +46,19 @@ func _on_pressed():
 
 	used = true
 
-	# Play click sound, if one exists
-	AudioManager.play_ui_sound("button")
+	# Play the assigned click sound, if one exists
+	if click_sound:
+		AudioManager.play_ui_sound("button")
 	
 	# --- API CALL START ---
 	
-	var url = "http://" + Env.api_base_url + "/join_server"
-	print("Connecting to: ", url)
+	var url = "http://" + Env.api_base_url + "/leave_server?id=" + str(PlayerConfig.online_id)
+	print("Disconnecting from: ", url)
 	
-	var player_data = {
-		"username": PlayerConfig.username,
-		"rocketSkin": PlayerConfig.ship_skin["id"],
-		"playerSkin": PlayerConfig.pilot_skin["id"] 
-	}
-	var body = JSON.stringify(player_data)
 	var headers = ["Content-Type: application/json"]
 
 	# Initiate the HTTP POST request to the server
-	http_request.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_request.request(url, headers, HTTPClient.METHOD_POST)
 	# --- API CALL END ---
 	
 	# Creates the press animation:
@@ -84,16 +83,12 @@ func _on_pressed():
 	await tween.finished
 
 
-func _on_request_completed(_result, response_code, _headers, body):
+
+func _on_request_completed(_result, response_code, _headers, _body):
 	# Check if the server responded with a successful status code
 	if response_code == 200:
-		print("Player successfully joined the server!")
+		print("Player successfully left the server!")
 		
-		var response = JSON.parse_string(body.get_string_from_utf8())
-		
-		if response:
-			PlayerConfig.online_id = response["id"]
-			print("Player ID is", PlayerConfig.online_id)
 		# Change scene ONLY if the request was successful
 		if target_scene:
 			get_tree().change_scene_to_file(target_scene)
@@ -101,4 +96,4 @@ func _on_request_completed(_result, response_code, _headers, body):
 	else:
 		# If an error occurs, print to console and allow the user to try again
 		used = false
-		push_error("Failed to join player. Status: " + str(response_code))
+		push_error("Failed to exit player. Status: " + str(response_code))
