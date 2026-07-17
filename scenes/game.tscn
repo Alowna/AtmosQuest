@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cm73thr6ugt6p"]
 
+[ext_resource type="Script" uid="uid://innugytwcr5s" path="res://scripts/game.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dda1gvpleu474" path="res://scenes/player/player_ship.tscn" id="2_iywne"]
 [ext_resource type="Texture2D" uid="uid://bjmax1slbkeq3" path="res://assets/enviroment/terrain/LandingFloorAlpha.png" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dxwsjt6a7b4by" path="res://scenes/world/background_manager.tscn" id="3_iywne"]
@@ -8,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://ctnekyphahaeh" path="res://assets/HUD/ShipHud/Hull/HUDAlpha.png" id="5_p57ef"]
 [ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="7_gee14"]
 [ext_resource type="Texture2D" uid="uid://5eorpnqta7ev" path="res://assets/HUD/ShipHud/HullLights/HUDLightsAlpha-Sheet.png" id="7_u5sy4"]
-[ext_resource type="AudioStream" uid="uid://7lms56sgdnwr" path="res://assets/HUD/MainMenu/Sounds/MainMenuSong.wav" id="9_0tnpc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(480, 24)
@@ -87,6 +87,7 @@ animations = [{
 
 [node name="game" type="Node2D" unique_id=1309740570]
 position = Vector2(337, 205)
+script = ExtResource("1_0tnpc")
 
 [node name="PlayerShip" parent="." unique_id=535543817 node_paths=PackedStringArray("altitude_label", "atmosphere_label", "speed_label") instance=ExtResource("2_iywne")]
 position = Vector2(0, -20)
@@ -166,7 +167,3 @@ text = "2km/s"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
-
-[node name="MainMenuSong" type="AudioStreamPlayer" parent="." unique_id=1559900521]
-stream = ExtResource("9_0tnpc")
-autoplay = true
