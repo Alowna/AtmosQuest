@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="2_fu4ru"]
 [ext_resource type="Texture2D" uid="uid://c7gj3bk28yheh" path="res://assets/HUD/MainMenu/Config/ConfigAlphaButton-Sheet-Transparent.png" id="3_fu4ru"]
 [ext_resource type="Script" uid="uid://f700q5wj7sa6" path="res://scripts/HUD/MainMenu/ship_skin_button.gd" id="4_o4f72"]
-[ext_resource type="Texture2D" uid="uid://doqi71gfedcat" path="res://assets/HUD/MainMenu/Main/MainMenuPlaySolo.png" id="5_fu4ru"]
 [ext_resource type="Script" uid="uid://csvt5n8lv1ish" path="res://scripts/HUD/MainMenu/pilot_skin_button.gd" id="5_o4f72"]
 [ext_resource type="Texture2D" uid="uid://c6oeqitogjtv7" path="res://assets/HUD/MainMenu/Config/ConfigAlphaNeon-Sheet.png" id="7_o4f72"]
+[ext_resource type="Texture2D" uid="uid://cwgvu5t47sn1s" path="res://assets/HUD/MainMenu/BackButton.png" id="7_y6n8j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lgwnu"]
 atlas = ExtResource("3_fu4ru")
@@ -142,16 +142,17 @@ autoplay = &"idle_animation"
 position = Vector2(32.857143, 31.428598)
 scale = Vector2(3.5, 3.5)
 
-[node name="PlayButton" parent="." unique_id=478858096 instance=ExtResource("2_fu4ru")]
-layout_mode = 0
-offset_left = 56.0
-offset_top = 58.0
-offset_right = 124.0
-offset_bottom = 98.0
-texture_normal = ExtResource("5_fu4ru")
-target_scene = "uid://cm73thr6ugt6p"
-
 [node name="ConfigNeon" type="AnimatedSprite2D" parent="." unique_id=90454841]
 position = Vector2(89, 28)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
+
+[node name="BackButton" parent="." unique_id=622591730 instance=ExtResource("2_fu4ru")]
+z_index = 1
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 25.0
+offset_bottom = 22.0
+texture_normal = ExtResource("7_y6n8j")
+target_scene = "uid://wqrdil6xl6vq"
