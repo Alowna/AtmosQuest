@@ -338,6 +338,15 @@ def createGame(lobbyKey: str):
         detail="Lobby not found."
     )
 
+@app.post("/leave_server")
+def leave_server(id: int):
+    for player in Players:
+        if player.id == id:
+            Players.remove(player)
+            return {"success": True}
+
+    return {"success": False, "message": "Player not found"}
+
 
 
 #######################################################
