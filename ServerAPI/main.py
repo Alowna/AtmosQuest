@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from typing import Literal
 from fastapi import HTTPException
+from typing import Optional
 
 app = FastAPI()
 
@@ -12,7 +13,7 @@ app = FastAPI()
 
 #Lobby player class
 class Player(BaseModel):
-    id: int
+    id: Optional[int] = None
     username: str
     rocketSkin: int
     playerSkin: int
@@ -29,12 +30,16 @@ Players = []
 
 #Receive players joining the game lobby menu
 @app.post("/join_server")
-def createPlayer(username: str, rocketSkin: int, playerSkin: int):
+def createPlayer(player: Player):
     playerid = len(Players) + 1
-    player = Player(id = playerid, username = username, rocketSkin = rocketSkin, playerSkin = playerSkin)
-
-    Players.append(player)
-    return player
+    new_player = Player(
+        id=playerid, 
+        username=player.username, 
+        rocketSkin=player.rocketSkin, 
+        playerSkin=player.playerSkin
+    )
+    Players.append(new_player)
+    return new_player
 
 #Receive players creating a lobby
 @app.post("/create_lobby")
@@ -75,6 +80,10 @@ def joinLobby(lobbyKey: str, playerId: int):
 @app.get("/get_lobbies")
 def getLobbies():
     return Lobbies
+
+@app.get("/get_players")
+def getPlayers():
+    return Players
 
 #######################################################
 # GAME EVENTS
