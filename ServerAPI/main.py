@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field
 from typing import Literal
 from fastapi import HTTPException
 from typing import Optional
+import secrets
 
 app = FastAPI()
 
@@ -28,6 +29,24 @@ class Lobby(BaseModel):
 Lobbies = []    
 Players = []
 
+#generate random lobby key
+def generate_lobby_key(length=6):
+    chars = (
+        string.ascii_uppercase +
+        string.ascii_lowercase +
+        string.digits
+         + "!@#$%"  
+    )
+
+    return ''.join(secrets.choice(chars) for _ in range(length))
+
+def generate_unique_lobby_key():
+    while True:
+        key = generate_lobby_key()
+
+        if not any(lobby.key == key for lobby in Lobbies):
+            return key
+
 #Receive players joining the game lobby menu
 @app.post("/join_server")
 def createPlayer(player: Player):
@@ -43,16 +62,22 @@ def createPlayer(player: Player):
 
 #Receive players creating a lobby
 @app.post("/create_lobby")
-def createLobby(lobbyKey: str, ownerId: int):
-    lobby = Lobby(key = lobbyKey)
-    
+def createLobby(ownerId: int):
+    lobbyKey = generate_unique_lobby_key()
+
+    lobby = Lobby(key=lobbyKey)
+
     for player in Players:
         if player.id == ownerId:
             lobby.players.append(player)
             break
-    
+
     Lobbies.append(lobby)
-    return Lobbies
+
+    return {
+        "lobbyKey": lobby.key,
+        "lobby": lobby
+    }
 
 #Receive players joining a lobby through key
 @app.post("/join_lobby")
