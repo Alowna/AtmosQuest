@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dxwsjt6a7b4by"]
 
 [ext_resource type="Script" uid="uid://cpmapw4ufkkyg" path="res://scripts/enviroment/background_manager.gd" id="1_jwtsk"]
-[ext_resource type="Texture2D" uid="uid://dv1ulmvipqqt0" path="res://assets/enviroment/background/BackgroundAlpha.png" id="3_cdwt3"]
+[ext_resource type="Texture2D" uid="uid://bue5dcqapbbd" path="res://assets/enviroment/background/Background.png" id="2_cdwt3"]
 
 [node name="BackgroundManager" type="Node2D" unique_id=183005817]
 script = ExtResource("1_jwtsk")
@@ -9,14 +9,14 @@ script = ExtResource("1_jwtsk")
 [node name="BackgroundAlpha" type="Sprite2D" parent="." unique_id=283809206]
 z_index = -1
 position = Vector2(236, -5000)
-texture = ExtResource("3_cdwt3")
+texture = ExtResource("2_cdwt3")
 
 [node name="BackgroundAlpha2" type="Sprite2D" parent="." unique_id=943351771]
 z_index = -1
 position = Vector2(-711, -5000)
-texture = ExtResource("3_cdwt3")
+texture = ExtResource("2_cdwt3")
 
 [node name="BackgroundAlpha3" type="Sprite2D" parent="." unique_id=210474966]
 z_index = -1
 position = Vector2(-233, -5000)
-texture = ExtResource("3_cdwt3")
+texture = ExtResource("2_cdwt3")
