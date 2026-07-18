@@ -22,6 +22,7 @@ AudioManager="*uid://wndj7vs6njo2"
 CurrentLobby="*uid://ddopu7mnxp5is"
 Env="*uid://chbikt8h3shkh"
 SkinManager="*uid://dlf056bxruckw"
+CurrentGame="*uid://b0dlhxunen50f"
 
 [display]
 
