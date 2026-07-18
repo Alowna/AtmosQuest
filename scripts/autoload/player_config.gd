@@ -1,8 +1,54 @@
 extends Node
 
-# Stores the selected ship skin.
-# This data survives when changing scenes.
+# Autoload: PlayerConfig.
+# Stores player customization and account data between scenes.
+# Also provides the player's information when communicating with the server.
 
+# Player display name.
+# Used as the player's identity in the lobby and server data.
+var username = "Tester"
+
+
+# Online ID assigned by the server.
+# Used to identify this player in API requests.
+var online_id: int = 0
+
+###########
+# IN-GAME #
+###########
+
+# Check if player is alive
+var isAlive: bool = true
+
+# Check if player finished game
+var finished: bool = false
+
+# Check players lives
+var lives: int = 6
+
+#Check player altitude
+var altitude: int = 0
+
+# Check maximum reached player altitude
+var maxAltitude: int = 0
+
+# Check player points
+var points: int = 0
+
+# Check how much collisions player had
+var collisions: int = 0
+
+# Check player's correct and wrong answers
+var correctAnswers: int = 0
+var wrongAnswers: int = 0
+
+# If dead, check player's killer
+var collisionDeathObject : = "Unknown"
+
+
+# Selected ship skin.
+# This data is kept when changing scenes.
+# The skin ID is sent to the server when needed.
 var ship_skin = {
 	"id": 0,
 	"body": preload("res://assets/ships/ClassicShip/ClassicShipFinal.png"),
@@ -12,11 +58,43 @@ var ship_skin = {
 	"coffer": preload("res://assets/ships/ClassicShip/ClassicShipCoffer.png")
 }
 
+# ==================================================
+# SHIP SKIN
+# Returns the selected ship skin ID.
+# ==================================================
+
+func get_rocket_skin_id() -> int:
+
+	return ship_skin.get("id", 0)
+	
+
+# Selected pilot skin.
+# This data is used for visual customization
+# and sent to the server when updating player information.
 var pilot_skin = {
 	"skin": preload("res://assets/ships/pilots/orange.png"),
 	"id": 0
-} 
+}
+# ==================================================
+# PILOT SKIN
+# Returns the selected pilot skin ID.
+# ==================================================
 
-var username = "Tester"
+func get_pilot_skin_id() -> int:
 
-var online_id: int = 0
+	return pilot_skin.get("id", 0)
+
+# Clear player info, setting everything to default
+func clear() -> void:
+	username = "Jogador(e)"
+	online_id = 0
+	isAlive = true
+	finished = false
+	lives = 6
+	altitude = 0
+	maxAltitude = 0
+	points = 0
+	collisions = 0
+	correctAnswers = 0
+	wrongAnswers = 0
+	collisionDeathObject= "Unknown"
