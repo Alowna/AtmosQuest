@@ -132,6 +132,7 @@ func apply_skin_to_player_config() -> void:
 
 
 	# Applies every ship part to the player configuration
+	PlayerConfig.ship_skin["id"] = skin["id"]
 	PlayerConfig.ship_skin["body"] = load(skin["body"])
 	PlayerConfig.ship_skin["propeller"] = load(skin["propeller"])
 	PlayerConfig.ship_skin["left_wing"] = load(skin["left_wing"])
