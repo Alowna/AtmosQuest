@@ -1,32 +1,54 @@
 extends TextureButton
 
+# Final position where the button should appear.
 @export var target_position: Vector2
-@export var start_offset := Vector2(0, 300) # Starts 300 pixels below the target
 
+# Offset used so the button starts below its target position.
+@export var start_offset := Vector2(0, 300)
+
+
+# Stores the original button scale.
 var original_scale: Vector2
+
+# Prevents the button from being pressed multiple times.
 var used := false
 
+
 func _ready() -> void:
+
+	# Hide the button until the appear animation is played.
 	visible = false
+
 	original_scale = scale
 
+	# Display the current lobby key.
 	$Label.text = CurrentLobby.lobbyKey
 
+	# Center the pivot so scale animations look natural.
 	pivot_offset = size / 2
+
 	pressed.connect(_on_pressed)
 
 
+# ==================================================
+# APPEAR ANIMATION
+# Slides the button into view with a small pop effect.
+# ==================================================
+
 func appear():
+
 	visible = true
 
-	# Start below the screen
+	# Start below the target position.
 	position = target_position + start_offset
+
 	scale = Vector2(0.8, 0.8)
 
 	var tween = create_tween()
+
 	tween.set_parallel(true)
 
-	# Move upward to the target position
+	# Move the button upward.
 	tween.tween_property(
 		self,
 		"position",
@@ -34,7 +56,7 @@ func appear():
 		0.8
 	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-	# Small pop animation after reaching the position
+	# Small pop animation after reaching the target.
 	tween.chain().tween_property(
 		self,
 		"scale",
@@ -50,16 +72,23 @@ func appear():
 	)
 
 
+# ==================================================
+# BUTTON PRESS
+# Plays a click animation and copies the lobby key.
+# ==================================================
+
 func _on_pressed() -> void:
+
+	# Ignore presses while the animation is playing.
 	if used:
 		return
 
 	used = true
 
-	# Play click sound
+	# Play the button click sound.
 	AudioManager.play_ui_sound("button")
 
-	# Click animation
+	# Click animation.
 	var tween := create_tween()
 
 	tween.tween_property(
@@ -78,7 +107,7 @@ func _on_pressed() -> void:
 
 	await tween.finished
 
-	# Copy lobby key to clipboard
+	# Copy the lobby key to the clipboard.
 	DisplayServer.clipboard_set($Label.text)
 
 	used = false

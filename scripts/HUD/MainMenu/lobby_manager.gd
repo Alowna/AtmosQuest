@@ -1,169 +1,114 @@
 extends Node2D
 class_name LobbyManager
 
-
-# Array containing all available lobby ship slots
+# Available ship slots displayed in the lobby.
 @export var lobby_ship_slots: Array[LobbyShip]
 
-
-# Reference the HTTPRequest node
-@onready var http_request: HTTPRequest = $HTTPRequest
-
-
-# Used to compare the previous lobby state and detect players leaving/joining
+# Stores the previous lobby state.
+# Used to avoid unnecessary updates.
 var previous_players: Array = []
 
 
-# Timer used for periodically requesting the lobby state
-var lobby_timer: Timer
+func _ready() -> void:
+
+	# Polling is handled by the parent scene.
+	# This script only updates the lobby visuals.
+	pass
 
 
+# ==================================================
+# LOBBY REFRESH
+# Updates the lobby ships using the latest player data.
+# ==================================================
 
-func _ready():
+func update_lobby_ships(players: Array) -> void:
 
-	# Connect HTTP response callback
-	http_request.request_completed.connect(_on_request_completed)
-
-
-	# Creates a timer to keep updating the lobby
-	lobby_timer = Timer.new()
-	lobby_timer.wait_time = 2.0
-	lobby_timer.autostart = true
-
-	lobby_timer.timeout.connect(request_lobby_state)
-
-	add_child(lobby_timer)
-
-
-
-func request_lobby_state():
-
-	# Do nothing if there is no active lobby
-	if CurrentLobby.lobbyKey == "":
-		return
-
-
-	var url = "http://" + Env.api_base_url \
-		+ "/get_lobby/" \
-		+ CurrentLobby.lobbyKey
-
-
-	print("Requesting lobby state: ", url)
-
-
-	var headers = [
-		"Content-Type: application/json"
-	]
-
-
-	# Sends GET request to retrieve the current lobby players
-	http_request.request(
-		url,
-		headers,
-		HTTPClient.METHOD_GET
-	)
-
-
-
-func _on_request_completed(
-	_result,
-	response_code,
-	_headers,
-	body
-):
-
-	if response_code != 200:
-		return
-
-
-	var data = JSON.parse_string(
-		body.get_string_from_utf8()
-	)
-
-
-	#print("Lobby response: ", data)
-
-
-	CurrentLobby.players = data["players"]
-	#print("Those are the players in currentLobby: ", CurrentLobby.players)
-
-	update_lobby_ships(CurrentLobby.players)
-
-
-
-
-	# Saves the current state for the next comparison
-	previous_players = CurrentLobby.players.duplicate()
-
-
-
-func update_lobby_ships(players):
-
-	print("=== UPDATE LOBBY SHIPS ===")
-	print("Players received:", players.size())
-	print("Slots:", lobby_ship_slots.size())
-
-	for ship in lobby_ship_slots:
-		print(
-			"Slot:",
-			ship.name,
-			" player_id:",
-			ship.player_id
-		)
-		
-	# Check for players that left the lobby
+	# Remove ships whose players have left the lobby.
 	for ship in lobby_ship_slots:
 
 		if ship.player_id == -1:
 			continue
 
-
-		var player_exists := false
-
+		var player_still_exists := false
 
 		for player in players:
 
-			if int(player.id) == ship.player_id:
+			if int(player.get("id", -1)) == ship.player_id:
 
-				player_exists = true
+				player_still_exists = true
 				break
 
-
-		if not player_exists:
-
+		if not player_still_exists:
 			ship.leave_animation()
 
-
-
-	# Add new players
+	# Add new players and update changed skins.
 	for player in players:
 
-		var player_id = int(player.id)
+		var current_id := int(player.get("id", -1))
+		var current_ship_skin := int(player.get("playerSkin", 0))
 
-		var already_loaded := false
+		var slot_already_occupied := false
+		var skin_needs_update := false
+		var target_ship_slot: LobbyShip = null
 
-
-		# Check if this player already has a ship
+		# Check if this player is already assigned
+		# to one of the lobby slots.
 		for ship in lobby_ship_slots:
 
-			if ship.player_id == player_id:
+			if ship.player_id == current_id:
 
-				already_loaded = true
+				slot_already_occupied = true
+				target_ship_slot = ship
+
+				# Check if the player's ship skin
+				# changed while they were in the lobby.
+				var active_skin = SkinManager.get_ship_skin_by_id(current_ship_skin)
+
+				var expected_texture_path: String = active_skin.get(
+					"example",
+					active_skin.get("body", "")
+				)
+
+				if ship.ship_visual.texture == null \
+				or ship.ship_visual.texture.resource_path != expected_texture_path:
+
+					skin_needs_update = true
+
 				break
 
-
-		if already_loaded:
+		# Player is already assigned and nothing changed.
+		if slot_already_occupied and not skin_needs_update:
 			continue
 
+		# Refresh the player's appearance.
+		if slot_already_occupied and skin_needs_update:
 
+			print(
+				"Skin update detected for user: ",
+				player.get("username", "Unknown"),
+				" | New Skin ID: ",
+				current_ship_skin
+			)
 
-		# Find first empty slot
+			target_ship_slot.assign_player(player)
+
+			continue
+
+		# Assign a new player to the first available slot.
 		for ship in lobby_ship_slots:
 
 			if ship.player_id == -1:
 
-				print("Assigning:", player.username, "to", ship.name)
+				print(
+					"Assigning raw entry: ",
+					player.get("username", "Unknown"),
+					" to slot node: ",
+					ship.name
+				)
 
 				ship.assign_player(player)
 
 				break
+
+	# Store the current lobby state.
+	previous_players = players.duplicate()

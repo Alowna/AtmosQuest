@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://cgu2mx8xiyr2y"]
+
+[ext_resource type="PackedScene" uid="uid://cm73thr6ugt6p" path="res://scenes/game.tscn" id="1_vo66o"]
+[ext_resource type="Script" uid="uid://mvj5lkt6qsfm" path="res://scripts/multiplayer_game.gd" id="2_o1ts6"]
+[ext_resource type="Texture2D" uid="uid://5eorpnqta7ev" path="res://assets/HUD/ShipHud/HullLights/HUDLightsAlpha-Sheet.png" id="2_q8w1o"]
+[ext_resource type="PackedScene" uid="uid://c5ghwi67akuft" path="res://scenes/player/rival_ship.tscn" id="3_o1ts6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gee14"]
+atlas = ExtResource("2_q8w1o")
+region = Rect2(0, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tnpc"]
+atlas = ExtResource("2_q8w1o")
+region = Rect2(180, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtaks"]
+atlas = ExtResource("2_q8w1o")
+region = Rect2(360, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvpfn"]
+atlas = ExtResource("2_q8w1o")
+region = Rect2(540, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dinhu"]
+atlas = ExtResource("2_q8w1o")
+region = Rect2(720, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvuet"]
+atlas = ExtResource("2_q8w1o")
+region = Rect2(900, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trtic"]
+atlas = ExtResource("2_q8w1o")
+region = Rect2(1080, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir15t"]
+atlas = ExtResource("2_q8w1o")
+region = Rect2(1260, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca42v"]
+atlas = ExtResource("2_q8w1o")
+region = Rect2(1440, 0, 180, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o1ts6"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_gee14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tnpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtaks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvpfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dinhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvuet")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trtic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir15t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca42v")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MultiplayerGame" unique_id=1309740570 instance=ExtResource("1_vo66o")]
+script = ExtResource("2_o1ts6")
+
+[node name="HullLightsAlphaAnimated" parent="CanvasLayer" parent_id_path=PackedInt32Array(1465176994) index="1" unique_id=1450636312]
+sprite_frames = SubResource("SpriteFrames_o1ts6")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." index="5" unique_id=475800640]
+
+[node name="RivalShip1" parent="." index="6" unique_id=1983180390 instance=ExtResource("3_o1ts6")]
+position = Vector2(-50, 12)
+scale = Vector2(0.25, 0.25)
+
+[node name="RivalShip2" parent="." index="7" unique_id=1021576961 instance=ExtResource("3_o1ts6")]
+position = Vector2(50, 12)
+scale = Vector2(0.25, 0.25)

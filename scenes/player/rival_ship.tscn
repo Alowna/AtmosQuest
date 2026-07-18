@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c5ghwi67akuft"]
+
+[ext_resource type="PackedScene" uid="uid://dda1gvpleu474" path="res://scenes/player/player_ship.tscn" id="1_inw8q"]
+[ext_resource type="Script" uid="uid://jwwixvm722ej" path="res://scripts/ship/rival_ship.gd" id="2_b7i76"]
+
+[node name="RivalShip" unique_id=1983180390 instance=ExtResource("1_inw8q")]
+script = ExtResource("2_b7i76")
+remote_player_id = 0
+
+[node name="Pilot" parent="." index="1" unique_id=457922127]
+z_index = -1
+
+[node name="ShipFinal" parent="." index="3" unique_id=292409850]
+z_index = 0

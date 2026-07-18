@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://buush2gikjqdl" path="res://scripts/HUD/MainMenu/sound_button.gd" id="6_ttt1w"]
 [ext_resource type="Texture2D" uid="uid://ch05ktxuxj0h6" path="res://assets/HUD/MainMenu/Online/OnlineLobbyButtonAlpha-Sheet.png" id="7_tia8r"]
 [ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="8_qpndm"]
+[ext_resource type="Script" uid="uid://bgadyx3sv57a3" path="res://scripts/HUD/MainMenu/join_lobby_button.gd" id="10_ttt1w"]
 [ext_resource type="Script" uid="uid://midt3gyukgtq" path="res://scripts/HUD/MainMenu/create_lobby_button.gd" id="11_10wa6"]
 [ext_resource type="AudioStream" uid="uid://dsqeei2c3y1e2" path="res://assets/HUD/MainMenu/Sounds/ButtonPressed.wav" id="11_ab4iw"]
 
@@ -143,30 +144,34 @@ offset_bottom = 47.0
 texture_normal = ExtResource("5_10wa6")
 script = ExtResource("6_ttt1w")
 
-[node name="LobbyButton" parent="." unique_id=667144094 instance=ExtResource("4_ab4iw")]
+[node name="JoinLobbyButton" parent="." unique_id=667144094 instance=ExtResource("4_ab4iw")]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 191.0
 offset_right = 124.0
 offset_bottom = 231.0
 texture_normal = SubResource("AtlasTexture_bhunq")
+script = ExtResource("10_ttt1w")
+target_scene = "uid://cw132bkf7n2ll"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LobbyButton" unique_id=264500647]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="JoinLobbyButton" unique_id=264500647]
 libraries/ = SubResource("AnimationLibrary_vsf6s")
 autoplay = &"idle_animation"
 
-[node name="LineEdit" type="LineEdit" parent="LobbyButton" unique_id=1209099065]
+[node name="LobbyInput" type="LineEdit" parent="JoinLobbyButton" unique_id=1209099065]
 layout_mode = 0
 offset_left = -2.0
-offset_top = -4.0
+offset_top = 25.0
 offset_right = 69.0
-offset_bottom = 30.0
+offset_bottom = 59.0
 theme_override_colors/font_color = Color(7.1714817e-06, 0.7662849, 0.41521078, 1)
 theme_override_fonts/font = ExtResource("8_qpndm")
 theme_override_font_sizes/font_size = 19
 placeholder_text = "codigo"
 alignment = 1
 max_length = 6
+
+[node name="HTTPRequest" type="HTTPRequest" parent="JoinLobbyButton" unique_id=1686156457]
 
 [node name="CreateLobbyButton" parent="." unique_id=746286591 instance=ExtResource("4_ab4iw")]
 layout_mode = 0
