@@ -39,7 +39,7 @@ func _on_pressed():
 	# Ignore additional clicks if the button was already activated
 	if used:
 		return
-
+	print("local ship skin: " ,PlayerConfig.ship_skin["id"])
 	used = true
 
 	# Play click sound, if one exists
@@ -51,8 +51,9 @@ func _on_pressed():
 	print("Connecting to: ", url)
 	
 	var player_data = {
+		"id": 0,
 		"username": PlayerConfig.username,
-		"rocketSkin": PlayerConfig.ship_skin["id"],
+		"shipSkin": PlayerConfig.ship_skin["id"],
 		"pilotSkin": PlayerConfig.pilot_skin["id"] 
 	}
 	var body = JSON.stringify(player_data)

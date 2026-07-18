@@ -1,63 +1,75 @@
 extends TextureButton
 
-# The scene that will be loaded after this button animation finishes
+# Scene loaded after creating the lobby successfully.
 @export_file("*.tscn") var target_scene: String
 
-# Prevents the button from being pressed multiple times while transitioning
-var used := false
+# Prevents multiple create lobby requests from being sent.
+var is_processing_request := false
 
-# Reference the HTTPRequest node
+# HTTP request used to create the lobby.
 @onready var http_request: HTTPRequest = $HTTPRequest
 
-func _ready():
-	# Creates a pixel-perfect click area based on the button texture transparencylobby_key_button
+
+func _ready() -> void:
+
+	# Create a pixel-perfect click area.
 	create_click_mask()
 
-	# Makes the scale animation happen from the center of the button
-	pivot_offset = size / 2
+	# Center the pivot for scale animations.
+	pivot_offset = size / 2.0
 
-	# Connects the button press event to our custom function
+	# Connect button and HTTP request signals.
 	pressed.connect(_on_pressed)
 	http_request.request_completed.connect(_on_request_completed)
 
 
-func create_click_mask():
-	# Only create the mask if the button has a normal texture assigned
+# ==================================================
+# CLICK MASK
+# Creates a clickable area based on the button texture.
+# ==================================================
+
+func create_click_mask() -> void:
+
 	if texture_normal:
+
 		var bitmap := BitMap.new()
 
-		# Uses the texture alpha values:
-		# - Visible pixels become clickable
-		# - Transparent pixels become ignored
+		# Use the texture transparency to define
+		# which pixels can be clicked.
 		bitmap.create_from_image_alpha(texture_normal.get_image())
 
-		# Applies the generated pixel-perfect click mask to the button
+		# Apply the generated click mask.
 		texture_click_mask = bitmap
 
 
-func _on_pressed():
-	# Ignore additional clicks if the button was already activated
-	if used:
+# ==================================================
+# BUTTON PRESS
+# Sends a request to create a new lobby.
+# ==================================================
+
+func _on_pressed() -> void:
+
+	# Ignore additional presses while processing.
+	if is_processing_request:
 		return
 
-	used = true
+	is_processing_request = true
 
-	# Play click sound, if one exists
+	# Play the button click sound.
 	AudioManager.play_ui_sound("button")
-	
-	# --- API CALL START ---
-	
-	var url = "http://" + Env.api_base_url + "/create_lobby?ownerId=" + str(PlayerConfig.online_id)
-	print("Connecting to create lobby route", url)
-	
-	var headers = ["Content-Type: application/json"]
 
-	# Initiate the HTTP POST request to the server
-	http_request.request(url, headers, HTTPClient.METHOD_POST)
-	# --- API CALL END ---
-	
-	# Creates the press animation:
-	# The button shrinks slightly and then returns to its original size
+	# Build the create lobby request.
+	var url := "http://" + Env.api_base_url + "/create_lobby?ownerId=" + str(PlayerConfig.online_id)
+
+	# Send the request to the server.
+	http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		""
+	)
+
+	# Play the button press animation.
 	var tween := create_tween()
 
 	tween.tween_property(
@@ -70,29 +82,54 @@ func _on_pressed():
 	tween.tween_property(
 		self,
 		"scale",
-		Vector2(1, 1),
+		Vector2(1.0, 1.0),
 		0.15
 	)
 
-	# Wait until the button animation finishes
+	# Wait until the animation finishes.
 	await tween.finished
 
 
-func _on_request_completed(_result, response_code, _headers, body):
-	# Check if the server responded with a successful status code
+# ==================================================
+# SERVER RESPONSE
+# Handle the result of the create lobby request.
+# ==================================================
+
+func _on_request_completed(
+	_result: int,
+	response_code: int,
+	_headers: PackedStringArray,
+	body: PackedByteArray
+) -> void:
+
 	if response_code == 200:
-		print("Player successfully created the Lobby!")
-		
-		var response = JSON.parse_string(body.get_string_from_utf8())
-		
-		if response:
-			CurrentLobby.lobbyKey = response["lobbyKey"]
-			print("Lobby Key is", CurrentLobby.lobbyKey)
-		# Change scene ONLY if the request was successful
-		if target_scene:
-			get_tree().change_scene_to_file(target_scene)
-			
+
+		var response_data: Dictionary = JSON.parse_string(
+			body.get_string_from_utf8()
+		)
+
+		if response_data:
+
+			# Store the new lobby information.
+			CurrentLobby.lobbyKey = response_data.get("lobbyKey", "")
+			CurrentLobby.owner_id = int(response_data.get("ownerId", 0))
+
+			# Cache the players currently in the lobby.
+			if response_data.has("lobbyPlayers"):
+				CurrentLobby.players = response_data["lobbyPlayers"]
+
+				print("Players in lobby: ", CurrentLobby.players)
+
+			# Enter the lobby scene.
+			if not target_scene.is_empty():
+				get_tree().change_scene_to_file(target_scene)
+
 	else:
-		# If an error occurs, print to console and allow the user to try again
-		used = false
-		push_error("Failed to join player. Status: " + str(response_code))
+
+		# Allow the player to try again.
+		is_processing_request = false
+
+		push_error(
+			"Failed to create lobby. Server returned status: "
+			+ str(response_code)
+		)

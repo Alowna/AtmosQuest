@@ -1,61 +1,80 @@
 extends TextureButton
 
-# The scene that will be loaded after this button animation finishes
+# Scene loaded after leaving the lobby successfully.
 @export_file("*.tscn") var target_scene: String
 
-# Optional audio player used for the button click sound
+# Optional sound played when the button is pressed.
 @export var click_sound: AudioStreamPlayer
 
 
+# Stores the original button scale.
 var original_scale: Vector2
 
 
-# Prevents the button from being pressed multiple times while transitioning
+# Prevents the button from being pressed multiple times.
 var used := false
 
-# Reference the HTTPRequest node
+# HTTP request used to notify the server.
 @onready var http_request: HTTPRequest = $HTTPRequest
 
+
 func _ready():
-	# Store the original scale
+
+	# Store the original button scale.
 	original_scale = scale
 
-	# Creates a pixel-perfect click area based on the button texture transparency
+	# Create a pixel-perfect click area.
 	create_click_mask()
 
-	# Makes the scale animation happen from the center of the button
+	# Center the pivot for scale animations.
 	pivot_offset = size / 2
 
-	# Connects the button press event to our custom function
+	# Connect button and HTTP request signals.
 	pressed.connect(_on_pressed)
 	http_request.request_completed.connect(_on_request_completed)
 
+
+# ==================================================
+# CLICK MASK
+# Creates a clickable area based on the button texture.
+# ==================================================
+
 func create_click_mask():
-	# Only create the mask if the button has a normal texture assigned
+
+	# Only generate the mask if a texture is assigned.
 	if texture_normal:
+
 		var bitmap := BitMap.new()
 
-		# Uses the texture alpha values:
-		# - Visible pixels become clickable
-		# - Transparent pixels become ignored
+		# Use the texture transparency to define
+		# which pixels can be clicked.
 		bitmap.create_from_image_alpha(texture_normal.get_image())
 
-		# Applies the generated pixel-perfect click mask to the button
+		# Apply the generated click mask.
 		texture_click_mask = bitmap
 
 
+# ==================================================
+# BUTTON PRESS
+# Plays the animation and requests to leave the lobby.
+# ==================================================
+
 func _on_pressed():
-	# Ignore additional clicks if the button was already activated
+
+	# Ignore additional presses while processing.
 	if used:
 		return
 
 	used = true
 
-	# Play the assigned click sound, if one exists
+	# Play the button click sound.
 	if click_sound:
 		AudioManager.play_ui_sound("button")
-	
-	# --- API CALL START ---
+
+	# ==================================================
+	# LEAVE LOBBY REQUEST
+	# Notify the server that this player is leaving.
+	# ==================================================
 
 	var url = "http://" + Env.api_base_url \
 		+ "/leave_lobby?lobbyKey=" + CurrentLobby.lobbyKey \
@@ -65,13 +84,10 @@ func _on_pressed():
 
 	var headers = ["Content-Type: application/json"]
 
-	# Initiate the HTTP POST request to the server
+	# Send the request to the server.
 	http_request.request(url, headers, HTTPClient.METHOD_POST)
 
-# --- API CALL END ---
-	
-	# Creates the press animation:
-	# The button shrinks slightly and then returns to its original size
+	# Create the button press animation.
 	var tween := create_tween()
 
 	tween.tween_property(
@@ -88,38 +104,54 @@ func _on_pressed():
 		0.15
 	)
 
-	# Wait until the button animation finishes
+	# Wait until the animation finishes.
 	await tween.finished
 
 
+# ==================================================
+# SERVER RESPONSE
+# Handle the result of the leave lobby request.
+# ==================================================
 
 func _on_request_completed(_result, response_code, _headers, _body):
+
 	if response_code == 200:
-		
+
 		print("Player successfully left the lobby!")
-		
+
+		# Reset local lobby data.
 		PlayerConfig.online_id = 0
 		CurrentLobby.clear()
 
+		# Return to the target scene.
 		if target_scene:
 			get_tree().change_scene_to_file(target_scene)
 
 	else:
+
+		# Allow the player to try again.
 		used = false
+
 		push_error("Failed to leave lobby. Status: " + str(response_code))
-		
+
+
+# ==================================================
+# APPEAR ANIMATION
+# Makes the button pop into view.
+# ==================================================
 
 func appear():
-	# Make the button visible
+
+	# Show the button.
 	visible = true
 
-	# Start almost invisible
+	# Start almost invisible.
 	scale = Vector2.ONE * 0.1
 
-	# Create the appearance animation
+	# Create the appearance animation.
 	var tween = create_tween()
 
-	# Grow past the final size to create a "pop" effect
+	# Grow past the final size for a pop effect.
 	tween.tween_property(
 		self,
 		"scale",
@@ -127,7 +159,7 @@ func appear():
 		0.2
 	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-	# Return smoothly to the original size
+	# Return to the original size.
 	tween.tween_property(
 		self,
 		"scale",
