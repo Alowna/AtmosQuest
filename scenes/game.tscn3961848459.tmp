@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://ctnekyphahaeh" path="res://assets/HUD/ShipHud/Hull/HUDAlpha.png" id="5_p57ef"]
 [ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="7_gee14"]
 [ext_resource type="Texture2D" uid="uid://5eorpnqta7ev" path="res://assets/HUD/ShipHud/HullLights/HUDLightsAlpha-Sheet.png" id="7_u5sy4"]
-[ext_resource type="PackedScene" uid="uid://bce0ch5epcbx3" path="res://scenes/HUD/MainMenu/question.tscn" id="10_vtaks"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(480, 24)
@@ -92,9 +91,9 @@ script = ExtResource("1_0tnpc")
 
 [node name="PlayerShip" parent="." unique_id=535543817 node_paths=PackedStringArray("altitude_label", "atmosphere_label", "speed_label") instance=ExtResource("2_iywne")]
 position = Vector2(0, -20)
-altitude_label = NodePath("../CanvasLayer/Hull/AltitudeLabel")
-atmosphere_label = NodePath("../CanvasLayer/Hull/AtmosphereLabel")
-speed_label = NodePath("../CanvasLayer/Hull/SpeedLabel")
+altitude_label = NodePath("../CanvasLayer/AltitudeLabel")
+atmosphere_label = NodePath("../CanvasLayer/AtmosphereLabel")
+speed_label = NodePath("../CanvasLayer/SpeedLabel")
 
 [node name="LandingFloor" type="StaticBody2D" parent="." unique_id=1930167788]
 position = Vector2(-247, 39)
@@ -107,23 +106,19 @@ shape = SubResource("RectangleShape2D_bhunq")
 position = Vector2(254, -93)
 texture = ExtResource("2_lnu2h")
 
-[node name="BackgroundManager" parent="." unique_id=183005817 node_paths=PackedStringArray("player") instance=ExtResource("3_iywne")]
-z_index = -2
+[node name="BackgroundManager" parent="." unique_id=183005817 instance=ExtResource("3_iywne")]
 position = Vector2(226, 21)
-player = NodePath("../PlayerShip")
 
 [node name="CollisionSpawner" parent="." unique_id=1483215837 node_paths=PackedStringArray("player") instance=ExtResource("4_lbhrr")]
 player = NodePath("../PlayerShip")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1465176994]
 
-[node name="Hull" type="Node2D" parent="CanvasLayer" unique_id=243477001]
-
-[node name="HudAlpha" type="Sprite2D" parent="CanvasLayer/Hull" unique_id=314223026]
+[node name="HudAlpha" type="Sprite2D" parent="CanvasLayer" unique_id=314223026]
 position = Vector2(90, 160)
 texture = ExtResource("5_p57ef")
 
-[node name="HullLightsAlphaAnimated" type="AnimatedSprite2D" parent="CanvasLayer/Hull" unique_id=1450636312]
+[node name="HullLightsAlphaAnimated" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=1450636312]
 position = Vector2(90, 160)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
@@ -131,7 +126,7 @@ frame = 8
 frame_progress = 0.14629366
 speed_scale = 3.0
 
-[node name="AltitudeLabel" type="Label" parent="CanvasLayer/Hull" unique_id=787293636]
+[node name="AltitudeLabel" type="Label" parent="CanvasLayer" unique_id=787293636]
 z_index = 2
 offset_left = 19.0
 offset_top = 6.0
@@ -145,7 +140,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="AtmosphereLabel" type="Label" parent="CanvasLayer/Hull" unique_id=239223494]
+[node name="AtmosphereLabel" type="Label" parent="CanvasLayer" unique_id=239223494]
 z_index = 2
 offset_left = 55.0
 offset_top = 294.0
@@ -159,7 +154,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="SpeedLabel" type="Label" parent="CanvasLayer/Hull" unique_id=715476763]
+[node name="SpeedLabel" type="Label" parent="CanvasLayer" unique_id=715476763]
 z_index = 2
 offset_left = 19.0
 offset_top = 21.0
@@ -172,5 +167,3 @@ text = "2km/s"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
-
-[node name="Question" parent="CanvasLayer" unique_id=165715929 instance=ExtResource("10_vtaks")]

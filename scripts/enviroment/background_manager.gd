@@ -16,8 +16,6 @@ var backgrounds = []
 
 
 func _ready():
-	
-	player = get_tree().get_first_node_in_group("player")
 	# Loop through all children inside this Node2D.
 	for child in get_children():
 		
