@@ -143,14 +143,19 @@ func _process(delta):
 
 	if altitude_km < 12:
 		atmosphere_label.text = "Troposfera"
+		PlayerConfig.atmosLayer = 0
 	elif altitude_km < 50:
 		atmosphere_label.text = "Estratosfera"
+		PlayerConfig.atmosLayer = 1
 	elif altitude_km < 80:
 		atmosphere_label.text = "Mesosfera"
+		PlayerConfig.atmosLayer = 2
 	elif altitude_km < 700:
 		atmosphere_label.text = "Termosfera"
+		PlayerConfig.atmosLayer = 3
 	else:
 		atmosphere_label.text = "Exosfera"
+		PlayerConfig.atmosLayer = 4
 	
 func get_speed_from_altitude(altitude):
 	if altitude < 12:
