@@ -32,6 +32,14 @@ var altitude: int = 0
 # Check maximum reached player altitude
 var maxAltitude: int = 0
 
+# Check players atmosphere layer
+var atmosLayer = 0
+# 0 = Troposphere
+# 1 = Stratosphere
+# 2 = Mesosphere
+# 3 = Thermosphere
+# 4 = Exosphere
+
 # Check player points
 var points: int = 0
 
@@ -42,6 +50,7 @@ var collisions: int = 0
 var correctAnswers: int = 0
 var wrongAnswers: int = 0
 
+var answeredQuestions: Array[int] = []
 # If dead, check player's killer
 var collisionDeathObject : = "Unknown"
 
@@ -92,9 +101,40 @@ func clear() -> void:
 	finished = false
 	lives = 6
 	altitude = 0
+	atmosLayer = 0
 	maxAltitude = 0
 	points = 0
 	collisions = 0
 	correctAnswers = 0
 	wrongAnswers = 0
 	collisionDeathObject= "Unknown"
+	
+var all_questions: Array = []
+
+func _ready() -> void:
+	load_questions_from_json("res://scripts/data/questions.json")
+
+func load_questions_from_json(file_path: String) -> void:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file:
+		var json_string = file.get_as_text()
+		var parsed_data = JSON.parse_string(json_string)
+		
+		if typeof(parsed_data) == TYPE_ARRAY:
+			all_questions = parsed_data
+		else:
+			print("Error: JSON format is not an Array.")
+		file.close()
+	else:
+		print("Error: Could not open the questions file.")
+
+func correctAnswer() -> void:
+	correctAnswers += 1
+	points += 100
+
+func wrongAnswer() -> void:
+	wrongAnswers += 1
+	lives -= 1
+	if lives < 1:
+		isAlive = false
+	
