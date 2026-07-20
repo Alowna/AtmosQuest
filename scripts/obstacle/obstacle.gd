@@ -46,7 +46,22 @@ func _physics_process(_delta):
 			queue_free()
 	
 	if get_slide_collision_count() > 0:
-		queue_free()
+		get_tree().paused = true
+		
+		var collision = get_slide_collision(0)
+
+		if collision.get_collider().is_in_group("player"):
+			get_tree().paused = true
+			
+			var question_manager = get_tree().current_scene.get_node("CanvasLayer/Question/QuestionScreen/QuestionManager")
+			print(question_manager)
+			var question = get_tree().current_scene.get_node("CanvasLayer/Question")
+			if is_instance_valid(question_manager):
+				question_manager.question_finished.connect(_on_question_finished)
+				question.start()
+
+				hide()
+				set_physics_process(false)
 
 func move_obstacle(direction: Vector2):
 	# Calculate the movement velocity based on the given direction.
@@ -54,3 +69,6 @@ func move_obstacle(direction: Vector2):
 	
 	# Apply the velocity and move the CharacterBody2D.
 	move_and_slide()
+
+func _on_question_finished():
+	queue_free()
