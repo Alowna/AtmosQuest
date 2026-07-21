@@ -36,6 +36,7 @@ func load_question() -> void:
 		AnswerB.disabled = true
 		AnswerC.disabled = true
 		AnswerD.disabled = true
+		close_popup()
 
 func getRandomQuestion(layer_id: int) -> Dictionary:
 	var available_questions: Array = []
