@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjwr5jwn67hxu"]
 
-[ext_resource type="AudioStream" uid="uid://7lms56sgdnwr" path="res://assets/HUD/MainMenu/Sounds/MainMenuSong.wav" id="1_5tlpq"]
+[ext_resource type="AudioStream" uid="uid://7lms56sgdnwr" path="res://assets/Sounds/MainMenuSong.wav" id="1_5tlpq"]
 [ext_resource type="Texture2D" uid="uid://l1a1cofukhjb" path="res://assets/HUD/MainMenu/Online/OnlineLobbiesBaseAlpha.png" id="2_60vl2"]
 [ext_resource type="Texture2D" uid="uid://cwgvu5t47sn1s" path="res://assets/HUD/MainMenu/BackButton.png" id="2_l5cxq"]
 [ext_resource type="Script" uid="uid://dlsyuitk2tb7d" path="res://scripts/HUD/MainMenu/leave_lobbies_button.gd" id="3_ab4iw"]
@@ -12,7 +12,7 @@
 [ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="8_qpndm"]
 [ext_resource type="Script" uid="uid://bgadyx3sv57a3" path="res://scripts/HUD/MainMenu/join_lobby_button.gd" id="10_ttt1w"]
 [ext_resource type="Script" uid="uid://midt3gyukgtq" path="res://scripts/HUD/MainMenu/create_lobby_button.gd" id="11_10wa6"]
-[ext_resource type="AudioStream" uid="uid://dsqeei2c3y1e2" path="res://assets/HUD/MainMenu/Sounds/ButtonPressed.wav" id="11_ab4iw"]
+[ext_resource type="AudioStream" uid="uid://dsqeei2c3y1e2" path="res://assets/Sounds/ButtonPressed.wav" id="11_ab4iw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_faayq"]
 atlas = ExtResource("3_l5cxq")

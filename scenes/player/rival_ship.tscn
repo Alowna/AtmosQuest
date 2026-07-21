@@ -9,6 +9,27 @@ remote_player_id = 0
 
 [node name="Pilot" parent="." index="1" unique_id=457922127]
 z_index = -1
+texture = null
 
 [node name="ShipFinal" parent="." index="3" unique_id=292409850]
 z_index = 0
+texture = null
+
+[node name="ShipPropeller" parent="Propeller" parent_id_path=PackedInt32Array(1186610800) index="0" unique_id=2057244928]
+texture = null
+
+[node name="ShipRightWing" parent="RightWing" parent_id_path=PackedInt32Array(1898350142) index="0" unique_id=511065286]
+position = Vector2(16, 25)
+texture = null
+
+[node name="ShipLeftWing" parent="LeftWing" parent_id_path=PackedInt32Array(1133119966) index="0" unique_id=1877083275]
+position = Vector2(-16, 26)
+texture = null
+
+[node name="ShipCoffer" parent="Coffer" parent_id_path=PackedInt32Array(137743845) index="0" unique_id=1088578168]
+texture = null
+
+[node name="ShipDeath" parent="." index="9" unique_id=224717227]
+animation = &"Boom"
+frame = 13
+frame_progress = 1.0

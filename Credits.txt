@@ -10,3 +10,6 @@ Source: https://freesound.org/people/Victor_Natas/sounds/653475/
 
 
 Bass & Noise.wav by D_A_G_A_Z -- https://freesound.org/s/369270/ -- License: Attribution 3.0
+
+
+explosion.wav by IdkMrGarcia -- https://freesound.org/s/446625/ -- License: Creative Commons 0

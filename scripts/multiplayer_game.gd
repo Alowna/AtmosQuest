@@ -73,9 +73,9 @@ func _send_local_altitude():
 		"gameKey": CurrentGame.game_key,
 		"playerId": PlayerConfig.online_id,
 		"action": "altitude",
-
+		"atmosLayer": PlayerConfig.atmosLayer,
 		# Send altitude in kilometers.
-		"altitude": int(local_player.altitude_km)
+		"altitude": int(PlayerConfig.altitude)
 	}
 
 	# Create a temporary request.

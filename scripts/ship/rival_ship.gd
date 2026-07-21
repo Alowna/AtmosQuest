@@ -3,6 +3,7 @@ extends PlayerShip
 # ID of the player represented by this rival ship.
 @export var remote_player_id: int
 
+var remoteCurrentAtmosLayer = -1
 
 # Maps each detachable part node
 # to its corresponding ship skin key.
@@ -15,7 +16,7 @@ var parts_map: Dictionary = {
 
 
 func _ready():
-
+	super._ready()
 	# Clear inherited node references.
 	propeller = null
 	right_wing = null
@@ -24,7 +25,7 @@ func _ready():
 
 	# Disable UI references inherited from the local player.
 	altitude_label = null
-	speed_label = null
+	lives_label = null
 	atmosphere_label = null
 
 	# Reassign the detachable parts.
@@ -84,14 +85,23 @@ func _sync_with_server_state():
 
 	# Ignore players that are no longer alive.
 	if not player_data["isAlive"]:
-		return
+		kaboom()
 
 	# Synchronize stage separation
 	# using the server altitude.
+	
 	var remote_alt_km = player_data["altitude"]
-
+	var atmosLayer = player_data["atmosLayer"]
+	print("atmoslayer rival: ", player_data["atmosLayer"])
 	_check_remote_detach_events(remote_alt_km)
+	_check_remote_fire_event(atmosLayer)
 
+
+func _check_remote_fire_event(remote_atmosLayer: int):
+	
+	if remote_atmosLayer != remoteCurrentAtmosLayer:
+		remoteCurrentAtmosLayer = remote_atmosLayer
+		Fire.enableFire(remoteCurrentAtmosLayer)
 
 # ==================================================
 # STAGE SEPARATION
@@ -99,34 +109,34 @@ func _sync_with_server_state():
 # ==================================================
 
 func _check_remote_detach_events(remote_alt: float):
-
+	
 	if remote_alt >= 12 and not propeller_detached:
 
 		propeller_detached = true
-
+		print("propeller detached")
 		if propeller:
-			propeller.detach()
+			propeller.detach(0)
 
 	if remote_alt >= 50 and not right_wing_detached:
 
 		right_wing_detached = true
 
 		if right_wing:
-			right_wing.detach()
+			right_wing.detach(0)
 
 	if remote_alt >= 55 and not left_wing_detached:
 
 		left_wing_detached = true
 
 		if left_wing:
-			left_wing.detach()
+			left_wing.detach(0)
 
 	if remote_alt >= 700 and not coffer_detached:
 
 		coffer_detached = true
 
 		if coffer:
-			coffer.detach()
+			coffer.detach(0)
 
 
 # ==================================================
@@ -199,7 +209,7 @@ func detach_remote_part(part_name: String):
 			var part = get_node(part_name) as DetachablePart
 
 			if part:
-				part.detach()
+				part.detach(0)
 
 	else:
 

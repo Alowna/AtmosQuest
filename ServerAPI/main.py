@@ -214,6 +214,7 @@ class gamePlayer(BaseModel):
     shipSkin: int
     pilotSkin: int
     # Current game state flags
+    atmosLayer: int
     isAlive: bool
     finished: bool
     lives: int
@@ -281,6 +282,7 @@ def createGame(lobbyKey: str):
                     shipSkin=player.shipSkin,
                     pilotSkin=player.pilotSkin,
                     # Initial state
+                    atmosLayer = 0,
                     isAlive=True,
                     finished=False,
                     lives=6,
@@ -335,6 +337,7 @@ class GameAction(BaseModel):
     action: Literal["altitude", "question_result", "finish"]
     # Used when action == "altitude"
     altitude: int | None = None
+    atmosLayer: int | None = None
     # Used when action == "question_result"
     collisionObject: str | None = None
     correctAnswer: bool | None = None
@@ -374,6 +377,7 @@ def gameAction(action: GameAction):
     if action.action == "altitude":
         player.altitude = action.altitude
         # Track the highest altitude reached
+        player.atmosLayer = action.atmosLayer
         if action.altitude > player.maxAltitude:
             player.maxAltitude = action.altitude
         return {"success": True}

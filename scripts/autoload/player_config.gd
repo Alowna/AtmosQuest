@@ -24,11 +24,12 @@ var isAlive: bool = true
 var finished: bool = false
 
 # Check players lives
-var lives: int = 6
+var lives: int = 1#6 #1 of testing
 
 #Check player altitude
 var altitude: int = 0
 
+var speed: int = 80
 # Check maximum reached player altitude
 var maxAltitude: int = 0
 

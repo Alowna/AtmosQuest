@@ -5,7 +5,7 @@ class_name DetachablePart
 @export var separation_force := 2.0
 
 # Rotation speed after separation.
-@export var spin_speed := 0.0
+@export var spin_speed := 2.0
 
 # Downward falling speed.
 @export var fall_speed := 10.0
@@ -15,8 +15,9 @@ var detached := false
 var velocity := Vector2.ZERO
 
 
-func detach():
+func detach(kaboom: bool):
 
+	
 	# Prevents the same part from being detached twice.
 	if detached:
 		return
@@ -36,9 +37,17 @@ func detach():
 	# Restore its exact position after leaving the ship.
 	global_transform = current_transform
 
-
+	if not kaboom:
 	# Give the part a separation impulse.
-	velocity = Vector2(
+		velocity = Vector2(
+			randf_range(-separation_force, separation_force),
+			fall_speed
+		)
+	
+	if kaboom:
+		separation_force = 800
+		fall_speed = 500
+		velocity = Vector2(
 		randf_range(-separation_force, separation_force),
 		fall_speed
 	)

@@ -8,14 +8,18 @@ extends Node
 
 # Background music library.
 var music = {
-	"menu": preload("res://assets/HUD/MainMenu/Sounds/MainMenuSong.wav"),
-	"gameSong": preload("res://assets/enviroment/sounds/gameSong.wav"),
+	"menu": preload("res://assets/Sounds/MainMenuSong.wav"),
+	"gameSong": preload("res://assets/Sounds/gameSong.wav"),
 }
 
 
 # UI sound effects library.
 var UIsounds = {
-	"button": preload("res://assets/HUD/MainMenu/Sounds/ButtonPressed.wav")
+	"button": preload("res://assets/Sounds/ButtonPressed.wav")
+}
+
+var gameSounds = {
+	"explosion": preload("res://assets/Sounds/explosion.wav")
 }
 
 
@@ -57,6 +61,25 @@ func play_ui_sound(name: String):
 	var player := AudioStreamPlayer.new()
 
 	player.stream = UIsounds[name]
+
+	add_child(player)
+
+	player.play()
+
+	# Remove the temporary player after playback.
+	player.finished.connect(func():
+		player.queue_free()
+	)
+
+func play_game_sound(name: String):
+
+	if !gameSounds.has(name):
+		push_error("Som de game '%s' não encontrado." % name)
+		return
+
+	var player := AudioStreamPlayer.new()
+
+	player.stream = gameSounds[name]
 
 	add_child(player)
 

@@ -80,7 +80,7 @@ animations = [{
 [node name="MultiplayerGame" unique_id=1309740570 instance=ExtResource("1_vo66o")]
 script = ExtResource("2_o1ts6")
 
-[node name="HullLightsAlphaAnimated" parent="CanvasLayer" parent_id_path=PackedInt32Array(1465176994) index="1" unique_id=1450636312]
+[node name="HullLightsAlphaAnimated" parent="CanvasLayer/Hull" parent_id_path=PackedInt32Array(243477001) index="1" unique_id=1450636312]
 sprite_frames = SubResource("SpriteFrames_o1ts6")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="." index="5" unique_id=475800640]

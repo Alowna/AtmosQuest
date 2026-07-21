@@ -16,9 +16,6 @@ var last_altitude_km = 0.0
 @export var lives_label = Label
 
 
-# Current altitude in kilometers.
-var altitude_km = 0.0
-
 
 # Rotation speed while the player is touching the screen.
 @export var rotation_speed := 1.5
@@ -30,25 +27,8 @@ var turn_left := false
 # True while the right side of the screen is held.
 var turn_right := false
 
-
-# ==================================================
-# DETACHABLE ROCKET PARTS
-# Assigned from the Inspector.
-# ==================================================
-
-@export var propeller: Node2D
-@export var right_wing: Node2D
-@export var left_wing: Node2D
-@export var coffer: Node2D
-
-
-# Prevent the same stage from being detached twice.
-var propeller_detached := false
-var right_wing_detached := false
-var left_wing_detached := false
-var coffer_detached := false
-
 func _ready():
+	super._ready()
 	# Adds this ship to the player group.
 	# Other systems can find the local player using this group.
 	add_to_group("player")
@@ -88,6 +68,7 @@ func _input(event):
 
 
 func _physics_process(delta):
+	super._physics_process(delta)
 	# Rotate the ship to the left.
 	if turn_left:
 		rotation -= rotation_speed * delta
@@ -112,36 +93,34 @@ func _physics_process(delta):
 	move_ship(direction)
 
 func _process(delta):
-	altitude_km = get_altitude()
+	super._process(delta)
+	PlayerConfig.altitude = get_altitude()
 	
-	# Checks if any rocket parts should be detached
-	# based on the current atmospheric layer.
-	check_detach_events()
 
-	altitude_label.text = format_altitude(altitude_km)
+	altitude_label.text = format_altitude(PlayerConfig.altitude)
 
 
 	# Calcula distância percorrida desde o último frame
-	var altitude_difference = altitude_km - last_altitude_km
+	var altitude_difference = PlayerConfig.altitude - last_altitude_km
 
 
 
 	lives_label.text = str(PlayerConfig.lives) + " Vidas"
 
 
-	last_altitude_km = altitude_km
+	last_altitude_km = PlayerConfig.altitude
 
 
-	if altitude_km < 12:
+	if PlayerConfig.altitude < 12:
 		atmosphere_label.text = "Troposfera"
 		PlayerConfig.atmosLayer = 0
-	elif altitude_km < 50:
+	elif PlayerConfig.altitude < 50:
 		atmosphere_label.text = "Estratosfera"
 		PlayerConfig.atmosLayer = 1
-	elif altitude_km < 80:
+	elif PlayerConfig.altitude < 80:
 		atmosphere_label.text = "Mesosfera"
 		PlayerConfig.atmosLayer = 2
-	elif altitude_km < 700:
+	elif PlayerConfig.altitude < 700:
 		atmosphere_label.text = "Termosfera"
 		PlayerConfig.atmosLayer = 3
 	else:
@@ -176,50 +155,7 @@ func format_altitude(altitude):
 		var gigameters = altitude / 1000000.0
 		return str(snapped(gigameters, 0.1)).trim_suffix(".0") + " Gm"
 		
-func check_detach_events():
 
-	# ==========================================
-	# STRATOSPHERE ENTRY (12 km)
-	# Detach the main propeller/booster section.
-	# ==========================================
-	if altitude_km >= 12 and not propeller_detached:
-
-		propeller_detached = true
-
-		if propeller:
-			propeller.detach()
-
-
-
-	# ==========================================
-	# MESOSPHERE ENTRY (50 km)
-	# Detach the left and right wings.
-	# ==========================================
-	if altitude_km >= 50 and not right_wing_detached:
-
-		right_wing_detached = true
-
-		if right_wing:
-			right_wing.detach()
-	if altitude_km >= 55 and not left_wing_detached:
-
-		left_wing_detached = true
-
-		if left_wing:
-			left_wing.detach()
-
-
-
-	# ==========================================
-	# EXOSPHERE ENTRY (700 km)
-	# Detach the final compartment/payload cover.
-	# ==========================================
-	if altitude_km >= 700 and not coffer_detached:
-
-		coffer_detached = true
-
-		if coffer:
-			coffer.detach()
 			
 func apply_skin():
 

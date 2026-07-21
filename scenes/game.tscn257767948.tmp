@@ -1,0 +1,179 @@
+[gd_scene format=3 uid="uid://cm73thr6ugt6p"]
+
+[ext_resource type="Script" uid="uid://innugytwcr5s" path="res://scripts/game.gd" id="1_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://dda1gvpleu474" path="res://scenes/player/player_ship.tscn" id="2_iywne"]
+[ext_resource type="Texture2D" uid="uid://bjmax1slbkeq3" path="res://assets/enviroment/terrain/LandingFloorAlpha.png" id="2_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://dxwsjt6a7b4by" path="res://scenes/world/background_manager.tscn" id="3_iywne"]
+[ext_resource type="PackedScene" uid="uid://jqn0ih7xrrij" path="res://scenes/world/collision_spawner.tscn" id="4_lbhrr"]
+[ext_resource type="FontFile" uid="uid://cejh0d0ughuuw" path="res://assets/fonts/Doto,Pixelify_Sans/Doto/static/Doto-Bold.ttf" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://ctnekyphahaeh" path="res://assets/HUD/ShipHud/Hull/HUDAlpha.png" id="5_p57ef"]
+[ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="7_gee14"]
+[ext_resource type="Texture2D" uid="uid://5eorpnqta7ev" path="res://assets/HUD/ShipHud/HullLights/HUDLightsAlpha-Sheet.png" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://bce0ch5epcbx3" path="res://scenes/HUD/MainMenu/question.tscn" id="10_vtaks"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
+size = Vector2(480, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gee14"]
+atlas = ExtResource("7_u5sy4")
+region = Rect2(0, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tnpc"]
+atlas = ExtResource("7_u5sy4")
+region = Rect2(180, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtaks"]
+atlas = ExtResource("7_u5sy4")
+region = Rect2(360, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvpfn"]
+atlas = ExtResource("7_u5sy4")
+region = Rect2(540, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dinhu"]
+atlas = ExtResource("7_u5sy4")
+region = Rect2(720, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvuet"]
+atlas = ExtResource("7_u5sy4")
+region = Rect2(900, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trtic"]
+atlas = ExtResource("7_u5sy4")
+region = Rect2(1080, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir15t"]
+atlas = ExtResource("7_u5sy4")
+region = Rect2(1260, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca42v"]
+atlas = ExtResource("7_u5sy4")
+region = Rect2(1440, 0, 180, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_gee14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tnpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtaks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvpfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dinhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvuet")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trtic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir15t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca42v")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="game" type="Node2D" unique_id=1309740570]
+position = Vector2(337, 205)
+script = ExtResource("1_0tnpc")
+
+[node name="PlayerShip" parent="." unique_id=535543817 node_paths=PackedStringArray("altitude_label", "atmosphere_label", "lives_label") instance=ExtResource("2_iywne")]
+position = Vector2(0, -20)
+altitude_label = NodePath("../CanvasLayer/Hull/AltitudeLabel")
+atmosphere_label = NodePath("../CanvasLayer/Hull/AtmosphereLabel")
+lives_label = NodePath("../CanvasLayer/Hull/LivesLabel")
+rotation_speed = null
+speed = null
+
+[node name="LandingFloor" type="StaticBody2D" parent="." unique_id=1930167788]
+position = Vector2(-247, 39)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LandingFloor" unique_id=2039736233]
+position = Vector2(254, -5)
+shape = SubResource("RectangleShape2D_bhunq")
+
+[node name="LandingFloorAlpha2" type="Sprite2D" parent="LandingFloor" unique_id=575468881]
+position = Vector2(254, -93)
+texture = ExtResource("2_lnu2h")
+
+[node name="BackgroundManager" parent="." unique_id=183005817 node_paths=PackedStringArray("player") instance=ExtResource("3_iywne")]
+z_index = -2
+position = Vector2(226, 21)
+player = NodePath("../PlayerShip")
+
+[node name="CollisionSpawner" parent="." unique_id=1483215837 node_paths=PackedStringArray("player") instance=ExtResource("4_lbhrr")]
+player = NodePath("../PlayerShip")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1465176994]
+
+[node name="Hull" type="Node2D" parent="CanvasLayer" unique_id=243477001]
+
+[node name="HudAlpha" type="Sprite2D" parent="CanvasLayer/Hull" unique_id=314223026]
+position = Vector2(90, 160)
+texture = ExtResource("5_p57ef")
+
+[node name="HullLightsAlphaAnimated" type="AnimatedSprite2D" parent="CanvasLayer/Hull" unique_id=1450636312]
+position = Vector2(90, 160)
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame = 8
+frame_progress = 0.14629366
+speed_scale = 3.0
+
+[node name="AltitudeLabel" type="Label" parent="CanvasLayer/Hull" unique_id=787293636]
+z_index = 2
+offset_left = 19.0
+offset_top = 6.0
+offset_right = 49.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_iywne")
+theme_override_font_sizes/font_size = 5
+text = "2 km"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="AtmosphereLabel" type="Label" parent="CanvasLayer/Hull" unique_id=239223494]
+z_index = 2
+offset_left = 55.0
+offset_top = 294.0
+offset_right = 124.0
+offset_bottom = 317.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_gee14")
+theme_override_font_sizes/font_size = 8
+text = "Estratosfera"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="LivesLabel" type="Label" parent="CanvasLayer/Hull" unique_id=715476763]
+z_index = 2
+offset_left = 19.0
+offset_top = 21.0
+offset_right = 49.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_iywne")
+theme_override_font_sizes/font_size = 5
+text = "2km/s"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Question" parent="CanvasLayer" unique_id=165715929 instance=ExtResource("10_vtaks")]
+visible = false

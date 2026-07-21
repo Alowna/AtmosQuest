@@ -11,7 +11,7 @@ var cofferStarted := false
 var finalStarted := false
 
 var transitioning := false
-var currentAtmosLayer := -1
+
 
 
 func _ready() -> void:
@@ -25,9 +25,7 @@ func _process(_delta: float) -> void:
 	if transitioning:
 		return
 
-	if PlayerConfig.atmosLayer != currentAtmosLayer:
-		currentAtmosLayer = PlayerConfig.atmosLayer
-		enableFire(currentAtmosLayer)
+
 
 
 func enableFire(atmosLayer: int) -> void:
