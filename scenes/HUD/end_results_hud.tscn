@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cil7lik4h80wy" path="res://assets/HUD/EndResults/HudEndStaticResults.png" id="5_abdc6"]
 [ext_resource type="FontFile" uid="uid://nsywhfovxtus" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-SemiBold.ttf" id="6_d53fr"]
 [ext_resource type="Texture2D" uid="uid://b8kqetcsfyonk" path="res://assets/HUD/EndResults/HudEndStatic.png" id="6_jwt1i"]
+[ext_resource type="Script" uid="uid://2dqul0oj72ot" path="res://scripts/HUD/export_results_button.gd" id="7_uxtl3"]
 [ext_resource type="Texture2D" uid="uid://dpskk80jgq58" path="res://assets/HUD/Questions/BlackScreen.png" id="8_gbss6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ncbw"]
@@ -202,6 +203,7 @@ offset_top = 120.0
 offset_right = 48.0
 offset_bottom = 150.0
 texture_normal = ExtResource("3_oi3vo")
+script = ExtResource("7_uxtl3")
 
 [node name="ButtonStatus" type="Label" parent="HudEndStaticResults/ExportResultsButton" unique_id=1469468603]
 layout_mode = 0
@@ -224,6 +226,8 @@ offset_left = -77.0
 offset_top = -117.0
 offset_right = 75.0
 offset_bottom = 95.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
 [node name="gameResults" type="Label" parent="HudEndStaticResults/ScrollContainer" unique_id=783349827]
 layout_mode = 2
