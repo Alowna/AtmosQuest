@@ -10,6 +10,8 @@ var movement_direction := Vector2.RIGHT
 var player_ref: Node2D
 # Reference to the player node.
 
+var obstacle_name = "Desconhecido"
+
 func setup(direction: Vector2, player: Node2D):
 	# Defines the movement direction and player reference when the obstacle is spawned.
 	movement_direction = direction
@@ -52,7 +54,8 @@ func _physics_process(_delta):
 
 		if collision.get_collider().is_in_group("player"):
 			get_tree().paused = true
-			
+			PlayerConfig.collisions += 1
+			PlayerConfig.collisionDeathObject = obstacle_name
 			var question_manager = get_tree().current_scene.get_node("CanvasLayer/Question/QuestionScreen/QuestionManager")
 			
 			var question = get_tree().current_scene.get_node("CanvasLayer/Question")

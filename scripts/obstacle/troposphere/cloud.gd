@@ -8,6 +8,7 @@ class_name Cloud
 
 
 func _ready():
+	obstacle_name = "nuvem"
 	z_index = 2
 	# Applies cloud speed
 	speed = 80.0

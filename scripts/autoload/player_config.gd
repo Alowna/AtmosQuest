@@ -51,6 +51,9 @@ var collisions: int = 0
 var correctAnswers: int = 0
 var wrongAnswers: int = 0
 
+var correctAnswersIds: Array[int] = []
+var wrongAnswersIds: Array[int] = []
+
 var answeredQuestions: Array[int] = []
 # If dead, check player's killer
 var collisionDeathObject : = "Unknown"

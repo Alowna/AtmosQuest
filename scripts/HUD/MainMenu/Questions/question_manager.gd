@@ -55,6 +55,8 @@ func _on_answer_button_pressed(selected_option: String) -> void:
 	# Check if the clicked button matches the correct answer from the JSON
 	if selected_option == current_question.correct_answer:
 		print("Correct Answer!")
+		# Add this question ID to the correct answers Ids 
+		PlayerConfig.correctAnswersIds.append(current_question.id)
 		PlayerConfig.correctAnswer()
 		
 		# Add this question ID to the answered list so it doesn't appear again
@@ -64,6 +66,9 @@ func _on_answer_button_pressed(selected_option: String) -> void:
 		close_popup()
 	else:
 		print("Wrong Answer!")
+		# Add this question ID to the wrong answers Ids 
+		PlayerConfig.wrongAnswersIds.append(current_question.id)
+		# Add this question ID to the answered list so it doesn't appear again
 		PlayerConfig.answeredQuestions.append(current_question.id)
 		PlayerConfig.wrongAnswer()
 		# Add code here to punish the player (lose HP, retry, etc.)

@@ -137,3 +137,5 @@ func kaboom():
 	ShipDeath.play("Kaboom")
 	await ShipDeath.animation_finished
 	ShipDeath.visible = false
+	PlayerConfig.finished = true
+	PlayerConfig.maxAltitude = PlayerConfig.altitude

@@ -1,0 +1,288 @@
+[gd_scene format=3 uid="uid://bsgnoqu8uspeg"]
+
+[ext_resource type="Script" uid="uid://csehvdytv5qsy" path="res://scripts/HUD/end_results_hud.gd" id="1_5a2xp"]
+[ext_resource type="Texture2D" uid="uid://cw84qe7mxrtc6" path="res://assets/HUD/EndResults/HudEndTransition-Sheet.png" id="1_njukm"]
+[ext_resource type="Texture2D" uid="uid://cpne4rw8qlqnf" path="res://assets/HUD/EndResults/HudEndResultsTransition-Sheet.png" id="2_2ncbw"]
+[ext_resource type="Texture2D" uid="uid://ct42buohqldy5" path="res://assets/HUD/EndResults/HudEndContinueButton.png" id="3_oi3vo"]
+[ext_resource type="FontFile" uid="uid://dv687cqmns33c" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-Medium.ttf" id="4_abdc6"]
+[ext_resource type="Texture2D" uid="uid://cil7lik4h80wy" path="res://assets/HUD/EndResults/HudEndStaticResults.png" id="5_abdc6"]
+[ext_resource type="FontFile" uid="uid://nsywhfovxtus" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-SemiBold.ttf" id="6_d53fr"]
+[ext_resource type="Texture2D" uid="uid://b8kqetcsfyonk" path="res://assets/HUD/EndResults/HudEndStatic.png" id="6_jwt1i"]
+[ext_resource type="Texture2D" uid="uid://dpskk80jgq58" path="res://assets/HUD/Questions/BlackScreen.png" id="8_gbss6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ncbw"]
+atlas = ExtResource("1_njukm")
+region = Rect2(0, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1pqx"]
+atlas = ExtResource("1_njukm")
+region = Rect2(180, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oi3vo"]
+atlas = ExtResource("1_njukm")
+region = Rect2(360, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abdc6"]
+atlas = ExtResource("1_njukm")
+region = Rect2(540, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwt1i"]
+atlas = ExtResource("1_njukm")
+region = Rect2(720, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d53fr"]
+atlas = ExtResource("1_njukm")
+region = Rect2(900, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5a2xp"]
+atlas = ExtResource("1_njukm")
+region = Rect2(1080, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbss6"]
+atlas = ExtResource("1_njukm")
+region = Rect2(1260, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxtl3"]
+atlas = ExtResource("1_njukm")
+region = Rect2(1440, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vf84k"]
+atlas = ExtResource("1_njukm")
+region = Rect2(1620, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gjik"]
+atlas = ExtResource("2_2ncbw")
+region = Rect2(0, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abx5m"]
+atlas = ExtResource("2_2ncbw")
+region = Rect2(180, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omqj2"]
+atlas = ExtResource("2_2ncbw")
+region = Rect2(360, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylng4"]
+atlas = ExtResource("2_2ncbw")
+region = Rect2(540, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j23vv"]
+atlas = ExtResource("2_2ncbw")
+region = Rect2(720, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1uku"]
+atlas = ExtResource("2_2ncbw")
+region = Rect2(1080, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qy7h"]
+atlas = ExtResource("2_2ncbw")
+region = Rect2(1260, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm7qx"]
+atlas = ExtResource("2_2ncbw")
+region = Rect2(1440, 0, 180, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j53rt"]
+atlas = ExtResource("2_2ncbw")
+region = Rect2(1620, 0, 180, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ncbw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1pqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oi3vo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abdc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwt1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d53fr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5a2xp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbss6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxtl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vf84k")
+}],
+"loop": 0,
+"name": &"EndTransition",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gjik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abx5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omqj2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylng4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j23vv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1uku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qy7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vm7qx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j53rt")
+}],
+"loop": 0,
+"name": &"ResultsTransition",
+"speed": 40.0
+}]
+
+[node name="EndResultsHud" type="Control" unique_id=95842773]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5a2xp")
+
+[node name="EndResultsHullTransition" type="AnimatedSprite2D" parent="." unique_id=446854060]
+visible = false
+position = Vector2(90, 160)
+sprite_frames = SubResource("SpriteFrames_bhunq")
+animation = &"EndTransition"
+
+[node name="HudEndStaticResults" type="Sprite2D" parent="." unique_id=1824690350]
+position = Vector2(90, 160)
+texture = ExtResource("5_abdc6")
+
+[node name="LeaveButton" type="TextureButton" parent="HudEndStaticResults" unique_id=2101637808]
+offset_left = -21.0
+offset_top = 101.0
+offset_right = 67.0
+offset_bottom = 131.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_oi3vo")
+
+[node name="ButtonText" type="Label" parent="HudEndStaticResults/LeaveButton" unique_id=1079400819]
+layout_mode = 0
+offset_left = -7.0
+offset_top = -9.0
+offset_right = 100.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_abdc6")
+theme_override_font_sizes/font_size = 15
+text = "Sair"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExportResultsButton" type="TextureButton" parent="HudEndStaticResults" unique_id=804099184]
+offset_left = -40.0
+offset_top = 120.0
+offset_right = 48.0
+offset_bottom = 150.0
+texture_normal = ExtResource("3_oi3vo")
+
+[node name="ButtonStatus" type="Label" parent="HudEndStaticResults/ExportResultsButton" unique_id=1469468603]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -11.0
+offset_right = 98.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_constants/line_spacing = -3
+theme_override_fonts/font = ExtResource("4_abdc6")
+theme_override_font_sizes/font_size = 10
+text = "Exportar
+Resultados"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HudEndStaticResults" unique_id=2120796399]
+z_index = -1
+offset_left = -77.0
+offset_top = -117.0
+offset_right = 75.0
+offset_bottom = 95.0
+
+[node name="gameResults" type="Label" parent="HudEndStaticResults/ScrollContainer" unique_id=783349827]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.70980394, 0, 1)
+theme_override_fonts/font = ExtResource("6_d53fr")
+theme_override_font_sizes/font_size = 10
+text = "username 1
+Saiu de orbita!
+Foi até a exosfera!
+Concluiu com 6 vidas!
+Sua altitude máxima foi 750!
+Pontuou 1200 pontos!
+Teve cinco colisões!
+Acertou 5 perguntas!
+Errou 0 perguntas!"
+
+[node name="BlackScreen" type="Sprite2D" parent="HudEndStaticResults" unique_id=1499225533]
+z_index = -2
+position = Vector2(0, 1)
+texture = ExtResource("8_gbss6")
+
+[node name="HudEndStatic" type="Sprite2D" parent="." unique_id=1268483016]
+visible = false
+position = Vector2(90, 160)
+texture = ExtResource("6_jwt1i")
+
+[node name="ContinueButton" type="TextureButton" parent="HudEndStatic" unique_id=1822024882]
+offset_left = -48.0
+offset_top = -79.0
+offset_right = 40.0
+offset_bottom = -49.0
+texture_normal = ExtResource("3_oi3vo")
+
+[node name="ButtonStatus" type="Label" parent="HudEndStatic/ContinueButton" unique_id=1994354370]
+layout_mode = 0
+offset_left = -7.0
+offset_top = -9.0
+offset_right = 100.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("4_abdc6")
+theme_override_font_sizes/font_size = 15
+text = "Continuar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndingStatus" type="Label" parent="HudEndStatic" unique_id=1439895151]
+z_index = -1
+offset_left = -29.0
+offset_top = -152.0
+offset_right = 78.0
+offset_bottom = -103.0
+theme_override_fonts/font = ExtResource("4_abdc6")
+theme_override_font_sizes/font_size = 15
+text = "Você
+Saiu de orbita!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlackScreen" type="Sprite2D" parent="HudEndStatic" unique_id=1907583532]
+z_index = -2
+position = Vector2(0, 1)
+texture = ExtResource("8_gbss6")

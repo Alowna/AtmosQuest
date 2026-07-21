@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://5eorpnqta7ev" path="res://assets/HUD/ShipHud/HullLights/HUDLightsAlpha-Sheet.png" id="7_u5sy4"]
 [ext_resource type="FontFile" uid="uid://bh4na30hkhckp" path="res://assets/fonts/Doto,Pixelify_Sans/Doto/static/Doto_Rounded-Black.ttf" id="10_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://bce0ch5epcbx3" path="res://scenes/HUD/MainMenu/question.tscn" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://bsgnoqu8uspeg" path="res://scenes/HUD/end_results_hud.tscn" id="12_dinhu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(480, 24)
@@ -176,4 +177,7 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="Question" parent="CanvasLayer" unique_id=165715929 instance=ExtResource("10_vtaks")]
+visible = false
+
+[node name="EndResultsHud" parent="CanvasLayer" unique_id=95842773 instance=ExtResource("12_dinhu")]
 visible = false
