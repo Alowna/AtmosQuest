@@ -8,14 +8,12 @@ class_name PlayerShip
 # Stores the previous altitude to calculate speed.
 var last_altitude_km = 0.0
 
-# Current ship speed in kilometers per second.
-var speed_kms = 0.0
 
 
 # UI labels shown during gameplay.
 @export var altitude_label = Label
 @export var atmosphere_label = Label
-@export var speed_label = Label
+@export var lives_label = Label
 
 
 # Current altitude in kilometers.
@@ -127,15 +125,8 @@ func _process(delta):
 	var altitude_difference = altitude_km - last_altitude_km
 
 
-	# Converte km/frame para km/h
-	speed_kms = altitude_difference / delta
 
-
-	# Evita valores negativos quando a nave gira ou desce
-	speed_kms = max(speed_kms, 0)
-
-
-	speed_label.text = format_speed(speed_kms)
+	lives_label.text = str(PlayerConfig.lives) + " Vidas"
 
 
 	last_altitude_km = altitude_km
@@ -157,19 +148,6 @@ func _process(delta):
 		atmosphere_label.text = "Exosfera"
 		PlayerConfig.atmosLayer = 4
 	
-func get_speed_from_altitude(altitude):
-	if altitude < 12:
-		# Inside the troposphere: keep the initial speed
-		return 60
-	
-	elif altitude < 50:
-		# Gradual acceleration through the stratosphere
-		return lerp(60.0, 130.0, (altitude - 12.0) / (50.0 - 12.0))
-	
-	else:
-		# Continuous acceleration afterwards
-		return lerp(130.0, 200.0, clamp((altitude - 50.0) / (700.0 - 50.0), 0.0, 1.0))
-	
 	
 func get_altitude():
 	var ship_y = -position.y
@@ -185,22 +163,6 @@ func get_altitude():
 	else:
 		return lerp(700.0, 190000.0, (ship_y - 6996.0) / (9989.0 - 6996.0))
 
-func format_speed(speed_kms):
-	speed_kms = snapped(speed_kms, 0.1)
-
-	if speed_kms < 1:
-		return str(int(speed_kms * 1000)) + " m/s"
-	
-	elif speed_kms < 1000:
-		return str(speed_kms).trim_suffix(".0") + " km/s"
-	
-	elif speed_kms < 299792:
-		var mm_s = snapped(speed_kms / 1000.0, 0.1)
-		return str(mm_s).trim_suffix(".0") + " Mm/s"
-	
-	else:
-		var light_speed = speed_kms / 299792.458
-		return str(snapped(light_speed * 100.0, 0.1)).trim_suffix(".0") + "%c"
 
 func format_altitude(altitude):
 	if altitude < 1000:
