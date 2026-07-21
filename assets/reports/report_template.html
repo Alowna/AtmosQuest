@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Game Report</title>
+    
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #0a0a0a; /* Fundo super escuro */
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px 20px;
+        }
+
+        .report-card {
+            max-width: 900px;
+            margin: auto;
+            background-color: #141414; /* Fundo do card ligeiramente mais claro que o body */
+            border: 1px solid #8b0000; /* Borda vermelho escuro */
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 0 25px rgba(220, 53, 69, 0.15); /* Brilho vermelho sutil */
+        }
+
+        h1, h2, h3, h4 {
+            color: #dc3545; /* Vermelho Bootstrap (Danger) */
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            margin-top: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        h1 { border-bottom: 2px solid #dc3545; }
+        h4 { color: #f8f9fa; border-bottom: none; text-transform: none; font-size: 1.2rem; }
+
+        .field-row {
+            background-color: #1f1f1f;
+            border-left: 4px solid #dc3545;
+            padding: 12px 20px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .field-row:hover {
+            background-color: #292929;
+        }
+
+        .label {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .value {
+            color: #ff6b6b; /* Vermelho claro para destaque de valores */
+            font-weight: bold;
+        }
+
+        .list-container {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px 30px;
+        }
+
+        ul {
+            list-style-type: square;
+            margin-bottom: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        /* Classes usadas pelo GDScript para injetar as cores nas respostas */
+        .success {
+            color: #198754; /* Verde Bootstrap para acertos */
+            font-weight: bold;
+        }
+
+        .danger {
+            color: #dc3545; /* Vermelho Bootstrap para erros */
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="report-card">
+
+            <!-- Header com Logo -->
+            <div class="d-flex justify-content-center mb-5">
+                <img src="https://i.imgur.com/jEbZJPT.png" alt="Atmos Quest Logo" class="img-fluid" style="max-height: 120px;">
+            </div>
+
+            <h1 class="text-center mb-5">Game Report</h1>
+
+            <div class="alert alert-dark border-danger text-center mb-5" role="alert">
+                <h2 class="border-0 mb-0 mt-0 text-white" style="text-transform: none;">Olá! <span class="text-danger">{{username}}</span>, segue seu relatório da partida em AtmosQuest!</h2>
+            </div>
+
+            <!-- Seção 1: Jogador -->
+            <div class="section-block">
+                <h3>Informações do Jogador</h3>
+                
+                <div class="d-flex justify-content-between align-items-center field-row">
+                    <span class="label">{{isAlive}}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center field-row">
+                    <span class="label">Completou com {{lives}} vidas</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center field-row">
+                    <span class="label">Colidiu com {{colisionDeathObject}}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center field-row">
+                    <span class="label">Fez <span class="value">{{points}}</span> pontos!</span>
+                </div>
+            </div>
+
+            <!-- Seção 2: Voo -->
+            <div class="section-block">
+                <h3>Informações de Voo</h3>
+                
+                <div class="d-flex justify-content-between align-items-center field-row">
+                    <span class="label">Altitude máxima alcançada</span>
+                    <span class="value">{{maxAltitude}} km</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center field-row">
+                    <span class="label">Chegou na camada: <span class="text-light">{{atmosLayer}}</span></span>
+                </div>
+            </div>
+
+            <!-- Seção 3: Questões -->
+            <div class="section-block">
+                <h3>Desempenho nas Questões</h3>
+                
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="field-row text-center border-success bg-dark text-success">
+                            <span class="d-block h3 mb-0">{{correctAnswers}}</span>
+                            <small class="text-uppercase fw-bold">Acertos</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="field-row text-center border-danger bg-dark text-danger">
+                            <span class="d-block h3 mb-0">{{wrongAnswers}}</span>
+                            <small class="text-uppercase fw-bold">Erros</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="field-row text-center border-secondary bg-dark text-light">
+                            <span class="d-block h3 mb-0">{{totalQuestions}}</span>
+                            <small class="text-uppercase fw-bold">Total</small>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Análise das Respostas Corretas</h4>
+                <div class="list-container mb-4">
+                    <ul>
+                        {{correctAnswersList}}
+                    </ul>
+                </div>
+
+                <h4>Análise das Respostas Erradas</h4>
+                <div class="list-container">
+                    <ul>
+                        {{wrongAnswersList}}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Seção 4: Sumário -->
+            <div class="section-block mt-5">
+                <h3>Sumário</h3>
+                
+                <div class="d-flex justify-content-between align-items-center field-row border-0 bg-danger text-white">
+                    <span class="label h5 mb-0">Resultado Final</span>
+                    <span class="fw-bold h5 mb-0">{{result}}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    
+</body>
+</html>
