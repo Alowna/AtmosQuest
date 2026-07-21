@@ -32,15 +32,11 @@ func load_question() -> void:
 
 	else:
 		Statement.text = "All questions answered for this layer!"
-		AnswerA.disabled = true
-		AnswerB.disabled = true
-		AnswerC.disabled = true
-		AnswerD.disabled = true
 		close_popup()
 
 func getRandomQuestion(layer_id: int) -> Dictionary:
 	var available_questions: Array = []
-	
+	print("Atualmente na layer: ", PlayerConfig.atmosLayer)
 	# Fetch from PlayerConfig instead of a local variable
 	for q in PlayerConfig.all_questions:
 		if q.layer_id == layer_id and not (q.id in PlayerConfig.answeredQuestions):
