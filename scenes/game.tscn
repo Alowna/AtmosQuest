@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ctnekyphahaeh" path="res://assets/HUD/ShipHud/Hull/HUDAlpha.png" id="5_p57ef"]
 [ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="7_gee14"]
 [ext_resource type="Texture2D" uid="uid://5eorpnqta7ev" path="res://assets/HUD/ShipHud/HullLights/HUDLightsAlpha-Sheet.png" id="7_u5sy4"]
+[ext_resource type="FontFile" uid="uid://bh4na30hkhckp" path="res://assets/fonts/Doto,Pixelify_Sans/Doto/static/Doto_Rounded-Black.ttf" id="10_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://bce0ch5epcbx3" path="res://scenes/HUD/MainMenu/question.tscn" id="10_vtaks"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
@@ -90,11 +91,11 @@ animations = [{
 position = Vector2(337, 205)
 script = ExtResource("1_0tnpc")
 
-[node name="PlayerShip" parent="." unique_id=535543817 node_paths=PackedStringArray("altitude_label", "atmosphere_label", "speed_label") instance=ExtResource("2_iywne")]
+[node name="PlayerShip" parent="." unique_id=535543817 node_paths=PackedStringArray("altitude_label", "atmosphere_label", "lives_label") instance=ExtResource("2_iywne")]
 position = Vector2(0, -20)
 altitude_label = NodePath("../CanvasLayer/Hull/AltitudeLabel")
 atmosphere_label = NodePath("../CanvasLayer/Hull/AtmosphereLabel")
-speed_label = NodePath("../CanvasLayer/Hull/SpeedLabel")
+lives_label = NodePath("../CanvasLayer/Hull/LivesLabel")
 
 [node name="LandingFloor" type="StaticBody2D" parent="." unique_id=1930167788]
 position = Vector2(-247, 39)
@@ -134,13 +135,13 @@ speed_scale = 3.0
 [node name="AltitudeLabel" type="Label" parent="CanvasLayer/Hull" unique_id=787293636]
 z_index = 2
 offset_left = 19.0
-offset_top = 6.0
+offset_top = 13.0
 offset_right = 49.0
-offset_bottom = 29.0
+offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_iywne")
-theme_override_font_sizes/font_size = 5
-text = "2 km"
+theme_override_font_sizes/font_size = 8
+text = "700 km"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
@@ -159,18 +160,20 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="SpeedLabel" type="Label" parent="CanvasLayer/Hull" unique_id=715476763]
+[node name="LivesLabel" type="Label" parent="CanvasLayer/Hull" unique_id=715476763]
 z_index = 2
 offset_left = 19.0
-offset_top = 21.0
+offset_top = 28.0
 offset_right = 49.0
-offset_bottom = 44.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_iywne")
-theme_override_font_sizes/font_size = 5
-text = "2km/s"
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0, 0, 0, 0.47058824)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("10_kvpfn")
+theme_override_font_sizes/font_size = 7
+text = "6 vidas"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
 [node name="Question" parent="CanvasLayer" unique_id=165715929 instance=ExtResource("10_vtaks")]
+visible = false
