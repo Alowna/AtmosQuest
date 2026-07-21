@@ -2,10 +2,10 @@ extends Node2D
 class_name DetachablePart
 
 # How strongly the part is pushed away when detached.
-@export var separation_force := 10.0
+@export var separation_force := 2.0
 
 # Rotation speed after separation.
-@export var spin_speed := 2.0
+@export var spin_speed := 0.0
 
 # Downward falling speed.
 @export var fall_speed := 10.0
