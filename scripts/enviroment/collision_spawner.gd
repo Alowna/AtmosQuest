@@ -41,7 +41,4 @@ func spawn_obstacle():
 		)
 		obstacle.setup(Vector2.LEFT, player)
 	
-
-	print("Player:", player.global_position)
-	print("Obstacle:", obstacle.global_position)
 	print("Spawned " + obstacle.name)

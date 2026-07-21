@@ -11,7 +11,13 @@ extends Node2D
 var current_question: Dictionary = {}
 signal question_finished
 
-
+func _ready() -> void:
+		# Connect button signals via code and bind a String parameter to identify them
+		AnswerA.pressed.connect(_on_answer_button_pressed.bind("A"))
+		AnswerB.pressed.connect(_on_answer_button_pressed.bind("B"))
+		AnswerC.pressed.connect(_on_answer_button_pressed.bind("C"))
+		AnswerD.pressed.connect(_on_answer_button_pressed.bind("D"))
+		
 func load_question() -> void:
 	# Fetch a random question from the Autoload memory
 	current_question = getRandomQuestion(PlayerConfig.atmosLayer)
@@ -23,11 +29,7 @@ func load_question() -> void:
 		AnswerC.text = current_question.answer_c
 		AnswerD.text = current_question.answer_d
 		
-		# Connect button signals via code and bind a String parameter to identify them
-		AnswerA.pressed.connect(_on_answer_button_pressed.bind("A"))
-		AnswerB.pressed.connect(_on_answer_button_pressed.bind("B"))
-		AnswerC.pressed.connect(_on_answer_button_pressed.bind("C"))
-		AnswerD.pressed.connect(_on_answer_button_pressed.bind("D"))
+
 	else:
 		Statement.text = "All questions answered for this layer!"
 		AnswerA.disabled = true
@@ -61,6 +63,7 @@ func _on_answer_button_pressed(selected_option: String) -> void:
 		close_popup()
 	else:
 		print("Wrong Answer!")
+		PlayerConfig.answeredQuestions.append(current_question.id)
 		PlayerConfig.wrongAnswer()
 		# Add code here to punish the player (lose HP, retry, etc.)
 		close_popup()
@@ -69,6 +72,9 @@ func close_popup() -> void:
 	
 	await QuestionControl.popout()
 	question_finished.emit()
+	print("Perguntas Corretas: ", PlayerConfig.correctAnswers)
+	print("Perguntas Erradas: ", PlayerConfig.wrongAnswers)
+	print("Perguntas Respondidas: ", PlayerConfig.answeredQuestions)
 	# Add animation or sound before freeing if you want
 	
 	

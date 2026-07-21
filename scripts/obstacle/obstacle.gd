@@ -54,7 +54,7 @@ func _physics_process(_delta):
 			get_tree().paused = true
 			
 			var question_manager = get_tree().current_scene.get_node("CanvasLayer/Question/QuestionScreen/QuestionManager")
-			print(question_manager)
+			
 			var question = get_tree().current_scene.get_node("CanvasLayer/Question")
 			if is_instance_valid(question_manager):
 				question_manager.question_finished.connect(_on_question_finished)
