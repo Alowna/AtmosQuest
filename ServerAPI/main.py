@@ -214,6 +214,7 @@ class gamePlayer(BaseModel):
     shipSkin: int
     pilotSkin: int
     # Current game state flags
+    deathStateSent: bool = False
     atmosLayer: int
     isAlive: bool
     finished: bool
@@ -336,6 +337,7 @@ class GameAction(BaseModel):
     # Allowed action types
     action: Literal["altitude", "question_result", "finish"]
     # Used when action == "altitude"
+    isAlive: bool | None = None
     altitude: int | None = None
     atmosLayer: int | None = None
     # Used when action == "question_result"
@@ -368,16 +370,22 @@ def gameAction(action: GameAction):
         
     # Prevent dead players from interacting with the game state
     if not player.isAlive:
-        raise HTTPException(
-            status_code=400,
-            detail="Player is already dead."
-        )
+        if not player.deathStateSent:
+
+            player.deathStateSent = True
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail="Player is already dead."
+            )
         
     # Process: Altitude update
     if action.action == "altitude":
         player.altitude = action.altitude
         # Track the highest altitude reached
         player.atmosLayer = action.atmosLayer
+        player.isAlive = action.isAlive
+        
         if action.altitude > player.maxAltitude:
             player.maxAltitude = action.altitude
         return {"success": True}
@@ -409,6 +417,7 @@ def gameAction(action: GameAction):
             if player.lives <= 0:
                 player.lives = 0
                 player.isAlive = False
+                player.deathStateSent = False
                 player.collisionDeathObject = action.collisionObject or "unknown"
                 # Broadcast death event
                 game.events.append(

@@ -4,8 +4,8 @@ extends Node2D
 @onready var local_player = $PlayerShip
 
 # Rival ship slots already placed in the scene.
-@onready var rival_1: PlayerShip = $RivalShip1
-@onready var rival_2: PlayerShip = $RivalShip2
+@onready var rival_1: Ship = $RivalShip1
+@onready var rival_2: Ship = $RivalShip2
 
 
 # How often the game polls the server.
@@ -75,7 +75,8 @@ func _send_local_altitude():
 		"action": "altitude",
 		"atmosLayer": PlayerConfig.atmosLayer,
 		# Send altitude in kilometers.
-		"altitude": int(PlayerConfig.altitude)
+		"altitude": int(PlayerConfig.altitude),
+		"isAlive": PlayerConfig.isAlive
 	}
 
 	# Create a temporary request.
@@ -185,6 +186,8 @@ func _assign_closest_lobby_rivals():
 # Keeps rivals aligned with the local player's height.
 # ==================================================
 
+var death_rise_speed := 500.0
+
 func _update_rival_positions():
 
 	for r_id in id_to_rival_node:
@@ -192,5 +195,16 @@ func _update_rival_positions():
 		var rival_node = id_to_rival_node[r_id]
 
 		if is_instance_valid(rival_node):
+			#if player dies rival advance
+			if not PlayerConfig.isAlive:
 
-			rival_node.global_position.y = local_player.global_position.y
+				rival_node.global_position.y = move_toward(
+					rival_node.global_position.y,
+					rival_node.global_position.y - 1000,
+					death_rise_speed * get_process_delta_time()
+				)
+
+			else:
+
+				# Mantém alinhado com o jogador local
+				rival_node.global_position.y = local_player.global_position.y

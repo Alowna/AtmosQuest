@@ -1,9 +1,10 @@
-extends PlayerShip
+extends Ship
 
 # ID of the player represented by this rival ship.
 @export var remote_player_id: int
 
 var remoteCurrentAtmosLayer = -1
+
 
 # Maps each detachable part node
 # to its corresponding ship skin key.
@@ -23,10 +24,7 @@ func _ready():
 	left_wing = null
 	coffer = null
 
-	# Disable UI references inherited from the local player.
-	altitude_label = null
-	lives_label = null
-	atmosphere_label = null
+
 
 	# Reassign the detachable parts.
 	if has_node("Propeller"):
@@ -84,7 +82,7 @@ func _sync_with_server_state():
 		return
 
 	# Ignore players that are no longer alive.
-	if not player_data["isAlive"]:
+	if not kaboom_done and not player_data["isAlive"]:
 		kaboom()
 
 	# Synchronize stage separation
@@ -214,3 +212,27 @@ func detach_remote_part(part_name: String):
 	else:
 
 		push_error("Invalid remote detach request: " + part_name)
+
+func kaboom():
+	#make kaboom only once
+	kaboom_done = true
+	#detach true means kaboom
+	if not propeller_detached:
+		propeller.detach(true)
+	if not right_wing_detached:
+		right_wing.detach(true)
+	if not left_wing_detached:
+		left_wing.detach(true)
+	if not coffer_detached:
+		coffer.detach(true)
+	Pilot.visible = false
+	ShipFinal.visible = false
+	Fire.visible = false
+	
+	ShipDeath.visible = true
+
+	AudioManager.play_game_sound("explosion")
+
+	ShipDeath.play("Kaboom")
+	await ShipDeath.animation_finished
+	ShipDeath.visible = false
