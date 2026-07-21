@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btst3wt15hn02"
-path="res://.godot/imported/QuestionPop-Sheet.png-8d12106f049586423857406a45a2023a.ctex"
+uid="uid://87ugkcw465gk"
+path="res://.godot/imported/QuestionPopFinal-Sheet.png-6bc8529b0148301d43cb061b1b3eb715.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HUD/Questions/QuestionPop-Sheet.png"
-dest_files=["res://.godot/imported/QuestionPop-Sheet.png-8d12106f049586423857406a45a2023a.ctex"]
+source_file="res://assets/HUD/Questions/QuestionPopFinal-Sheet.png"
+dest_files=["res://.godot/imported/QuestionPopFinal-Sheet.png-6bc8529b0148301d43cb061b1b3eb715.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b07e1fve42q2n"
-path="res://.godot/imported/QuestionPopOut-Sheet.png-2f0333c8842ae33a920b26f16df9f387.ctex"
+uid="uid://dpskk80jgq58"
+path="res://.godot/imported/BlackScreen.png-993375a7217edcac112b984f9fece9e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HUD/Questions/QuestionPopOut-Sheet.png"
-dest_files=["res://.godot/imported/QuestionPopOut-Sheet.png-2f0333c8842ae33a920b26f16df9f387.ctex"]
+source_file="res://assets/HUD/Questions/BlackScreen.png"
+dest_files=["res://.godot/imported/BlackScreen.png-993375a7217edcac112b984f9fece9e1.ctex"]
 
 [params]
 
