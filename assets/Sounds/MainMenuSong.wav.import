@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://7lms56sgdnwr"
-path="res://.godot/imported/MainMenuSong.wav-f3cefd63f9f2870d0ba26097bc6804ae.sample"
+path="res://.godot/imported/MainMenuSong.wav-6a0795eeffb8b806511808050cb6366d.sample"
 
 [deps]
 
-source_file="res://assets/HUD/MainMenu/Sounds/MainMenuSong.wav"
-dest_files=["res://.godot/imported/MainMenuSong.wav-f3cefd63f9f2870d0ba26097bc6804ae.sample"]
+source_file="res://assets/Sounds/MainMenuSong.wav"
+dest_files=["res://.godot/imported/MainMenuSong.wav-6a0795eeffb8b806511808050cb6366d.sample"]
 
 [params]
 
