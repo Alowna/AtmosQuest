@@ -239,7 +239,7 @@ class Game(BaseModel):
     # List of players actively playing
     players: list[gamePlayer] = Field(default_factory=list)
     # Event queue for clients to fetch and display messages
-    events: list[GameEvent] = Field(default_factory=list)
+    events: list = Field(default_factory=list) # Assumindo que GameEvent está definido em outro lugar
     # Counter to assign unique incremental IDs to events
     nextEventId: int = 1
     # Global game status
@@ -249,13 +249,13 @@ class Game(BaseModel):
 # ACTIVE GAMES STORAGE
 #######################################################
 games: list[Game] = []
+Players = [] # Assumindo que existe globalmente
+Lobbies = [] # Assumindo que existe globalmente
 
 #######################################################
 # CREATE GAME FROM LOBBY
 #######################################################
 
-# Route: Transitions a lobby into an active game
-# Processing: Validates the lobby, initializes game state for all players, and cleans up the pre-game lobby data.
 @app.post("/create_game")
 def createGame(lobbyKey: str):
     # Avoid duplicate game creation for the same key
@@ -283,7 +283,7 @@ def createGame(lobbyKey: str):
                     shipSkin=player.shipSkin,
                     pilotSkin=player.pilotSkin,
                     # Initial state
-                    atmosLayer = 0,
+                    atmosLayer=0,
                     isAlive=True,
                     finished=False,
                     lives=6,
@@ -295,7 +295,7 @@ def createGame(lobbyKey: str):
                     correctAnswers=0,
                     wrongAnswers=0,
                     # Death information
-                    collisionDeathObject="none"
+                    collisionDeathObject="Unknown" # Padronizado
                 )
                 game.players.append(game_player)
                 
@@ -314,8 +314,6 @@ def createGame(lobbyKey: str):
         detail="Lobby not found."
     )
 
-# Route: Removes a player completely from the server
-# Processing: Finds the player by ID in the global list and deletes them.
 @app.post("/leave_server")
 def leave_server(id: int):
     for player in Players:
@@ -325,12 +323,10 @@ def leave_server(id: int):
     return {"success": False, "message": "Player not found"}
 
 
-
 #######################################################
 # CLIENT ACTION MODEL
 #######################################################
 
-# Represents actions sent by the client (Godot) for the server to process
 class GameAction(BaseModel):
     gameKey: str
     playerId: int
@@ -340,54 +336,67 @@ class GameAction(BaseModel):
     isAlive: bool | None = None
     altitude: int | None = None
     atmosLayer: int | None = None
-    # Used when action == "question_result"
+    # Used when action == "question_result" AND "altitude" (para registrar colisões em objetos)
     collisionObject: str | None = None
     correctAnswer: bool | None = None
+
+    lives: int | None = None
+    points: int | None = None
+    collisions: int | None = None
+    correctAnswers: int | None = None
+    wrongAnswers: int | None = None
 
 #######################################################
 # UPDATE GAME STATE
 #######################################################
 
-# Route: Processes in-game events triggered by players
-# Processing: Validates game and player, then routes logic based on the action type (altitude change, answering questions, or finishing).
 @app.post("/game_action")
 def gameAction(action: GameAction):
     # Locate the active game
     game = next((g for g in games if g.key == action.gameKey), None)
     if game is None:
-        raise HTTPException(
-            status_code=404,
-            detail="Game not found."
-        )
+        raise HTTPException(status_code=404, detail="Game not found.")
         
     # Locate the target player within the game
     player = next((p for p in game.players if p.id == action.playerId), None)
     if player is None:
-        raise HTTPException(
-            status_code=404,
-            detail="Player not found."
-        )
+        raise HTTPException(status_code=404, detail="Player not found.")
         
-    # Prevent dead players from interacting with the game state
+    # Prevent dead players from continuously altering the game state
+    # MUDANÇA: Retorna success suave em vez de crashar a requisição HTTP
     if not player.isAlive:
         if not player.deathStateSent:
-
             player.deathStateSent = True
         else:
-            raise HTTPException(
-                status_code=400,
-                detail="Player is already dead."
-            )
+            return {"success": False, "message": "Player is already dead, action ignored."}
         
     # Process: Altitude update
     if action.action == "altitude":
-        player.altitude = action.altitude
-        # Track the highest altitude reached
-        player.atmosLayer = action.atmosLayer
-        player.isAlive = action.isAlive
-        
-        if action.altitude > player.maxAltitude:
-            player.maxAltitude = action.altitude
+        # Validações seguras contra valores nulos antes de atualizar
+        if action.altitude is not None:
+            player.altitude = action.altitude
+            # Só atualiza a maxAltitude se o valor atual for maior
+            if player.altitude > player.maxAltitude:
+                player.maxAltitude = player.altitude
+
+        if action.atmosLayer is not None: player.atmosLayer = action.atmosLayer
+        if action.isAlive is not None: player.isAlive = action.isAlive
+        if action.lives is not None: player.lives = action.lives
+        if action.points is not None: player.points = action.points
+        if action.collisions is not None: player.collisions = action.collisions
+        if action.correctAnswers is not None: player.correctAnswers = action.correctAnswers
+        if action.wrongAnswers is not None: player.wrongAnswers = action.wrongAnswers
+                
+        if action.atmosLayer is not None:
+            player.atmosLayer = action.atmosLayer
+            
+        if action.isAlive is not None:
+            player.isAlive = action.isAlive
+            
+        # MUDANÇA: Se o jogador informou que morreu na atualização de altitude, salva o objeto!
+        if player.isAlive == False and action.collisionObject:
+            player.collisionDeathObject = action.collisionObject
+
         return {"success": True}
         
     # Process: Handling collision/question responses
@@ -398,6 +407,7 @@ def gameAction(action: GameAction):
         if action.correctAnswer:
             player.correctAnswers += 1
             player.points += 100
+            
             # Broadcast score event
             game.events.append(
                 GameEvent(
@@ -418,7 +428,9 @@ def gameAction(action: GameAction):
                 player.lives = 0
                 player.isAlive = False
                 player.deathStateSent = False
-                player.collisionDeathObject = action.collisionObject or "unknown"
+                # Captura o objeto fornecido ou coloca "Unknown"
+                player.collisionDeathObject = action.collisionObject or "Unknown"
+                
                 # Broadcast death event
                 game.events.append(
                     GameEvent(
@@ -454,17 +466,13 @@ def gameAction(action: GameAction):
         game.nextEventId += 1
         return {"success": True}
         
-    raise HTTPException(
-        status_code=400,
-        detail="Invalid action."
-    )
+    raise HTTPException(status_code=400, detail="Invalid action.")
+
 
 #######################################################
 # GET GAME STATE (POLLING)
 #######################################################
 
-# Route: Fetches the live state of an active game
-# Processing: Looks up the game by key; used continuously by clients to synchronize game state.
 @app.get("/get_game_state/{gameKey}")
 def getGameState(gameKey: str):
     game = next((g for g in games if g.key == gameKey), None)
@@ -479,8 +487,6 @@ def getGameState(gameKey: str):
 # END GAME / CLEANUP
 #######################################################
 
-# Route: Deletes a finished game instance from the server
-# Processing: Removes the target game from the active games list to free memory.
 @app.delete("/end_game/{gameKey}")
 def endGame(gameKey: str):
     game_to_delete = next((g for g in games if g.key == gameKey), None)
@@ -489,6 +495,5 @@ def endGame(gameKey: str):
             status_code=404,
             detail="Game not found or already deleted."
         )
-    # Remove game from the active list
     games.remove(game_to_delete)
     return {"success": True, "message": f"Game {gameKey} and all its data were deleted."}
