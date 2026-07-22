@@ -4,8 +4,8 @@ extends Node2D
 @onready var local_player = $PlayerShip
 
 # Rival ship slots already placed in the scene.
-@onready var rival_1: Ship = $RivalShip1
-@onready var rival_2: Ship = $RivalShip2
+@onready var rival_1 = $RivalShip1
+@onready var rival_2 = $RivalShip2
 
 
 # How often the game polls the server.
@@ -22,8 +22,18 @@ var id_to_rival_node: Dictionary = {}
 # HTTP request used for polling.
 var http_request: HTTPRequest
 
+# Node references within CanvasLayer
+@onready var hull_hud = $CanvasLayer/Hull
+@onready var end_result_hud = $CanvasLayer/EndResultsHud
+
+var local_game_ended = false
 
 func _ready():
+	
+	AudioManager.play_music("gameSong")
+	# Set initial visibility states for gameplay
+	hull_hud.visible = true
+	end_result_hud.visible = false
 
 	# Create the polling request.
 	http_request = HTTPRequest.new()
@@ -51,11 +61,15 @@ func _process(delta):
 
 	# Update rival positions every frame.
 	_update_rival_positions()
+	
+	if PlayerConfig.finished and not local_game_ended:
+		local_game_ended = true
+		finish_local_game()
 
 
 # ==================================================
 # NETWORK OUTBOUND
-# Sends the local player's altitude.
+# Sends the local player's complete state to the server.
 # ==================================================
 
 func _send_local_altitude():
@@ -69,14 +83,20 @@ func _send_local_altitude():
 		"Content-Type: application/json"
 	]
 
+	# Payload expandido para sincronizar todos os dados relevantes do PlayerConfig
 	var payload = {
 		"gameKey": CurrentGame.game_key,
 		"playerId": PlayerConfig.online_id,
 		"action": "altitude",
 		"atmosLayer": PlayerConfig.atmosLayer,
-		# Send altitude in kilometers.
 		"altitude": int(PlayerConfig.altitude),
-		"isAlive": PlayerConfig.isAlive
+		"isAlive": PlayerConfig.isAlive,
+		"lives": PlayerConfig.lives,
+		"points": PlayerConfig.points,
+		"collisions": PlayerConfig.collisions,
+		"correctAnswers": PlayerConfig.correctAnswers,
+		"wrongAnswers": PlayerConfig.wrongAnswers,
+		"collisionObject": PlayerConfig.collisionDeathObject
 	}
 
 	# Create a temporary request.
@@ -208,3 +228,48 @@ func _update_rival_positions():
 
 				# Mantém alinhado com o jogador local
 				rival_node.global_position.y = local_player.global_position.y
+
+# ==================================================
+# GAME OVER ROUTINES
+# ==================================================
+
+# Call this method when the local game ends (e.g., player dies or beats stage)
+func finish_local_game() -> void:
+	# Hide gameplay HUD and show end results container
+	hull_hud.visible = false
+	end_result_hud.visible = true
+	
+	# Start the end sequence transition
+	end_result_hud.start_results_sequence()
+	
+	# Notify the server that this player has finished
+	_send_local_finish()
+
+# Sends the final state to unlock the lobby for other players
+func _send_local_finish() -> void:
+	if not CurrentGame.is_active():
+		return
+
+	var url = "http://" + Env.api_base_url + "/game_action"
+	var headers = ["Content-Type: application/json"]
+	
+	var payload = {
+		"gameKey": CurrentGame.game_key,
+		"playerId": PlayerConfig.online_id,
+		"action": "finish"
+	}
+
+	var sender = HTTPRequest.new()
+	add_child(sender)
+
+	sender.request(
+		url,
+		headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(payload)
+	)
+
+	sender.request_completed.connect(
+		func(_a, _b, _c, _d):
+			sender.queue_free()
+	)

@@ -173,6 +173,7 @@ sprite_frames = SubResource("SpriteFrames_bhunq")
 animation = &"EndTransition"
 
 [node name="HudEndStaticResults" type="Sprite2D" parent="." unique_id=1824690350]
+visible = false
 position = Vector2(90, 160)
 texture = ExtResource("5_abdc6")
 
@@ -250,7 +251,6 @@ position = Vector2(0, 1)
 texture = ExtResource("8_gbss6")
 
 [node name="HudEndStatic" type="Sprite2D" parent="." unique_id=1268483016]
-visible = false
 position = Vector2(90, 160)
 texture = ExtResource("6_jwt1i")
 
@@ -263,12 +263,12 @@ texture_normal = ExtResource("3_oi3vo")
 
 [node name="ButtonStatus" type="Label" parent="HudEndStatic/ContinueButton" unique_id=1994354370]
 layout_mode = 0
-offset_left = -7.0
-offset_top = -9.0
-offset_right = 100.0
-offset_bottom = 40.0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 85.0
+offset_bottom = 28.0
 theme_override_fonts/font = ExtResource("4_abdc6")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 8
 text = "Continuar"
 horizontal_alignment = 1
 vertical_alignment = 1

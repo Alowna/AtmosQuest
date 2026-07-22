@@ -6,12 +6,12 @@ extends Node
 
 # Player display name.
 # Used as the player's identity in the lobby and server data.
-var username = "Tester"
+var username = "Jogador(e)"
 
 
 # Online ID assigned by the server.
 # Used to identify this player in API requests.
-var online_id: int = 0
+var online_id: int = -1
 
 ###########
 # IN-GAME #
@@ -100,7 +100,7 @@ func get_pilot_skin_id() -> int:
 # Clear player info, setting everything to default
 func clear() -> void:
 	username = "Jogador(e)"
-	online_id = 0
+	online_id = -1
 	isAlive = true
 	finished = false
 	lives = 6
