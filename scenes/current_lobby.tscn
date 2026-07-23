@@ -306,5 +306,3 @@ pivot_offset = Vector2(0.5, 0.5)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture_normal = ExtResource("12_4hi52")
 script = ExtResource("13_llfnm")
-
-[node name="HTTPRequest" type="HTTPRequest" parent="StartGame" unique_id=1285839604]

@@ -11,8 +11,6 @@ func _ready() -> void:
 	# Creates a pixel-perfect click area based on the button texture transparency.
 	create_click_mask()
 	
-	# Center the pivot for scale animations.
-	pivot_offset = size / 2.0
 
 	# Connect the button press event.
 	pressed.connect(_on_pressed)
