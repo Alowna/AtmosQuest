@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bjwr5jwn67hxu"]
 
-[ext_resource type="AudioStream" uid="uid://7lms56sgdnwr" path="res://assets/Sounds/MainMenuSong.wav" id="1_5tlpq"]
 [ext_resource type="Texture2D" uid="uid://l1a1cofukhjb" path="res://assets/HUD/MainMenu/Online/OnlineLobbiesBaseAlpha.png" id="2_60vl2"]
 [ext_resource type="Texture2D" uid="uid://cwgvu5t47sn1s" path="res://assets/HUD/MainMenu/BackButton.png" id="2_l5cxq"]
 [ext_resource type="Script" uid="uid://dlsyuitk2tb7d" path="res://scripts/HUD/MainMenu/leave_lobbies_button.gd" id="3_ab4iw"]
@@ -12,7 +11,6 @@
 [ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="8_qpndm"]
 [ext_resource type="Script" uid="uid://bgadyx3sv57a3" path="res://scripts/HUD/MainMenu/join_lobby_button.gd" id="10_ttt1w"]
 [ext_resource type="Script" uid="uid://midt3gyukgtq" path="res://scripts/HUD/MainMenu/create_lobby_button.gd" id="11_10wa6"]
-[ext_resource type="AudioStream" uid="uid://dsqeei2c3y1e2" path="res://assets/Sounds/ButtonPressed.wav" id="11_ab4iw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_faayq"]
 atlas = ExtResource("3_l5cxq")
@@ -107,7 +105,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BackButton" parent="." unique_id=1862010026 node_paths=PackedStringArray("click_sound") instance=ExtResource("4_ab4iw")]
+[node name="BackButton" parent="." unique_id=1862010026 instance=ExtResource("4_ab4iw")]
 z_index = 1
 layout_mode = 0
 offset_left = 7.0
@@ -117,13 +115,6 @@ offset_bottom = 22.0
 texture_normal = ExtResource("2_l5cxq")
 script = ExtResource("3_ab4iw")
 target_scene = "uid://wqrdil6xl6vq"
-click_sound = NodePath("../ButtonPressed")
-
-[node name="HTTPRequest" type="HTTPRequest" parent="BackButton" unique_id=1956649395]
-
-[node name="MainMenuSong" type="AudioStreamPlayer" parent="." unique_id=982917369]
-stream = ExtResource("1_5tlpq")
-autoplay = true
 
 [node name="OnlineLobbiesBaseAlpha" type="Sprite2D" parent="." unique_id=647726540]
 position = Vector2(90, 160)
@@ -171,8 +162,6 @@ placeholder_text = "codigo"
 alignment = 1
 max_length = 6
 
-[node name="HTTPRequest" type="HTTPRequest" parent="JoinLobbyButton" unique_id=1686156457]
-
 [node name="CreateLobbyButton" parent="." unique_id=746286591 instance=ExtResource("4_ab4iw")]
 layout_mode = 0
 offset_left = 55.0
@@ -198,8 +187,3 @@ theme_override_font_sizes/font_size = 11
 text = "Criar Sala"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="HTTPRequest" type="HTTPRequest" parent="CreateLobbyButton" unique_id=1842641555]
-
-[node name="ButtonPressed" type="AudioStreamPlayer" parent="." unique_id=2078871703]
-stream = ExtResource("11_ab4iw")

@@ -3,24 +3,22 @@ extends TextureButton
 # Scene loaded after creating the lobby successfully.
 @export_file("*.tscn") var target_scene: String
 
-# Prevents multiple create lobby requests from being sent.
+# Prevents multiple create lobby requests from being sent simultaneously.
 var is_processing_request := false
 
-# HTTP request used to create the lobby.
-@onready var http_request: HTTPRequest = $HTTPRequest
-
+# ==================================================
+# INITIALIZATION
+# ==================================================
 
 func _ready() -> void:
-
 	# Create a pixel-perfect click area.
 	create_click_mask()
 
 	# Center the pivot for scale animations.
 	pivot_offset = size / 2.0
 
-	# Connect button and HTTP request signals.
+	# Connect button signal.
 	pressed.connect(_on_pressed)
-	http_request.request_completed.connect(_on_request_completed)
 
 
 # ==================================================
@@ -29,13 +27,10 @@ func _ready() -> void:
 # ==================================================
 
 func create_click_mask() -> void:
-
 	if texture_normal:
-
 		var bitmap := BitMap.new()
 
-		# Use the texture transparency to define
-		# which pixels can be clicked.
+		# Use the texture transparency to define which pixels can be clicked.
 		bitmap.create_from_image_alpha(texture_normal.get_image())
 
 		# Apply the generated click mask.
@@ -43,12 +38,10 @@ func create_click_mask() -> void:
 
 
 # ==================================================
-# BUTTON PRESS
-# Sends a request to create a new lobby.
+# BUTTON PRESS & NETWORK REQUEST
 # ==================================================
 
 func _on_pressed() -> void:
-
 	# Ignore additional presses while processing.
 	if is_processing_request:
 		return
@@ -58,78 +51,44 @@ func _on_pressed() -> void:
 	# Play the button click sound.
 	AudioManager.play_ui_sound("button")
 
-	# Build the create lobby request.
-	var url := "http://" + Env.api_base_url + "/create_lobby?ownerId=" + str(PlayerConfig.online_id)
-
-	# Send the request to the server.
-	http_request.request(
-		url,
-		["Content-Type: application/json"],
-		HTTPClient.METHOD_POST,
-		""
-	)
-
-	# Play the button press animation.
+	# Play the button press animation immediately.
 	var tween := create_tween()
+	tween.tween_property(self, "scale", Vector2(0.85, 0.85), 0.12)
+	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.15)
 
-	tween.tween_property(
-		self,
-		"scale",
-		Vector2(0.85, 0.85),
-		0.12
-	)
+	# ==================================================
+	# SERVER REQUEST
+	# Send the request to the server via Api autoload.
+	# ==================================================
+	
+	print("Attempting to create a new lobby...")
+	var response_data: Dictionary = await Api.create_lobby(PlayerConfig.online_id)
 
-	tween.tween_property(
-		self,
-		"scale",
-		Vector2(1.0, 1.0),
-		0.15
-	)
+	# Wait until the visual animation finishes before transitioning.
+	if tween.is_running():
+		await tween.finished
 
-	# Wait until the animation finishes.
-	await tween.finished
+	# ==================================================
+	# SERVER RESPONSE HANDLING
+	# ==================================================
 
+	if not response_data.is_empty():
+		print("Successfully created the lobby!")
+		
+		# Map "lobbyPlayers" to "players" so CurrentLobby can parse it correctly
+		if response_data.has("lobbyPlayers"):
+			response_data["players"] = response_data["lobbyPlayers"]
 
-# ==================================================
-# SERVER RESPONSE
-# Handle the result of the create lobby request.
-# ==================================================
+		# Populate the CurrentLobby autoload cleanly using its built-in method.
+		CurrentLobby.update_from_dict(response_data)
+		print("Players in lobby: ", CurrentLobby.players)
 
-func _on_request_completed(
-	_result: int,
-	response_code: int,
-	_headers: PackedStringArray,
-	body: PackedByteArray
-) -> void:
-
-	if response_code == 200:
-
-		var response_data: Dictionary = JSON.parse_string(
-			body.get_string_from_utf8()
-		)
-
-		if response_data:
-
-			# Store the new lobby information.
-			CurrentLobby.lobbyKey = response_data.get("lobbyKey", "")
-			CurrentLobby.owner_id = int(response_data.get("ownerId", 0))
-
-			# Cache the players currently in the lobby.
-			if response_data.has("lobbyPlayers"):
-				CurrentLobby.players = response_data["lobbyPlayers"]
-
-				print("Players in lobby: ", CurrentLobby.players)
-
-			# Enter the lobby scene.
-			if not target_scene.is_empty():
-				get_tree().change_scene_to_file(target_scene)
-
+		# Enter the lobby scene.
+		if not target_scene.is_empty():
+			get_tree().change_scene_to_file(target_scene)
+		else:
+			push_error("CreateLobbyButton: Target scene is not assigned.")
 	else:
-
 		# Allow the player to try again.
 		is_processing_request = false
-
-		push_error(
-			"Failed to create lobby. Server returned status: "
-			+ str(response_code)
-		)
+		push_error("CreateLobbyButton: Failed to execute create sequence.")
