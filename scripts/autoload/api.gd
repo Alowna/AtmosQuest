@@ -3,6 +3,43 @@ extends Node
 # Autoload: Api
 # Handles HTTP requests to the backend API endpoints.
 
+
+# ==================================================
+# HEALTH CHECK / PING
+# Checks if the server is online and reachable.
+# ==================================================
+
+func check_connection() -> bool:
+	var url: String = "http://" + Env.api_base_url + "/health"
+	
+	var http_request = HTTPRequest.new()
+	# Set a short timeout (3 seconds) so it fails quickly if the server is down.
+	http_request.timeout = 3.0
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_GET,
+		""
+	)
+	
+	if error != OK:
+		http_request.queue_free()
+		return false
+	
+	var result = await http_request.request_completed
+	
+	if not is_inside_tree():
+		http_request.queue_free()
+		return false
+		
+	var response_code: int = result[1]
+	http_request.queue_free()
+	
+	# If we receive a 200 OK, the server is alive and reachable.
+	return response_code == 200
+
 func get_game_state(game_key: String) -> Dictionary:
 	var url: String = "http://" + Env.api_base_url + "/get_game_state/" + game_key
 	
@@ -364,3 +401,52 @@ func create_game(lobby_key: String) -> bool:
 	else:
 		push_error("API: Failed to create game. Server returned status: " + str(response_code))
 		return false
+		
+	
+# ==================================================
+# JOIN SERVER ENDPOINT
+# Registers the player on the server and returns their assigned data.
+# ==================================================
+
+func join_server(username: String, ship_skin_id: int, pilot_skin_id: int) -> Dictionary:
+	var url: String = "http://" + Env.api_base_url + "/join_server"
+	
+	var player_data: Dictionary = {
+		"id": 0,
+		"username": username,
+		"shipSkin": ship_skin_id,
+		"pilotSkin": pilot_skin_id
+	}
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		JSON.stringify(player_data)
+	)
+	
+	if error != OK:
+		push_error("API: Join server request initiation failed for " + url)
+		http_request.queue_free()
+		return {}
+	
+	var result = await http_request.request_completed
+	
+	if not is_inside_tree():
+		http_request.queue_free()
+		return {}
+		
+	var response_code: int = result[1]
+	var body: PackedByteArray = result[3]
+	http_request.queue_free()
+	
+	if response_code == 200:
+		var response_data = JSON.parse_string(body.get_string_from_utf8())
+		if typeof(response_data) == TYPE_DICTIONARY:
+			return response_data
+			
+	push_error("API: Failed to join server. Server status: " + str(response_code))
+	return {}

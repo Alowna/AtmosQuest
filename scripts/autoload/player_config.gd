@@ -142,32 +142,96 @@ func wrongAnswer() -> void:
 	if lives < 1:
 		isAlive = false
 	
-#PLAYER WINDOW EXIT
+# ==================================================
+# GLOBAL NETWORK MONITOR (HEARTBEAT)
+# ==================================================
 
-# Intercepts window exit requests (Alt+F4, Window Close Button)
+var connected: bool = false
+var is_checking_health: bool = false
+
+var health_timer: float = 0.0
+var health_interval: float = 3.0 # Check server status every 3 seconds
+
+# Absolute path to your Main Menu scene. Update this string to match your project structure!
+const MAIN_MENU_PATH: String = "res://scenes/main_menu.tscn"
+
+
+func _process(delta: float) -> void:
+	# Global polling loop to continuously verify connection state.
+	if not is_checking_health:
+		health_timer += delta
+		if health_timer >= health_interval:
+			health_timer = 0.0
+			_check_global_connection()
+
+
+func _check_global_connection() -> void:
+	is_checking_health = true
+	
+	# Ping the backend via Api Autoload
+	var currently_online: bool = await Api.check_connection()
+	
+	is_checking_health = false
+	
+	# SCENARIO 1: Server was online and suddenly crashed/disconnected
+	if not currently_online and connected:
+		connected = false
+		_handle_server_crash()
+		
+	# SCENARIO 2: Connection was established or recovered
+	elif currently_online and not connected:
+		connected = true
+		print("PlayerConfig: Connection established successfully!")
+
+
+# Executes globally whenever the server crashes or connection is lost
+func _handle_server_crash() -> void:
+	push_warning("PlayerConfig: Server connection lost! Forcing disconnect.")
+	
+	# 1. Clear session and game data from all Autoloads
+	clear()
+	CurrentLobby.clear()
+	# CurrentGame.clear() # Add if your project implements a CurrentGame autoload
+	
+	# 2. Check if the active scene is already the Main Menu.
+	# Prevents infinite scene reload loops while idling in the Main Menu.
+	var current_scene = get_tree().current_scene
+	if current_scene and current_scene.name != "MainMenu":
+		print("PlayerConfig: Ejecting player to Main Menu.")
+		get_tree().change_scene_to_file(MAIN_MENU_PATH)
+
+
+# ==================================================
+# SYSTEM NOTIFICATIONS (APP EXIT HANDLING)
+# ==================================================
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		_handle_application_quit()
 
 
-# Sends graceful exit requests to the API before terminating the application process.
 func _handle_application_quit() -> void:
-	# Prevent Godot from closing the window immediately until network cleanup completes
+	# Prevent Godot from terminating immediately before sending API requests
 	get_tree().auto_accept_quit = false
 	
-	# Priority 1: Player is inside an active match
-	if CurrentGame.is_active() and online_id != 0:
+	# Fast-path for offline / singleplayer mode
+	if online_id == 0 or not connected:
+		get_tree().quit()
+		return
+		
+	# Safety net kill switch: Force close after 1.5s if network stalls
+	get_tree().create_timer(1.5).timeout.connect(
+		func(): get_tree().quit()
+	)
+	
+	# Graceful network cleanup order
+	if CurrentGame.is_active():
 		await Api.leave_game(CurrentGame.game_key, online_id)
 		await Api.leave_server(online_id)
-		
-	# Priority 2: Player is in a lobby room
-	elif not CurrentLobby.lobbyKey.is_empty() and online_id != 0:
+	elif not CurrentLobby.lobbyKey.is_empty():
 		await Api.leave_lobby(CurrentLobby.lobbyKey, online_id)
 		await Api.leave_server(online_id)
-		
-	# Priority 3: Player is registered on the server but not in a room/game
-	elif online_id != 0:
+	else:
 		await Api.leave_server(online_id)
 		
-	# Now that network requests are completed, close the game safely
 	get_tree().quit()

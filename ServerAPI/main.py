@@ -8,6 +8,19 @@ import string
 
 app = FastAPI()
 
+
+
+
+#######################################################
+# HEALTH CHECK / PING ENDPOINT
+# Lightweight route to check if the server is online
+#######################################################
+
+@app.get("/health")
+def health_check():
+    return {"status": "online"}
+
+
 #######################################################
 #   LOBBIES                                           #
 #######################################################

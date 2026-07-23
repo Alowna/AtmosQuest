@@ -1,0 +1,22 @@
+extends Control
+
+# Reference to the AnimatedSprite2D displaying connection status.
+@onready var OnlineCheck: AnimatedSprite2D = $OnlineCheck
+
+
+func _ready() -> void:
+	_update_visual_status()
+
+
+func _process(_delta: float) -> void:
+	# Reads the global boolean maintained by PlayerConfig in the background
+	_update_visual_status()
+
+
+func _update_visual_status() -> void:
+	if PlayerConfig.connected:
+		if OnlineCheck.animation != "online":
+			OnlineCheck.play("online")
+	else:
+		if OnlineCheck.animation != "offline":
+			OnlineCheck.play("offline")
