@@ -87,8 +87,6 @@ sprite_frames = SubResource("SpriteFrames_jxfkk")
 [node name="EndResultsHud" parent="CanvasLayer" parent_id_path=PackedInt32Array(1465176994) index="2" unique_id=95842773]
 script = ExtResource("4_jxfkk")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="CanvasLayer/EndResultsHud" index="3" unique_id=903775985]
-
 [node name="HTTPRequest" type="HTTPRequest" parent="." index="5" unique_id=475800640]
 
 [node name="RivalShip1" parent="." index="6" unique_id=1983180390 instance=ExtResource("3_o1ts6")]
