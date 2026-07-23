@@ -3,7 +3,6 @@ extends Node
 # Autoload: CurrentLobby.
 # Stores the current lobby information and player list.
 
-
 # Current lobby key.
 var lobbyKey: String = ""
 
@@ -20,11 +19,8 @@ var players: Array = []
 # ==================================================
 
 func clear():
-
 	lobbyKey = ""
-
 	owner_id = 0
-
 	players.clear()
 
 
@@ -37,21 +33,14 @@ func update_from_dict(data: Dictionary):
 
 	# Accept both possible API key formats.
 	if data.has("lobbyKey"):
-
 		lobbyKey = data["lobbyKey"]
-
 	elif data.has("key"):
-
 		lobbyKey = data["key"]
-
 
 	# Update the lobby owner.
 	if data.has("ownerId"):
-
 		owner_id = data["ownerId"]
-
 
 	# Update the players currently in the lobby.
 	if data.has("players"):
-
 		players = data["players"]

@@ -72,3 +72,89 @@ func send_game_action(payload: Dictionary) -> void:
 	await http_request.request_completed
 	if is_instance_valid(http_request):
 		http_request.queue_free()
+
+# ==================================================
+# LOBBY ENDPOINTS
+# ==================================================
+
+# Fetches the current state of a lobby. Returns a special flag if not found (404).
+func get_lobby(lobby_key: String) -> Dictionary:
+	var url: String = "http://" + Env.api_base_url + "/get_lobby/" + lobby_key
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_GET,
+		""
+	)
+	
+	if error != OK:
+		push_error("API: Lobby request initiation failed for " + url)
+		http_request.queue_free()
+		return {}
+	
+	var result = await http_request.request_completed
+	
+	if not is_inside_tree():
+		http_request.queue_free()
+		return {}
+		
+	var response_code: int = result[1]
+	var body: PackedByteArray = result[3]
+	
+	http_request.queue_free()
+	
+	if response_code == 200:
+		var response_data = JSON.parse_string(body.get_string_from_utf8())
+		if typeof(response_data) == TYPE_DICTIONARY:
+			return response_data
+		else:
+			push_error("API: Invalid JSON format received from server.")
+			return {}
+	elif response_code == 404:
+		# Special case: The lobby was likely destroyed or converted into a match.
+		return {"_is_404": true}
+	else:
+		push_error("API: Error fetching lobby. Server returned status: " + str(response_code))
+		return {}
+		
+# ==================================================
+# LEAVE LOBBY ENDPOINT
+# Notifies the server that a player is leaving the lobby.
+# ==================================================
+
+func leave_lobby(lobby_key: String, player_id: int) -> bool:
+	var url: String = "http://" + Env.api_base_url + "/leave_lobby?lobbyKey=" + lobby_key + "&playerId=" + str(player_id)
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		""
+	)
+	
+	if error != OK:
+		push_error("API: Leave lobby request initiation failed for " + url)
+		http_request.queue_free()
+		return false
+	
+	var result = await http_request.request_completed
+	
+	if not is_inside_tree():
+		http_request.queue_free()
+		return false
+		
+	var response_code: int = result[1]
+	http_request.queue_free()
+	
+	if response_code == 200:
+		return true
+	else:
+		push_error("API: Failed to leave lobby. Server returned status: " + str(response_code))
+		return false

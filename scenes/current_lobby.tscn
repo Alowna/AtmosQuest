@@ -251,13 +251,9 @@ texture_normal = ExtResource("5_exk7c")
 script = ExtResource("9_qqjy5")
 target_scene = "uid://wqrdil6xl6vq"
 
-[node name="HTTPRequest" type="HTTPRequest" parent="BackButton" unique_id=358815594]
-
 [node name="LobbyManager" type="Node2D" parent="." unique_id=1160149996 node_paths=PackedStringArray("lobby_ship_slots")]
 script = ExtResource("10_qqjy5")
 lobby_ship_slots = [NodePath("LobbyShip1"), NodePath("LobbyShip2"), NodePath("LobbyShip3"), NodePath("LobbyShip4"), NodePath("LobbyShip5"), NodePath("LobbyShip6"), NodePath("LobbyShip7"), NodePath("LobbyShip8"), NodePath("LobbyShip9"), NodePath("LobbyShip10")]
-
-[node name="HTTPRequest" type="HTTPRequest" parent="LobbyManager" unique_id=205282790]
 
 [node name="LobbyShip1" parent="LobbyManager" unique_id=1615707592 instance=ExtResource("10_exk7c")]
 position = Vector2(90, 82)
