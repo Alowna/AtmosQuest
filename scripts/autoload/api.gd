@@ -158,3 +158,132 @@ func leave_lobby(lobby_key: String, player_id: int) -> bool:
 	else:
 		push_error("API: Failed to leave lobby. Server returned status: " + str(response_code))
 		return false
+	
+# ==================================================
+# LEAVE SERVER ENDPOINT
+# Removes a player from the online server list.
+# ==================================================
+
+func leave_server(player_id: int) -> bool:
+	var url: String = "http://" + Env.api_base_url + "/leave_server?id=" + str(player_id)
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		""
+	)
+	
+	if error != OK:
+		push_error("API: Leave server request initiation failed for " + url)
+		http_request.queue_free()
+		return false
+	
+	var result = await http_request.request_completed
+	
+	if not is_inside_tree():
+		http_request.queue_free()
+		return false
+		
+	var response_code: int = result[1]
+	http_request.queue_free()
+	
+	# Accept successful deletion responses (200 = OK, 204 = No Content).
+	if response_code == 200 or response_code == 204:
+		return true
+	else:
+		push_error("API: Failed to leave server. Server returned status: " + str(response_code))
+		return false
+
+
+# ==================================================
+# JOIN LOBBY ENDPOINT
+# Requests to join an existing lobby using a specific key.
+# ==================================================
+
+func join_lobby(lobby_key: String, player_id: int) -> Dictionary:
+	var url: String = "http://" + Env.api_base_url + "/join_lobby?lobbyKey=" + lobby_key + "&playerId=" + str(player_id)
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		""
+	)
+	
+	if error != OK:
+		push_error("API: Join lobby request initiation failed for " + url)
+		http_request.queue_free()
+		return {}
+	
+	var result = await http_request.request_completed
+	
+	if not is_inside_tree():
+		http_request.queue_free()
+		return {}
+		
+	var response_code: int = result[1]
+	var body: PackedByteArray = result[3]
+	http_request.queue_free()
+	
+	if response_code == 200:
+		var response_data = JSON.parse_string(body.get_string_from_utf8())
+		if typeof(response_data) == TYPE_DICTIONARY:
+			return response_data
+		else:
+			push_error("API: Invalid JSON format received from server.")
+			return {}
+	else:
+		push_error("API: Failed to join lobby. Server returned status: " + str(response_code))
+		return {}
+
+
+# ==================================================
+# CREATE LOBBY ENDPOINT
+# Requests the server to generate a new lobby room.
+# ==================================================
+
+func create_lobby(owner_id: int) -> Dictionary:
+	var url: String = "http://" + Env.api_base_url + "/create_lobby?ownerId=" + str(owner_id)
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		""
+	)
+	
+	if error != OK:
+		push_error("API: Create lobby request initiation failed for " + url)
+		http_request.queue_free()
+		return {}
+	
+	var result = await http_request.request_completed
+	
+	if not is_inside_tree():
+		http_request.queue_free()
+		return {}
+		
+	var response_code: int = result[1]
+	var body: PackedByteArray = result[3]
+	http_request.queue_free()
+	
+	if response_code == 200:
+		var response_data = JSON.parse_string(body.get_string_from_utf8())
+		if typeof(response_data) == TYPE_DICTIONARY:
+			return response_data
+		else:
+			push_error("API: Invalid JSON format received from server.")
+			return {}
+	else:
+		push_error("API: Failed to create lobby. Server returned status: " + str(response_code))
+		return {}
