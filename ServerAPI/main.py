@@ -497,3 +497,44 @@ def endGame(gameKey: str):
         )
     games.remove(game_to_delete)
     return {"success": True, "message": f"Game {gameKey} and all its data were deleted."}
+
+#######################################################
+# LEAVE GAME (MID-GAME QUIT)
+#######################################################
+
+@app.post("/leave_game")
+def leaveGame(gameKey: str, playerId: int):
+    # Locate the active game
+    game = next((g for g in games if g.key == gameKey), None)
+    if game is None:
+        raise HTTPException(
+            status_code=404, 
+            detail="Game not found."
+        )
+        
+    # Find the player inside the game
+    player_to_remove = next((p for p in game.players if p.id == playerId), None)
+    
+    if player_to_remove:
+        # 1. Remove the player from the active game
+        game.players.remove(player_to_remove)
+        
+        # 2. (Optional) Broadcast an event so other clients know this player left
+        game.events.append(
+            GameEvent(
+                id=game.nextEventId,
+                type="disconnect", # Or "leave"
+                playerId=playerId
+            )
+        )
+        game.nextEventId += 1
+        
+        # 3. CLEANUP: If the game is now completely empty, delete it from the server
+        if len(game.players) == 0:
+            games.remove(game)
+            print(f"Game '{gameKey}' deleted because all players left mid-game.")
+            
+        return {"success": True, "message": "Player removed from game."}
+        
+    # If game exists but player isn't in it (maybe already left/deleted)
+    return {"success": False, "message": "Player not found in this game."}  

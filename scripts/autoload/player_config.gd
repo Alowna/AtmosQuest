@@ -142,3 +142,32 @@ func wrongAnswer() -> void:
 	if lives < 1:
 		isAlive = false
 	
+#PLAYER WINDOW EXIT
+
+# Intercepts window exit requests (Alt+F4, Window Close Button)
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_handle_application_quit()
+
+
+# Sends graceful exit requests to the API before terminating the application process.
+func _handle_application_quit() -> void:
+	# Prevent Godot from closing the window immediately until network cleanup completes
+	get_tree().auto_accept_quit = false
+	
+	# Priority 1: Player is inside an active match
+	if CurrentGame.is_active() and online_id != 0:
+		await Api.leave_game(CurrentGame.game_key, online_id)
+		await Api.leave_server(online_id)
+		
+	# Priority 2: Player is in a lobby room
+	elif not CurrentLobby.lobbyKey.is_empty() and online_id != 0:
+		await Api.leave_lobby(CurrentLobby.lobbyKey, online_id)
+		await Api.leave_server(online_id)
+		
+	# Priority 3: Player is registered on the server but not in a room/game
+	elif online_id != 0:
+		await Api.leave_server(online_id)
+		
+	# Now that network requests are completed, close the game safely
+	get_tree().quit()

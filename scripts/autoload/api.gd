@@ -287,3 +287,42 @@ func create_lobby(owner_id: int) -> Dictionary:
 	else:
 		push_error("API: Failed to create lobby. Server returned status: " + str(response_code))
 		return {}
+	
+	
+# ==================================================
+# LEAVE_GAME ENDPOINT
+# Requests the server player leave mid game
+# ==================================================
+
+func leave_game(game_key: String, player_id: int) -> bool:
+	var url: String = "http://" + Env.api_base_url + "/leave_game?gameKey=" + game_key + "&playerId=" + str(player_id)
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		""
+	)
+	
+	if error != OK:
+		push_error("API: Leave game request initiation failed for " + url)
+		http_request.queue_free()
+		return false
+	
+	var result = await http_request.request_completed
+	
+	if not is_inside_tree():
+		http_request.queue_free()
+		return false
+		
+	var response_code: int = result[1]
+	http_request.queue_free()
+	
+	if response_code == 200 or response_code == 204:
+		return true
+		
+	push_error("API: Failed to leave game. Server status: " + str(response_code))
+	return false
