@@ -49,3 +49,26 @@ func get_game_state(game_key: String) -> Dictionary:
 	else:
 		push_error("API: Error fetching game state. Server returned status: " + str(response_code))
 		return {}
+		
+func send_game_action(payload: Dictionary) -> void:
+	var url: String = "http://" + Env.api_base_url + "/game_action"
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		JSON.stringify(payload)
+	)
+	
+	if error != OK:
+		push_error("API: Action request initiation failed for " + url)
+		http_request.queue_free()
+		return
+	
+	# Wait for request completion and auto-free the request node
+	await http_request.request_completed
+	if is_instance_valid(http_request):
+		http_request.queue_free()

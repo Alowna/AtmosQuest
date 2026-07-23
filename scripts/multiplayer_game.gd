@@ -1,90 +1,88 @@
 extends Node2D
 
+# ==================================================
+# SCENE NODE REFERENCES
+# ==================================================
+
 # Reference to the local player's ship.
 @onready var local_player = $PlayerShip
 
-# Rival ship slots already placed in the scene.
+# Rival ship slots placed in the scene.
 @onready var rival_1 = $RivalShip1
 @onready var rival_2 = $RivalShip2
 
-
-# How often the game polls the server.
-var poll_delay := 0.1
-var poll_timer := 0.0
-
-
-# Stores the rival slots and
-# maps online player IDs to them.
-var rival_slots: Array = []
-var id_to_rival_node: Dictionary = {}
-
-
-# HTTP request used for polling.
-var http_request: HTTPRequest
-
-# Node references within CanvasLayer
+# CanvasLayer HUD references.
 @onready var hull_hud = $CanvasLayer/Hull
 @onready var end_result_hud = $CanvasLayer/EndResultsHud
 
-var local_game_ended = false
+# ==================================================
+# POLLING & RIVAL VARIABLES
+# ==================================================
 
-func _ready():
-	
+# Interval in seconds between server polls.
+var poll_delay := 0.1
+var poll_timer := 0.0
+
+# Prevents concurrent polling requests if a network request takes longer than poll_delay.
+var is_fetching_state := false
+
+# Stores the available rival slots and maps online player IDs to them.
+var rival_slots: Array = []
+var id_to_rival_node: Dictionary = {}
+
+# Tracks whether the local gameplay session has finished.
+var local_game_ended := false
+
+# Movement speeds for rival death transitions.
+var death_rise_speed := 500.0
+var death_decline_speed := 20.0
+
+# ==================================================
+# INITIALIZATION
+# ==================================================
+
+func _ready() -> void:
 	AudioManager.play_music("gameSong")
-	# Set initial visibility states for gameplay
+	
+	# Set initial UI visibility states for gameplay.
 	hull_hud.visible = true
 	end_result_hud.visible = false
-
-	# Create the polling request.
-	http_request = HTTPRequest.new()
-	add_child(http_request)
-	http_request.request_completed.connect(_on_game_state_received)
 
 	# Register all available rival slots.
 	rival_slots = [rival_1, rival_2]
 
-	# Assign the closest players to the rival slots.
+	# Assign nearest lobby players to rival slots.
 	_assign_closest_lobby_rivals()
 
 
-func _process(delta):
-
+func _process(delta: float) -> void:
 	poll_timer += delta
 
-	# Poll the server at a fixed interval.
+	# Poll the server at fixed intervals.
 	if poll_timer >= poll_delay:
-
 		poll_timer = 0.0
-
 		_send_local_altitude()
 		_fetch_game_state()
 
-	# Update rival positions every frame.
-	_update_rival_positions()
+	# Interpolate rival positions every frame.
+	_update_rival_positions(delta)
 	
+	# Check if local player finished the game.
 	if PlayerConfig.finished and not local_game_ended:
 		local_game_ended = true
 		finish_local_game()
 
-
 # ==================================================
 # NETWORK OUTBOUND
-# Sends the local player's complete state to the server.
 # ==================================================
 
-func _send_local_altitude():
-
+# Sends the local player's updated metrics and state to the server via API.
+func _send_local_altitude() -> void:
 	if not CurrentGame.is_active():
 		return
 
-	var url = "http://" + Env.api_base_url + "/game_action"
-
-	var headers = [
-		"Content-Type: application/json"
-	]
-
-	# Payload expandido para sincronizar todos os dados relevantes do PlayerConfig
-	var payload = {
+	# Build payload from local PlayerConfig state.
+	var payload: Dictionary = {
 		"gameKey": CurrentGame.game_key,
 		"playerId": PlayerConfig.online_id,
 		"action": "altitude",
@@ -99,177 +97,128 @@ func _send_local_altitude():
 		"collisionObject": PlayerConfig.collisionDeathObject
 	}
 
-	# Create a temporary request.
-	var sender = HTTPRequest.new()
-
-	add_child(sender)
-
-	sender.request(
-		url,
-		headers,
-		HTTPClient.METHOD_POST,
-		JSON.stringify(payload)
-	)
-
-	sender.request_completed.connect(
-		func(_a, _b, _c, _d):
-			sender.queue_free()
-	)
+	# Send request through the Api autoload.
+	Api.send_game_action(payload)
 
 
-# ==================================================
-# NETWORK INBOUND
-# Retrieves the latest game state.
-# ==================================================
-
-func _fetch_game_state():
-
-	if not CurrentGame.is_active():
-		return
-
-	var url = "http://" + Env.api_base_url + "/get_game_state/" + CurrentGame.game_key
-
-	# Don't start another request while one is active.
-	if http_request.get_http_client_status() == HTTPClient.STATUS_DISCONNECTED:
-		http_request.request(url)
-
-
-func _on_game_state_received(_result, response_code, _headers, body):
-
-	if response_code != 200:
-		return
-
-	var response = JSON.parse_string(body.get_string_from_utf8())
-
-	if not response:
-		return
-
-	# Update the current game data.
-	CurrentGame.update_from_dict(response)
-
-
-# ==================================================
-# RIVAL SLOT MANAGEMENT
-# Assigns online players to the rival slots.
-# ==================================================
-
-func _assign_closest_lobby_rivals():
-
-	var local_id = PlayerConfig.online_id
-
-	var other_players = []
-
-	# Ignore the local player.
-	for p in CurrentGame.players:
-
-		if p["id"] != local_id:
-			other_players.append(p)
-
-	# Prioritize players with IDs closest to ours.
-	other_players.sort_custom(
-		func(a, b):
-			return abs(a["id"] - local_id) < abs(b["id"] - local_id)
-	)
-
-	# Hide every rival until assigned.
-	rival_1.visible = false
-	rival_2.visible = false
-
-	for i in range(rival_slots.size()):
-
-		var slot_node = rival_slots[i]
-
-		if i < other_players.size():
-
-			var player_data = other_players[i]
-			var r_id = player_data["id"]
-
-			slot_node.remote_player_id = r_id
-			slot_node.visible = true
-
-			# Apply the rival's selected skin.
-			if slot_node.has_method("_apply_rival_skins"):
-				slot_node._apply_rival_skins()
-
-			id_to_rival_node[r_id] = slot_node
-
-			print("Slot ", i + 1, " bound to player ID: ", r_id)
-
-		else:
-
-			# Remove unused rival slots.
-			slot_node.queue_free()
-
-
-# ==================================================
-# RIVAL MOVEMENT
-# Keeps rivals aligned with the local player's height.
-# ==================================================
-
-var death_rise_speed := 500.0
-
-func _update_rival_positions():
-
-	for r_id in id_to_rival_node:
-
-		var rival_node = id_to_rival_node[r_id]
-
-		if is_instance_valid(rival_node):
-			#if player dies rival advance
-			if not PlayerConfig.isAlive:
-
-				rival_node.global_position.y = move_toward(
-					rival_node.global_position.y,
-					rival_node.global_position.y - 1000,
-					death_rise_speed * get_process_delta_time()
-				)
-
-			else:
-
-				# Mantém alinhado com o jogador local
-				rival_node.global_position.y = local_player.global_position.y
-
-# ==================================================
-# GAME OVER ROUTINES
-# ==================================================
-
-# Call this method when the local game ends (e.g., player dies or beats stage)
-func finish_local_game() -> void:
-	# Hide gameplay HUD and show end results container
-	hull_hud.visible = false
-	end_result_hud.visible = true
-	
-	# Start the end sequence transition
-	end_result_hud.start_results_sequence()
-	
-	# Notify the server that this player has finished
-	_send_local_finish()
-
-# Sends the final state to unlock the lobby for other players
+# Sends the final finish action to unlock the lobby for remaining players.
 func _send_local_finish() -> void:
 	if not CurrentGame.is_active():
 		return
 
-	var url = "http://" + Env.api_base_url + "/game_action"
-	var headers = ["Content-Type: application/json"]
-	
-	var payload = {
+	var payload: Dictionary = {
 		"gameKey": CurrentGame.game_key,
 		"playerId": PlayerConfig.online_id,
 		"action": "finish"
 	}
 
-	var sender = HTTPRequest.new()
-	add_child(sender)
+	# Send finish request through Api autoload.
+	Api.send_game_action(payload)
 
-	sender.request(
-		url,
-		headers,
-		HTTPClient.METHOD_POST,
-		JSON.stringify(payload)
+# ==================================================
+# NETWORK INBOUND
+# ==================================================
+
+# Retrieves the latest game state from the API and updates CurrentGame.
+func _fetch_game_state() -> void:
+	if not CurrentGame.is_active() or is_fetching_state:
+		return
+
+	is_fetching_state = true
+	
+	# Fetch game state from Api autoload and await response.
+	var response_data: Dictionary = await Api.get_game_state(CurrentGame.game_key)
+	
+	is_fetching_state = false
+
+	# Update central CurrentGame data if payload is valid.
+	if not response_data.is_empty():
+		CurrentGame.update_from_dict(response_data)
+
+# ==================================================
+# RIVAL SLOT MANAGEMENT
+# ==================================================
+
+# Binds closest online players to rival visual nodes based on online IDs.
+func _assign_closest_lobby_rivals() -> void:
+	var local_id: int = PlayerConfig.online_id
+	var other_players: Array = []
+
+	# Filter out local player from CurrentGame player list.
+	for p in CurrentGame.players:
+		if p.get("id", -1) != local_id:
+			other_players.append(p)
+
+	# Prioritize players with IDs closest to local player ID.
+	other_players.sort_custom(
+		func(a: Dictionary, b: Dictionary) -> bool:
+			return abs(a.get("id", 0) - local_id) < abs(b.get("id", 0) - local_id)
 	)
 
-	sender.request_completed.connect(
-		func(_a, _b, _c, _d):
-			sender.queue_free()
-	)
+	# Hide all rival slots prior to assignment.
+	rival_1.visible = false
+	rival_2.visible = false
+
+	for i in range(rival_slots.size()):
+		var slot_node = rival_slots[i]
+
+		if i < other_players.size():
+			var player_data: Dictionary = other_players[i]
+			var r_id: int = player_data.get("id", 0)
+
+			slot_node.remote_player_id = r_id
+			slot_node.visible = true
+
+			# Apply rival skin configuration if function exists.
+			if slot_node.has_method("_apply_rival_skins"):
+				slot_node._apply_rival_skins()
+
+			id_to_rival_node[r_id] = slot_node
+			print("Slot ", i + 1, " bound to player ID: ", r_id)
+		else:
+			# Free unused rival slot instances.
+			slot_node.queue_free()
+
+# ==================================================
+# RIVAL MOVEMENT
+# ==================================================
+
+# Keeps rivals synchronized relative to local player altitude and death status.
+func _update_rival_positions(delta: float) -> void:
+	for r_id in id_to_rival_node:
+		var rival_node = id_to_rival_node[r_id]
+
+		if is_instance_valid(rival_node):
+			# If local player dies, rival advances upward.
+			if not PlayerConfig.isAlive and not rival_node.kaboom_done:
+				rival_node.global_position.y = move_toward(
+					rival_node.global_position.y,
+					rival_node.global_position.y - 1000,
+					death_rise_speed * delta
+				)
+			else:
+				# Keep rival aligned with local player position or handle rival death.
+				if rival_node.kaboom_done:
+					rival_node.global_position.y = move_toward(
+						rival_node.global_position.y,
+						rival_node.global_position.y + 1000,
+						death_decline_speed * delta
+					)
+				else:
+					rival_node.global_position.y = local_player.global_position.y - 10.0
+
+# ==================================================
+# GAME OVER ROUTINES
+# ==================================================
+
+# Handles end of local gameplay session and triggers results presentation.
+func finish_local_game() -> void:
+	# Hide gameplay HUD and display results container.
+	hull_hud.visible = false
+	end_result_hud.visible = true
+	
+	# Start end sequence animation / polling transition.
+	end_result_hud.start_results_sequence()
+	
+	# Notify server of local completion status.
+	_send_local_finish()
