@@ -326,3 +326,41 @@ func leave_game(game_key: String, player_id: int) -> bool:
 		
 	push_error("API: Failed to leave game. Server status: " + str(response_code))
 	return false
+
+# ==================================================
+# CREATE GAME ENDPOINT
+# Tells the server to convert a lobby into an active game.
+# ==================================================
+
+func create_game(lobby_key: String) -> bool:
+	var url: String = "http://" + Env.api_base_url + "/create_game?lobbyKey=" + lobby_key
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		""
+	)
+	
+	if error != OK:
+		push_error("API: Create game request initiation failed for " + url)
+		http_request.queue_free()
+		return false
+	
+	var result = await http_request.request_completed
+	
+	if not is_inside_tree():
+		http_request.queue_free()
+		return false
+		
+	var response_code: int = result[1]
+	http_request.queue_free()
+	
+	if response_code == 200:
+		return true
+	else:
+		push_error("API: Failed to create game. Server returned status: " + str(response_code))
+		return false
