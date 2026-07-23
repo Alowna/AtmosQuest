@@ -215,7 +215,7 @@ func _handle_application_quit() -> void:
 	get_tree().auto_accept_quit = false
 	
 	# Fast-path for offline / singleplayer mode
-	if online_id == 0 or not connected:
+	if online_id == -1 or not connected:
 		get_tree().quit()
 		return
 		

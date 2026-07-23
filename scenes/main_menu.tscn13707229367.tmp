@@ -212,10 +212,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b55j"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_color = Color(0.8, 0.8, 0.8, 0)
-
 [node name="MainMenu" type="Control" unique_id=535924887]
 layout_mode = 3
 anchors_preset = 0
@@ -274,36 +270,26 @@ sprite_frames = SubResource("SpriteFrames_jk1qb")
 animation = &"online"
 
 [node name="UsernameEditField" type="AnimatedSprite2D" parent="." unique_id=42983275]
-position = Vector2(89, 200)
+position = Vector2(94, 77)
 sprite_frames = SubResource("SpriteFrames_dj67d")
 autoplay = "default"
 
 [node name="LineEdit" type="LineEdit" parent="UsernameEditField" unique_id=1438651761]
 anchors_preset = -1
-anchor_left = 0.44117647
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -24.5
-offset_bottom = -0.5
-theme_override_colors/font_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_colors/font_selected_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
+anchor_left = -0.30882353
+anchor_top = 0.44
+anchor_right = -0.375
+offset_left = -11.0
+offset_top = -23.0
+offset_right = 57.5
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_colors/font_placeholder_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_colors/caret_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_colors/selection_color = Color(0.8901961, 0.22745098, 0.28627452, 0.33333334)
-theme_override_colors/clear_button_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_colors/clear_button_color_pressed = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_constants/caret_width = 1
-theme_override_constants/minimum_character_width = 1
 theme_override_fonts/font = ExtResource("14_7b55j")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/focus = SubResource("StyleBoxFlat_7b55j")
+text = "a"
 placeholder_text = "Apelido"
 alignment = 1
 max_length = 8
-context_menu_enabled = false
 flat = true
-caret_blink = true
-caret_blink_interval = 0.25
 metadata/_edit_use_anchors_ = true
