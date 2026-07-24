@@ -112,6 +112,9 @@ func clear() -> void:
 	correctAnswers = 0
 	wrongAnswers = 0
 	collisionDeathObject= "Unknown"
+	correctAnswersIds.clear()
+	wrongAnswersIds.clear()
+	answeredQuestions.clear()
 	
 var all_questions: Array = []
 

@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://crb2dqc8y8pim"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_xbt4i"]
+[ext_resource type="Script" uid="uid://b0epdos8gyky0" path="res://scripts/obstacle/troposphere/hot_baloon.gd" id="2_7hkg4"]
+[ext_resource type="Texture2D" uid="uid://by6qsi6h1swjq" path="res://assets/obstacles/troposphere/HotBaloon-Sheet.png" id="2_ns3m8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hkg4"]
+atlas = ExtResource("2_ns3m8")
+region = Rect2(0, 0, 40, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2uit"]
+atlas = ExtResource("2_ns3m8")
+region = Rect2(40, 0, 40, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4424k"]
+atlas = ExtResource("2_ns3m8")
+region = Rect2(80, 0, 40, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smprh"]
+atlas = ExtResource("2_ns3m8")
+region = Rect2(120, 0, 40, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i618a"]
+atlas = ExtResource("2_ns3m8")
+region = Rect2(160, 0, 40, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q75m"]
+atlas = ExtResource("2_ns3m8")
+region = Rect2(200, 0, 40, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd30k"]
+atlas = ExtResource("2_ns3m8")
+region = Rect2(240, 0, 40, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yevex"]
+atlas = ExtResource("2_ns3m8")
+region = Rect2(280, 0, 40, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ny4lr"]
+atlas = ExtResource("2_ns3m8")
+region = Rect2(320, 0, 40, 85)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_7hkg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2uit")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4424k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smprh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i618a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q75m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dd30k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yevex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ny4lr")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="HotBaloon" unique_id=1278500318 instance=ExtResource("1_xbt4i")]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("2_7hkg4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1846274016]
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame_progress = 0.8841543
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=465737829]
+polygon = PackedVector2Array(-24, -16, -0.6666667, -42.666668, 25.333334, -14, 13.333334, 14, 7.3333335, 38, -5.3333335, 36, -12, 13.333334)

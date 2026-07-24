@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://b1xhgp000slv0"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_6q0to"]
+[ext_resource type="Script" uid="uid://dv18byxmxju5i" path="res://scripts/obstacle/troposphere/dirigivel.gd" id="2_2plq1"]
+[ext_resource type="Texture2D" uid="uid://bhcooa08l2q2v" path="res://assets/obstacles/troposphere/Dirigivel-Sheet.png" id="2_cf8pc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2plq1"]
+atlas = ExtResource("2_cf8pc")
+region = Rect2(0, 0, 77, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgyyl"]
+atlas = ExtResource("2_cf8pc")
+region = Rect2(77, 0, 77, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoy28"]
+atlas = ExtResource("2_cf8pc")
+region = Rect2(154, 0, 77, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr5fy"]
+atlas = ExtResource("2_cf8pc")
+region = Rect2(231, 0, 77, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fs1i"]
+atlas = ExtResource("2_cf8pc")
+region = Rect2(308, 0, 77, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bc5pg"]
+atlas = ExtResource("2_cf8pc")
+region = Rect2(385, 0, 77, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyr27"]
+atlas = ExtResource("2_cf8pc")
+region = Rect2(462, 0, 77, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_2plq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgyyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoy28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vr5fy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fs1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bc5pg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyr27")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Dirigivel" unique_id=1278500318 instance=ExtResource("1_6q0to")]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("2_2plq1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=2061202734]
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame_progress = 0.99917585
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=956901714]
+polygon = PackedVector2Array(-38, -16.666668, 0, -18, 43.333336, -2, 30.666668, 6, 15, 17, -9, 16, -38.666668, 8.666667)

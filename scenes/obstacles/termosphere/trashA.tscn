@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://vrjw6v6d4tov"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_4jihy"]
+[ext_resource type="Texture2D" uid="uid://kun2cllwtax6" path="res://assets/obstacles/termosphere/TrashA.png" id="2_byokj"]
+[ext_resource type="Script" uid="uid://bs6dlgna4hav3" path="res://scripts/obstacle/termosphere/trash_a.gd" id="2_snfo3"]
+
+[node name="TrashA" unique_id=1278500318 instance=ExtResource("1_4jihy")]
+script = ExtResource("2_snfo3")
+
+[node name="TrashA" type="Sprite2D" parent="." index="0" unique_id=2115044428]
+texture = ExtResource("2_byokj")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=1462467461]
+polygon = PackedVector2Array(-41, -17, -44, -17, -46, -15, -45, -13, -30, -4, -30, 15, -29, 17, -25, 21, -22, 22, -11, 23, -8, 21, -3, 16, 1, 13, 6, 4, 15, 4, 19, 11, 27, 13, 24, 11, 20, 10, 17, 4, 32, 4, 35, 0, 35, -2, 45, -7, 45, -9, 44, -9, 41, -8, 39, -7, 36, -6, 34, -6, 33, -9, 30, -9, 30, -11, 16, -11, 16, -16, 10, -22, 9, -21, 14, -16, 14, -11, 5, -11, 3, -17, 0, -21, -6, -23, -17, -23, -18, -23, -20, -21, -25, -15, -28, -10, -29, -8)

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c7by6tmy6lh85"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_n05ob"]
+[ext_resource type="Texture2D" uid="uid://dveibtsko3gyg" path="res://assets/obstacles/stratosphere/HALE.png" id="2_ae1mb"]
+[ext_resource type="Script" uid="uid://d0rmc0mcfxfft" path="res://scripts/obstacle/stratosphere/hale.gd" id="2_d00yl"]
+
+[node name="HALE" unique_id=1278500318 instance=ExtResource("1_n05ob")]
+script = ExtResource("2_d00yl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0" unique_id=1818446013]
+scale = Vector2(-1, 1)
+texture = ExtResource("2_ae1mb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=1019275935]
+polygon = PackedVector2Array(26, -53, 28, -58, 30, -57, 36, -52, 39, -48, 41, -43, 41, -19, 31, 9, 39, 9, 39, 11, 38, 14, 29, 12, 13, 42, -3, 52, -16, 57, -25, 58, -33, 58, -41, 56, -41, 49, -39, 46, -14, 46, 1, 37, 14, 15, 17, 10, -26, 2, -34, 8, -35, 6, -32, -3, -25, -19, -24, -19, -25, -7, -20, -9, -23, 0, 19, 7, 30, -20, 31, -42)

@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://bmeusng44iows"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_06a7w"]
+[ext_resource type="Texture2D" uid="uid://cncwa7kvaf5hd" path="res://assets/obstacles/termosphere/TrashC-Sheet.png" id="2_0jxrf"]
+[ext_resource type="Script" uid="uid://chr56id52hvjq" path="res://scripts/obstacle/termosphere/trash_c.gd" id="2_042lx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_042lx"]
+atlas = ExtResource("2_0jxrf")
+region = Rect2(0, 0, 31, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljvgy"]
+atlas = ExtResource("2_0jxrf")
+region = Rect2(31, 0, 31, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdf1o"]
+atlas = ExtResource("2_0jxrf")
+region = Rect2(62, 0, 31, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5r8j"]
+atlas = ExtResource("2_0jxrf")
+region = Rect2(93, 0, 31, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plr7p"]
+atlas = ExtResource("2_0jxrf")
+region = Rect2(124, 0, 31, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgkla"]
+atlas = ExtResource("2_0jxrf")
+region = Rect2(155, 0, 31, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n501"]
+atlas = ExtResource("2_0jxrf")
+region = Rect2(186, 0, 31, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocw1h"]
+atlas = ExtResource("2_0jxrf")
+region = Rect2(217, 0, 31, 41)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 0.7,
+"texture": SubResource("AtlasTexture_042lx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljvgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mdf1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5r8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plr7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgkla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n501")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocw1h")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 9.0
+}]
+
+[node name="TrashC" unique_id=1278500318 instance=ExtResource("1_06a7w")]
+script = ExtResource("2_042lx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=938924659]
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame_progress = 0.84279335
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=666388613]
+position = Vector2(0, 1)
+polygon = PackedVector2Array(1, -21, 8, -20, 11, -18, 14, -14, 12, -9, 13, -1, 16, 10, 11, 16, 9, 19, 5, 21, -11, 16, -13, 6, -14, -3, -12, -10, -8, -16, -6, -21)

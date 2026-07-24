@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://ike62vdi11ju"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_flswx"]
+[ext_resource type="Script" uid="uid://bnjmivbcmk0ao" path="res://scripts/obstacle/termosphere/trash_d.gd" id="2_th2os"]
+[ext_resource type="Texture2D" uid="uid://cbjq8ka7sph2o" path="res://assets/obstacles/termosphere/TrashD-Sheet.png" id="2_vqv81"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_th2os"]
+atlas = ExtResource("2_vqv81")
+region = Rect2(0, 0, 49, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_upoi0"]
+atlas = ExtResource("2_vqv81")
+region = Rect2(49, 0, 49, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhpv4"]
+atlas = ExtResource("2_vqv81")
+region = Rect2(98, 0, 49, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tssv6"]
+atlas = ExtResource("2_vqv81")
+region = Rect2(147, 0, 49, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvp2r"]
+atlas = ExtResource("2_vqv81")
+region = Rect2(196, 0, 49, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_istie"]
+atlas = ExtResource("2_vqv81")
+region = Rect2(245, 0, 49, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55lb5"]
+atlas = ExtResource("2_vqv81")
+region = Rect2(294, 0, 49, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_th2os")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upoi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhpv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tssv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvp2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_istie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55lb5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="TrashD" unique_id=1278500318 instance=ExtResource("1_flswx")]
+script = ExtResource("2_th2os")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=2054059154]
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame_progress = 0.61574185
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=633021712]
+polygon = PackedVector2Array(-11, 15, 14, 12, 9, -10, -9, -10, -16, -4)

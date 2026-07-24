@@ -3,10 +3,26 @@
 [ext_resource type="Script" uid="uid://do2pyhlvkgsjg" path="res://scripts/enviroment/collision_spawner.gd" id="1_1ivpn"]
 [ext_resource type="PackedScene" uid="uid://b2iqhb3w3doht" path="res://scenes/obstacles/troposphere/cloud.tscn" id="2_4v53j"]
 [ext_resource type="PackedScene" uid="uid://6rlbg16jdwv7" path="res://scenes/obstacles/troposphere/plane.tscn" id="3_c7jci"]
+[ext_resource type="PackedScene" uid="uid://crb2dqc8y8pim" path="res://scenes/obstacles/troposphere/hot_baloon.tscn" id="4_4v53j"]
+[ext_resource type="PackedScene" uid="uid://b1xhgp000slv0" path="res://scenes/obstacles/troposphere/dirigivel.tscn" id="5_c7jci"]
+[ext_resource type="PackedScene" uid="uid://b8noycogwndk4" path="res://scenes/obstacles/troposphere/birds.tscn" id="6_vpiq8"]
+[ext_resource type="PackedScene" uid="uid://bcv2h06q1y6w6" path="res://scenes/obstacles/stratosphere/jet.tscn" id="7_rkc0y"]
+[ext_resource type="PackedScene" uid="uid://c7by6tmy6lh85" path="res://scenes/obstacles/stratosphere/hale.tscn" id="8_d2swm"]
+[ext_resource type="PackedScene" uid="uid://cqd7gjvhpsbun" path="res://scenes/obstacles/mesosphere/meteore.tscn" id="9_8xjfi"]
+[ext_resource type="PackedScene" uid="uid://vrjw6v6d4tov" path="res://scenes/obstacles/termosphere/trashA.tscn" id="10_u5e5f"]
+[ext_resource type="PackedScene" uid="uid://cmvfj7feomqdk" path="res://scenes/obstacles/termosphere/trash_b.tscn" id="11_joplt"]
+[ext_resource type="PackedScene" uid="uid://bmeusng44iows" path="res://scenes/obstacles/termosphere/trash_c.tscn" id="12_e431a"]
+[ext_resource type="PackedScene" uid="uid://ike62vdi11ju" path="res://scenes/obstacles/termosphere/trash_d.tscn" id="13_bmyo0"]
+[ext_resource type="PackedScene" uid="uid://chqqkbp76kpx5" path="res://scenes/obstacles/exosphere/space_station.tscn" id="14_e431a"]
+[ext_resource type="PackedScene" uid="uid://b8m6k7k54a1md" path="res://scenes/obstacles/exosphere/asteroid.tscn" id="15_bmyo0"]
 
 [node name="CollisionSpawner" type="Node2D" unique_id=1483215837]
 script = ExtResource("1_1ivpn")
-obstacle_scenes = Array[PackedScene]([ExtResource("2_4v53j"), ExtResource("3_c7jci")])
+troposphere_obstacle_scenes = Array[PackedScene]([ExtResource("6_vpiq8"), ExtResource("5_c7jci"), ExtResource("4_4v53j"), ExtResource("3_c7jci"), ExtResource("2_4v53j")])
+stratosphere_obstacle_scenes = Array[PackedScene]([ExtResource("7_rkc0y"), ExtResource("8_d2swm")])
+mesosphere_obstacle_scenes = Array[PackedScene]([ExtResource("9_8xjfi")])
+termosphere_obstacle_scenes = Array[PackedScene]([ExtResource("10_u5e5f"), ExtResource("11_joplt"), ExtResource("12_e431a"), ExtResource("13_bmyo0")])
+exosphere_obstacle_scenes = Array[PackedScene]([ExtResource("14_e431a"), ExtResource("15_bmyo0")])
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=1388962130]
-wait_time = 1.8219999999999998
+wait_time = 1.822

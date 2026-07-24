@@ -17,8 +17,8 @@ var current_question: Dictionary = {}
 var time_left: float = 30.0
 var timer_active: bool = false
 
-
-signal question_finished
+# Signal now transmits whether the answer was correct (true) or wrong (false)
+signal question_finished(is_correct: bool)
 
 
 func _ready() -> void:
@@ -67,7 +67,7 @@ func load_question() -> void:
 
 	else:
 		Statement.text = "All questions answered for this layer!"
-		close_popup()
+		close_popup(true)
 
 
 
@@ -126,7 +126,7 @@ func _on_answer_button_pressed(selected_option: String) -> void:
 			print("No speed bonus")
 
 
-		close_popup()
+		close_popup(true)
 
 
 	else:
@@ -137,7 +137,7 @@ func _on_answer_button_pressed(selected_option: String) -> void:
 		PlayerConfig.wrongAnswer(current_question.id)
 
 
-		close_popup()
+		close_popup(false)
 
 
 
@@ -148,18 +148,18 @@ func time_out() -> void:
 	PlayerConfig.wrongAnswer(current_question.id)
 
 
-	close_popup()
+	close_popup(false)
 
 
 
-func close_popup() -> void:
+func close_popup(is_correct: bool) -> void:
 
 	# Play closing animation before removing the popup
 	await QuestionControl.popout()
 
 
 	# Notify whoever opened this question that it has finished
-	question_finished.emit()
+	question_finished.emit(is_correct)
 
 
 	# Debug information

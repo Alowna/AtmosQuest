@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b8m6k7k54a1md"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_vefcd"]
+[ext_resource type="Script" uid="uid://bv62cj5ubpf0g" path="res://scripts/obstacle/exosphere/asteroid.gd" id="2_ypsak"]
+[ext_resource type="Texture2D" uid="uid://0aa3xaxcntvs" path="res://assets/obstacles/exosphere/AsteroidA.png" id="3_3exd4"]
+[ext_resource type="Texture2D" uid="uid://b2vbr7nbrh3qd" path="res://assets/obstacles/exosphere/AsteroidB.png" id="4_cbxqn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bhunq"]
+radius = 26.019224
+
+[node name="Asteroid" unique_id=1278500318 instance=ExtResource("1_vefcd")]
+script = ExtResource("2_ypsak")
+asteroid_textures = Array[Texture2D]([ExtResource("3_3exd4"), ExtResource("4_cbxqn")])
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0" unique_id=2031939725]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1" unique_id=582596667]
+shape = SubResource("CircleShape2D_bhunq")

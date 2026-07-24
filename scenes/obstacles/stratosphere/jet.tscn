@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bcv2h06q1y6w6"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_30rlv"]
+[ext_resource type="Texture2D" uid="uid://cum3g5ltv4ydb" path="res://assets/obstacles/stratosphere/Jato-Sheet.png" id="2_8qtna"]
+[ext_resource type="Script" uid="uid://bww506k8wpd27" path="res://scripts/obstacle/stratosphere/jet.gd" id="2_k6esw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6esw"]
+atlas = ExtResource("2_8qtna")
+region = Rect2(0, 0, 72, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mw1il"]
+atlas = ExtResource("2_8qtna")
+region = Rect2(72, 0, 72, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tse31"]
+atlas = ExtResource("2_8qtna")
+region = Rect2(144, 0, 72, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4alhv"]
+atlas = ExtResource("2_8qtna")
+region = Rect2(216, 0, 72, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0r34"]
+atlas = ExtResource("2_8qtna")
+region = Rect2(288, 0, 72, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e50d4"]
+atlas = ExtResource("2_8qtna")
+region = Rect2(360, 0, 72, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ats5m"]
+atlas = ExtResource("2_8qtna")
+region = Rect2(432, 0, 72, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 0.7,
+"texture": SubResource("AtlasTexture_k6esw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mw1il")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tse31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4alhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0r34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e50d4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ats5m")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 11.0
+}]
+
+[node name="Jet" unique_id=1278500318 instance=ExtResource("1_30rlv")]
+scale = Vector2(-1, 1)
+script = ExtResource("2_k6esw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1447511988]
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame_progress = 0.4730054
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=1683961178]
+polygon = PackedVector2Array(-36, 2, -36, 0, -32, -3, -25, -3, -20, -7, -7, -7, 2, -5, 9, -5, 23, -17, 24, -17, 24, -3, 27, -1, 27, 2, 14, 2, 6, 5, -9, 4, -12, 2, -36, 3)

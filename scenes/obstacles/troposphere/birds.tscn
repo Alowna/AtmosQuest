@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://b8noycogwndk4"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_jo6sy"]
+[ext_resource type="Script" uid="uid://dwles40y75y2g" path="res://scripts/obstacle/troposphere/birds.gd" id="2_bg83y"]
+[ext_resource type="Texture2D" uid="uid://dfwippx0h2c5j" path="res://assets/obstacles/troposphere/Birds-Sheet.png" id="2_sk8wj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bg83y"]
+atlas = ExtResource("2_sk8wj")
+region = Rect2(0, 0, 55, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhtqg"]
+atlas = ExtResource("2_sk8wj")
+region = Rect2(55, 0, 55, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x310"]
+atlas = ExtResource("2_sk8wj")
+region = Rect2(110, 0, 55, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pis6s"]
+atlas = ExtResource("2_sk8wj")
+region = Rect2(165, 0, 55, 46)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bg83y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhtqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7x310")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pis6s")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Birds" unique_id=1278500318 instance=ExtResource("1_jo6sy")]
+script = ExtResource("2_bg83y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1357402565]
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame_progress = 0.71888095
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=2053855415]
+polygon = PackedVector2Array(-28, -22, 12, -22, 26, 1, 1, 16, -26, 20)

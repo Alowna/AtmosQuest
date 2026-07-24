@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://chqqkbp76kpx5"]
+
+[ext_resource type="PackedScene" uid="uid://br1wuoj3js7vm" path="res://scenes/obstacles/obstacle.tscn" id="1_67kp5"]
+[ext_resource type="Script" uid="uid://cj40m7jvsgmsj" path="res://scripts/obstacle/exosphere/space_station.gd" id="2_3pgfn"]
+[ext_resource type="Texture2D" uid="uid://nx25vuc218sa" path="res://assets/obstacles/exosphere/SpaceStation.png" id="2_om0nc"]
+
+[node name="SpaceStation" unique_id=1278500318 instance=ExtResource("1_67kp5")]
+script = ExtResource("2_3pgfn")
+
+[node name="SpaceStation" type="Sprite2D" parent="." index="0" unique_id=1943039565]
+texture = ExtResource("2_om0nc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=1266314682]
+polygon = PackedVector2Array(-245, 1, -245, -11, -231, -6, -231, -14, -217, -21, -231, -25, -231, -92, -120, -92, -119, -24, -126, -21, -80, -19, -77, -16, -16, -16, -18, -21, -17, -68, 14, -68, 15, -20, 11, -16, 25, -15, 31, -20, 75, -19, 79, -12, 83, -16, 125, -15, 131, -21, 120, -27, 120, -92, 231, -92, 231, -27, 218, -21, 231, -13, 231, -5, 242, -12, 245, -10, 245, 12, 244, 13, 241, 13, 231, 8, 231, 14, 228, 17, 223, 22, 231, 29, 231, 92, 231, 93, 120, 93, 120, 28, 128, 22, 116, 18, 77, 18, 74, 22, 30, 22, 25, 17, 14, 19, 15, 22, 16, 22, 16, 67, 12, 69, 3, 70, -4, 70, -14, 69, -17, 66, -17, 20, -15, 18, -77, 18, -81, 22, -126, 24, -120, 29, -120, 94, -231, 94, -231, 29, -219, 24, -230, 15, -231, 8, -242, 14, -244, 14, -245, 12)
