@@ -63,7 +63,7 @@ func _on_pressed() -> void:
 
 	# 4. Replace {{tag}} place-holders in HTML
 	# Ensure you use your fallback logic for username if it can be empty
-	var current_username = PlayerConfig.username if PlayerConfig.username != "" else "Tester"
+	var current_username = PlayerConfig.username if PlayerConfig.username != "" else "Jogador"
 	
 	html_content = html_content.replace("{{username}}", current_username)
 	html_content = html_content.replace("{{isAlive}}", alive_text)

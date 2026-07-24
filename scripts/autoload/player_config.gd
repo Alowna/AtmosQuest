@@ -132,12 +132,19 @@ func load_questions_from_json(file_path: String) -> void:
 	else:
 		print("Error: Could not open the questions file.")
 
-func correctAnswer() -> void:
+func correctAnswer(question_id: int) -> void:
+	#Updates the id array of answered and correct questions and increase counter
+	answeredQuestions.append(question_id)
+	correctAnswersIds.append(question_id)
 	correctAnswers += 1
 	points += 100
 
-func wrongAnswer() -> void:
+func wrongAnswer(question_id: int) -> void:
+	#Updates the id array of answered and wrong questions and increase counter
+	answeredQuestions.append(question_id)
+	wrongAnswersIds.append(question_id)
 	wrongAnswers += 1
+	#remove HP from player on wrong question
 	lives -= 1
 	if lives < 1:
 		isAlive = false
