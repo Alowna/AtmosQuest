@@ -218,7 +218,7 @@ offset_bottom = 68.0
 texture_normal = SubResource("AtlasTexture_o4f72")
 script = ExtResource("6_766x3")
 target_position = Vector2(46, 14)
-start_offset = Vector2(46, 300)
+start_offset = Vector2(0, 300)
 
 [node name="Label" type="Label" parent="LobbyKeyButton" unique_id=827063956]
 z_index = -1
