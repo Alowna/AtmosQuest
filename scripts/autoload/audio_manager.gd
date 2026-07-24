@@ -8,18 +8,18 @@ extends Node
 
 # Background music library.
 var music = {
-	"menu": preload("res://assets/Sounds/MainMenuSong.wav"),
-	"gameSong": preload("res://assets/Sounds/gameSong.wav"),
+	"menu": preload("res://assets/Sounds/MainMenuSong.ogg"),
+	"gameSong": preload("res://assets/Sounds/gameSong.ogg"),
 }
 
 
 # UI sound effects library.
 var UIsounds = {
-	"button": preload("res://assets/Sounds/ButtonPressed.wav")
+	"button": preload("res://assets/Sounds/ButtonPressed.ogg")
 }
 
 var gameSounds = {
-	"explosion": preload("res://assets/Sounds/explosion.wav")
+	"explosion": preload("res://assets/Sounds/explosion.ogg")
 }
 
 

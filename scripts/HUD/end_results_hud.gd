@@ -79,7 +79,7 @@ func generate_results_text() -> void:
 	var text_lines: Array = []
 	
 	# Player Identification
-	text_lines.append(PlayerConfig.username + " " + str(PlayerConfig.online_id))
+	text_lines.append(PlayerConfig.username)
 	
 	# Survival Status
 	if PlayerConfig.isAlive:

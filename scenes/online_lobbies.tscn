@@ -9,8 +9,12 @@
 [ext_resource type="Script" uid="uid://buush2gikjqdl" path="res://scripts/HUD/MainMenu/sound_button.gd" id="6_ttt1w"]
 [ext_resource type="Texture2D" uid="uid://ch05ktxuxj0h6" path="res://assets/HUD/MainMenu/Online/OnlineLobbyButtonAlpha-Sheet.png" id="7_tia8r"]
 [ext_resource type="FontFile" uid="uid://bkcakrpmwi54p" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="8_qpndm"]
+[ext_resource type="Texture2D" uid="uid://b75qqoudskvrg" path="res://assets/HUD/MainMenu/EnterButton.png" id="10_10wa6"]
+[ext_resource type="Texture2D" uid="uid://ba3mca0liq7vf" path="res://assets/HUD/MainMenu/PasteButton.png" id="10_tia8r"]
 [ext_resource type="Script" uid="uid://bgadyx3sv57a3" path="res://scripts/HUD/MainMenu/join_lobby_button.gd" id="10_ttt1w"]
 [ext_resource type="Script" uid="uid://midt3gyukgtq" path="res://scripts/HUD/MainMenu/create_lobby_button.gd" id="11_10wa6"]
+[ext_resource type="Script" uid="uid://x16lh6ejyyr3" path="res://scripts/HUD/MainMenu/paste_button.gd" id="11_tia8r"]
+[ext_resource type="Script" uid="uid://dbwjqbxuljbpy" path="res://scripts/HUD/MainMenu/lobby_input.gd" id="12_qpndm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_faayq"]
 atlas = ExtResource("3_l5cxq")
@@ -54,6 +58,57 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab4iw"]
+atlas = ExtResource("7_tia8r")
+region = Rect2(0, 0, 68, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10wa6"]
+atlas = ExtResource("7_tia8r")
+region = Rect2(68, 0, 68, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttt1w"]
+atlas = ExtResource("7_tia8r")
+region = Rect2(136, 0, 68, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tia8r"]
+atlas = ExtResource("7_tia8r")
+region = Rect2(204, 0, 68, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpndm"]
+atlas = ExtResource("7_tia8r")
+region = Rect2(272, 0, 68, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_riqys"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ab4iw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10wa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttt1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tia8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpndm")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ajci"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tia8r"]
+bg_color = Color(0.627451, 0.60784316, 0.4627451, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhunq"]
 atlas = ExtResource("7_tia8r")
@@ -135,32 +190,49 @@ offset_bottom = 47.0
 texture_normal = ExtResource("5_10wa6")
 script = ExtResource("6_ttt1w")
 
-[node name="JoinLobbyButton" parent="." unique_id=667144094 instance=ExtResource("4_ab4iw")]
-layout_mode = 0
-offset_left = 55.0
-offset_top = 191.0
-offset_right = 124.0
-offset_bottom = 231.0
-texture_normal = SubResource("AtlasTexture_bhunq")
-script = ExtResource("10_ttt1w")
-target_scene = "uid://cw132bkf7n2ll"
+[node name="JoinLobbyField" type="AnimatedSprite2D" parent="." unique_id=1454987673]
+position = Vector2(89, 181)
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_riqys")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="JoinLobbyButton" unique_id=264500647]
-libraries/ = SubResource("AnimationLibrary_vsf6s")
-autoplay = &"idle_animation"
+[node name="PasteButton" type="TextureButton" parent="JoinLobbyField" unique_id=1030563332]
+offset_left = 36.666664
+offset_top = -5.0000153
+offset_right = 46.666664
+offset_bottom = 2.9999847
+scale = Vector2(1.2, 1.2)
+texture_normal = ExtResource("10_tia8r")
+script = ExtResource("11_tia8r")
 
-[node name="LobbyInput" type="LineEdit" parent="JoinLobbyButton" unique_id=1209099065]
-layout_mode = 0
-offset_left = -2.0
-offset_top = 25.0
-offset_right = 69.0
-offset_bottom = 59.0
+[node name="LobbyInput" type="LineEdit" parent="JoinLobbyField" unique_id=1209099065]
+offset_left = -34.166664
+offset_top = -11.666676
+offset_right = 34.166664
+offset_bottom = 12.333324
 theme_override_colors/font_color = Color(7.1714817e-06, 0.7662849, 0.41521078, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0.7647059, 0.41568628, 1)
+theme_override_colors/caret_color = Color(0, 0.7647059, 0.41568628, 1)
 theme_override_fonts/font = ExtResource("8_qpndm")
-theme_override_font_sizes/font_size = 19
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_1ajci")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tia8r")
 placeholder_text = "codigo"
 alignment = 1
 max_length = 6
+caret_blink = true
+caret_blink_interval = 0.25
+script = ExtResource("12_qpndm")
+
+[node name="JoinLobbyButton" parent="." unique_id=63383704 instance=ExtResource("4_ab4iw")]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 198.0
+offset_right = 78.0
+offset_bottom = 218.0
+scale = Vector2(0.75, 0.75)
+texture_normal = ExtResource("10_10wa6")
+script = ExtResource("10_ttt1w")
+target_scene = "uid://cw132bkf7n2ll"
 
 [node name="CreateLobbyButton" parent="." unique_id=746286591 instance=ExtResource("4_ab4iw")]
 layout_mode = 0
@@ -181,7 +253,7 @@ layout_mode = 0
 offset_left = 6.0
 offset_right = 66.0
 offset_bottom = 25.0
-theme_override_colors/font_color = Color(0, 0.7137255, 0, 1)
+theme_override_colors/font_color = Color(0.58260995, 1, 0.55153704, 1)
 theme_override_fonts/font = ExtResource("8_qpndm")
 theme_override_font_sizes/font_size = 11
 text = "Criar Sala"

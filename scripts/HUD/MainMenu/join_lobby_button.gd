@@ -7,7 +7,8 @@ extends TextureButton
 var is_processing_request := false
 
 # Reference to the text input where the player types the lobby key.
-@onready var lobby_input: LineEdit = $LobbyInput
+@onready var lobby_input: LineEdit = $"../JoinLobbyField/LobbyInput"
+@onready var LobbyInput = $"../JoinLobbyField/LobbyInput"
 
 # ==================================================
 # INITIALIZATION
@@ -67,34 +68,45 @@ func _on_pressed() -> void:
 		is_processing_request = false
 		return
 
+
 	# ==================================================
 	# SERVER REQUEST
 	# Send the request to the server via Api autoload.
 	# ==================================================
-	
+
 	print("Attempting to join lobby: ", target_lobby_key)
-	var response_data: Dictionary = await Api.join_lobby(target_lobby_key, PlayerConfig.online_id)
+
+	var response_data: Dictionary = await Api.join_lobby(
+		target_lobby_key,
+		PlayerConfig.online_id
+	)
+
 
 	# Wait until the visual animation finishes before transitioning.
 	if tween.is_running():
 		await tween.finished
 
+
 	# ==================================================
 	# SERVER RESPONSE HANDLING
 	# ==================================================
 
-	if not response_data.is_empty():
-		print("Successfully joined the lobby!")
-
-		# Populate the CurrentLobby autoload cleanly using its built-in method.
-		CurrentLobby.update_from_dict(response_data)
-
-		# Enter the lobby scene.
-		if not target_scene.is_empty():
-			get_tree().change_scene_to_file(target_scene)
-		else:
-			push_error("JoinLobbyButton: Target scene is not assigned.")
-	else:
-		# Allow the player to try again.
+	if response_data.has("error"):
+		LobbyInput.placeholder_text = "Erro!"
+		LobbyInput.text = ""
+		LobbyInput.add_theme_color_override("font_placeholder_color", Color.RED)
+		push_error(response_data["error"])
 		is_processing_request = false
-		push_error("JoinLobbyButton: Failed to execute join sequence.")
+		return
+
+	print("Successfully joined the lobby!")
+
+	# Populate the CurrentLobby autoload cleanly using its built-in method.
+	CurrentLobby.update_from_dict(response_data)
+
+	# Enter the lobby scene.
+	if not target_scene.is_empty():
+		get_tree().change_scene_to_file(target_scene)
+	else:
+		push_error("JoinLobbyButton: Target scene is not assigned.")
+		is_processing_request = false
