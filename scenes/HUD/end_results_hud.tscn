@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://ct42buohqldy5" path="res://assets/HUD/EndResults/HudEndContinueButton.png" id="3_oi3vo"]
 [ext_resource type="FontFile" uid="uid://dv687cqmns33c" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-Medium.ttf" id="4_abdc6"]
 [ext_resource type="Texture2D" uid="uid://cil7lik4h80wy" path="res://assets/HUD/EndResults/HudEndStaticResults.png" id="5_abdc6"]
-[ext_resource type="FontFile" uid="uid://nsywhfovxtus" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-SemiBold.ttf" id="6_d53fr"]
 [ext_resource type="Texture2D" uid="uid://b8kqetcsfyonk" path="res://assets/HUD/EndResults/HudEndStatic.png" id="6_jwt1i"]
 [ext_resource type="Script" uid="uid://2dqul0oj72ot" path="res://scripts/HUD/export_results_button.gd" id="7_uxtl3"]
 [ext_resource type="Texture2D" uid="uid://dpskk80jgq58" path="res://assets/HUD/Questions/BlackScreen.png" id="8_gbss6"]
@@ -157,6 +156,11 @@ animations = [{
 "speed": 40.0
 }]
 
+[sub_resource type="Theme" id="Theme_gbss6"]
+default_font = ExtResource("4_abdc6")
+default_font_size = 10
+Label/colors/font_color = Color(0.09411765, 1, 0.2901961, 1)
+
 [node name="EndResultsHud" type="Control" unique_id=95842773]
 layout_mode = 3
 anchors_preset = 15
@@ -173,11 +177,11 @@ sprite_frames = SubResource("SpriteFrames_bhunq")
 animation = &"EndTransition"
 
 [node name="HudEndStaticResults" type="Sprite2D" parent="." unique_id=1824690350]
-visible = false
 position = Vector2(90, 160)
 texture = ExtResource("5_abdc6")
 
 [node name="LeaveButton" type="TextureButton" parent="HudEndStaticResults" unique_id=2101637808]
+z_index = 1
 offset_left = -21.0
 offset_top = 101.0
 offset_right = 67.0
@@ -199,6 +203,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ExportResultsButton" type="TextureButton" parent="HudEndStaticResults" unique_id=804099184]
+z_index = 1
 offset_left = -40.0
 offset_top = 120.0
 offset_right = 48.0
@@ -221,36 +226,28 @@ Resultados"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HudEndStaticResults" unique_id=2120796399]
-z_index = -1
-offset_left = -77.0
-offset_top = -117.0
-offset_right = 75.0
-offset_bottom = 95.0
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
-
-[node name="gameResults" type="Label" parent="HudEndStaticResults/ScrollContainer" unique_id=783349827]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0.70980394, 0, 1)
-theme_override_fonts/font = ExtResource("6_d53fr")
-theme_override_font_sizes/font_size = 10
-text = "username 1
-Saiu de orbita!
-Foi até a exosfera!
-Concluiu com 6 vidas!
-Sua altitude máxima foi 750!
-Pontuou 1200 pontos!
-Teve cinco colisões!
-Acertou 5 perguntas!
-Errou 0 perguntas!"
-
 [node name="BlackScreen" type="Sprite2D" parent="HudEndStaticResults" unique_id=1499225533]
 z_index = -2
 position = Vector2(0, 1)
 texture = ExtResource("8_gbss6")
 
+[node name="ScrollContainer" type="ScrollContainer" parent="HudEndStaticResults" unique_id=87380618]
+z_index = -1
+offset_left = -76.0
+offset_top = -116.0
+offset_right = 76.0
+offset_bottom = 93.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="gameResults" type="VBoxContainer" parent="HudEndStaticResults/ScrollContainer" unique_id=515438074]
+z_index = -1
+layout_mode = 2
+theme = SubResource("Theme_gbss6")
+theme_type_variation = &"Label"
+
 [node name="HudEndStatic" type="Sprite2D" parent="." unique_id=1268483016]
+visible = false
 position = Vector2(90, 160)
 texture = ExtResource("6_jwt1i")
 
