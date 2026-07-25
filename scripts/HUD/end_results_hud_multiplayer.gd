@@ -39,6 +39,7 @@ func _ready() -> void:
 	hud_end_static.visible = false
 	hud_end_static_results.visible = false
 	
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	# Ensures the continue button is locked upon entering the results sequence.
 	continue_button_static.disabled = true
 	continue_button_status.text = "Esperando\njogadores..."
@@ -73,11 +74,17 @@ func _exit_tree() -> void:
 
 # Triggers the initial end-game transition sequence.
 func start_results_sequence() -> void:
+	get_tree().paused = false
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	hull_transition.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	hull_transition.visible = true
 	hull_transition.play("EndTransition")
 	
 	# Pause execution until the hull transition animation finishes.
+	print("Começa..")
 	await hull_transition.animation_finished
+	print("Tirmina..")
 	
 	hull_transition.visible = false
 	hud_end_static.visible = true
@@ -113,6 +120,7 @@ func _on_polling_timeout() -> void:
 	
 	# Fetch the current match state via the Api Autoload.
 	var response_data: Dictionary = await Api.get_game_state(CurrentGame.game_key)
+
 	
 	is_processing_request = false
 	

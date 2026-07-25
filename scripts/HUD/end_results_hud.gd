@@ -30,6 +30,7 @@ func _ready() -> void:
 	hud_end_static.visible = false
 	hud_end_static_results.visible = false
 	
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	# Bind button signals to their respective event handlers.
 	continue_button_static.pressed.connect(_on_continue_button_static_pressed)
 	leave_button.pressed.connect(_on_leave_button_pressed)
@@ -86,6 +87,7 @@ func _on_continue_button_static_pressed() -> void:
 # Handler for the Leave button on the detailed statistics screen.
 # Returns the player to the main menu and clears local data.
 func _on_leave_button_pressed() -> void:
+	get_tree().paused = false
 	PlayerConfig.clear()
 	CurrentGame.clear()
 	CurrentLobby.clear()

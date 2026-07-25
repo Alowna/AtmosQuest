@@ -96,6 +96,9 @@ func _process(delta):
 	super._process(delta)
 	PlayerConfig.altitude = get_altitude()
 	
+	if -position.y >= 9800.0:
+		PlayerConfig.finished = true
+	
 
 	altitude_label.text = format_altitude(PlayerConfig.altitude)
 
@@ -140,7 +143,7 @@ func get_altitude():
 	elif ship_y <= 6996:
 		return lerp(80.0, 700.0, (ship_y - 3217.0) / (6996.0 - 3217.0))
 	else:
-		return lerp(700.0, 190000.0, (ship_y - 6996.0) / (9989.0 - 6996.0))
+		return lerp(700.0, 190000.0, (ship_y - 6996.0) / (9905.0 - 6996.0))
 
 
 func format_altitude(altitude):

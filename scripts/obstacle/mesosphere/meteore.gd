@@ -1,6 +1,7 @@
 extends Obstacle
 
 func _ready():
+	super._ready()
 	obstacle_name = "Meteoro"
 	z_index = 2
 	speed = 150.0

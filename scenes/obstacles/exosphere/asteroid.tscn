@@ -14,5 +14,5 @@ asteroid_textures = Array[Texture2D]([ExtResource("3_3exd4"), ExtResource("4_cbx
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="0" unique_id=2031939725]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1" unique_id=582596667]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" parent_id_path=PackedInt32Array(1758254992) index="0" unique_id=582596667]
 shape = SubResource("CircleShape2D_bhunq")

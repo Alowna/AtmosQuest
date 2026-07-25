@@ -5,3 +5,5 @@
 [node name="Obstacle" type="CharacterBody2D" unique_id=1278500318]
 collision_layer = 2
 script = ExtResource("1_hof70")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1758254992]

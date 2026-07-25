@@ -76,6 +76,6 @@ sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
 frame_progress = 0.84279335
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1" unique_id=666388613]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" parent_id_path=PackedInt32Array(1758254992) index="0" unique_id=666388613]
 position = Vector2(0, 1)
 polygon = PackedVector2Array(1, -21, 8, -20, 11, -18, 14, -14, 12, -9, 13, -1, 16, 10, 11, 16, 9, 19, 5, 21, -11, 16, -13, 6, -14, -3, -12, -10, -8, -16, -6, -21)

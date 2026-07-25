@@ -15,6 +15,12 @@ extends Node2D
 @onready var hull_hud = $CanvasLayer/Hull
 @onready var end_result_hud = $CanvasLayer/EndResultsHud
 
+@onready var CollisionSpawner = $CollisionSpawner
+
+@onready var question = $CanvasLayer/Question
+@onready var question_manager = $CanvasLayer/Question/QuestionScreen/QuestionManager
+
+
 # ==================================================
 # POLLING & RIVAL VARIABLES
 # ==================================================
@@ -43,6 +49,7 @@ var death_decline_speed := 20.0
 
 func _ready() -> void:
 	AudioManager.play_music("gameSong")
+	CollisionSpawner.start()
 	
 	# Set initial UI visibility states for gameplay.
 	hull_hud.visible = true
@@ -53,6 +60,7 @@ func _ready() -> void:
 
 	# Assign nearest lobby players to rival slots.
 	_assign_closest_lobby_rivals()
+	PlayerConfig.atmos_layer_changed.connect(_on_atmos_layer_changed)
 
 
 func _process(delta: float) -> void:
@@ -207,6 +215,26 @@ func _update_rival_positions(delta: float) -> void:
 				else:
 					rival_node.global_position.y = local_player.global_position.y - 10.0
 
+func _on_atmos_layer_changed(layer: int):
+	PlayerConfig.collisionDeathObject = "Transição de Camadas"
+	# Pause the game while the question is active
+	get_tree().paused = true
+	
+	if is_instance_valid(question_manager):
+		
+		# Connect signal to wait for the answer
+		if not question_manager.question_finished.is_connected(_on_question_finished):
+			question_manager.question_finished.connect(_on_question_finished)
+
+		# Start the question
+		question.start()
+		
+		
+func _on_question_finished(is_correct: bool):
+
+	if question_manager.question_finished.is_connected(_on_question_finished):
+		question_manager.question_finished.disconnect(_on_question_finished)
+		
 # ==================================================
 # GAME OVER ROUTINES
 # ==================================================
@@ -216,7 +244,7 @@ func finish_local_game() -> void:
 	# Hide gameplay HUD and display results container.
 	hull_hud.visible = false
 	end_result_hud.visible = true
-	
+	CollisionSpawner.stop()
 	# Start end sequence animation / polling transition.
 	end_result_hud.start_results_sequence()
 	

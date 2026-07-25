@@ -39,7 +39,7 @@ region = Rect2(720, 0, 180, 320)
 [sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
 animations = [{
 "frames": [{
-"duration": 0.9,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_0o4t1")
 }, {
 "duration": 1.0,
@@ -56,7 +56,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"default",
-"speed": 11.0
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dj67d"]
@@ -195,7 +195,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"offline",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -221,7 +221,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"online",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vr8o3"]
@@ -247,7 +247,7 @@ region = Rect2(272, 0, 68, 25)
 [sub_resource type="SpriteFrames" id="SpriteFrames_dj67d"]
 animations = [{
 "frames": [{
-"duration": 0.1,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vr8o3")
 }, {
 "duration": 1.0,
@@ -264,7 +264,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"default",
-"speed": 14.0
+"speed": 5.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b55j"]
@@ -284,7 +284,6 @@ texture = ExtResource("1_rtw2f")
 position = Vector2(90, 160)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
-frame_progress = 0.31110132
 
 [node name="PlayButton" parent="." unique_id=1862010026 instance=ExtResource("3_tbmy8")]
 layout_mode = 0
@@ -327,14 +326,13 @@ script = ExtResource("8_5dd4i")
 position = Vector2(88, 171)
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_jk1qb")
-animation = &"online"
-frame_progress = 0.022772124
+animation = &"check"
+frame_progress = 0.371994
 
 [node name="UsernameEditField" type="AnimatedSprite2D" parent="." unique_id=42983275]
 position = Vector2(89, 200)
 sprite_frames = SubResource("SpriteFrames_dj67d")
 autoplay = "default"
-frame_progress = 0.07385083
 
 [node name="LineEdit" type="LineEdit" parent="UsernameEditField" unique_id=1438651761]
 anchors_preset = -1

@@ -39,7 +39,7 @@ func _ready():
 	PlayerConfig.speed = 80
 	ShipDeath.visible = false 
 	speed = PlayerConfig.speed
-
+	CollisionPolygon.scale = Vector2(1, 1.26)
 func move_ship(direction: Vector2):
 	# Creates the movement velocity based on the given direction.
 	# Any ship can use this function by providing a movement direction.
@@ -52,10 +52,11 @@ func move_ship(direction: Vector2):
 #Physics for testing
 func _physics_process(_delta):
 	var direction = Vector2.UP
+	speed = PlayerConfig.speed
 	move_ship(direction)
 	
 func _process(_delta):
-	speed = PlayerConfig.speed
+	
 	# Checks if any rocket parts should be detached
 	# based on the current atmospheric layer.
 	check_detach_events()
@@ -106,7 +107,7 @@ func check_detach_events():
 	# Detach the final compartment/payload cover.
 	# ==========================================
 	if PlayerConfig.altitude >= 700 and not coffer_detached:
-
+		CollisionPolygon.scale = Vector2(1, 1)
 		coffer_detached = true
 
 		if coffer:
@@ -132,10 +133,17 @@ func kaboom():
 	CollisionPolygon.disabled
 	ShipDeath.visible = true
 
-	AudioManager.play_game_sound("explosion")
+
 	AudioManager.toggle_music()
+
 	ShipDeath.play("Kaboom")
+	AudioManager.play_game_sound("explosion")
 	await ShipDeath.animation_finished
-	ShipDeath.visible = false
+	hide_after_animation()
+	
 	PlayerConfig.finished = true
 	PlayerConfig.maxAltitude = PlayerConfig.altitude
+
+func hide_after_animation() -> void:
+
+	ShipDeath.visible = false

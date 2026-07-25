@@ -737,6 +737,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b1iqi")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
 }],
 "loop": 0,
 "name": &"Kaboom",
@@ -744,10 +750,13 @@ animations = [{
 }]
 
 [node name="Ship" type="CharacterBody2D" unique_id=1983180390]
+scale = Vector2(0.75, 0.75)
 input_pickable = true
 script = ExtResource("1_yie7n")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=146630552]
+position = Vector2(0, 9)
+scale = Vector2(1, 1.26)
 polygon = PackedVector2Array(0, -20, 0, -20, -11, -7, -11, 17, -4, 20, 4, 20, 11, 17, 11, -7)
 
 [node name="Pilot" type="Sprite2D" parent="." unique_id=457922127]

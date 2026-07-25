@@ -27,7 +27,7 @@ func _ready() -> void:
 
 	# Create the music player.
 	add_child(music_player)
-
+	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	# Start the menu music.
 	AudioManager.play_music("menu")
 
@@ -59,7 +59,8 @@ func play_ui_sound(name: String):
 		return
 
 	var player := AudioStreamPlayer.new()
-
+	player.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	player.stream = UIsounds[name]
 
 	add_child(player)
@@ -76,9 +77,12 @@ func play_game_sound(name: String):
 	if !gameSounds.has(name):
 		push_error("Som de game '%s' não encontrado." % name)
 		return
-
+	
+	
 	var player := AudioStreamPlayer.new()
-
+	
+	player.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	player.stream = gameSounds[name]
 
 	add_child(player)
@@ -89,7 +93,8 @@ func play_game_sound(name: String):
 	player.finished.connect(func():
 		player.queue_free()
 	)
-
+	
+	return player
 
 # ==================================================
 # MUSIC TOGGLE

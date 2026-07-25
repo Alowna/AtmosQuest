@@ -34,7 +34,13 @@ var speed: int = 80
 var maxAltitude: int = 0
 
 # Check players atmosphere layer
-var atmosLayer = 0
+signal atmos_layer_changed
+
+var atmosLayer: int = 0:
+	set(value):
+		if value != atmosLayer:
+			atmosLayer = value
+			atmos_layer_changed.emit(atmosLayer)
 # 0 = Troposphere
 # 1 = Stratosphere
 # 2 = Mesosphere

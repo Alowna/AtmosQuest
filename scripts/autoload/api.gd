@@ -5,7 +5,7 @@ extends Node
 
 
 # ==================================================
-# HEALTH CHECK / PING
+	# HEALTH CHECK / PING
 # Checks if the server is online and reachable.
 # ==================================================
 

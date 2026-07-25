@@ -8,6 +8,7 @@ class_name Asteroid
 
 
 func _ready():
+	super._ready()
 	obstacle_name = "Asteroide"
 	z_index = 2
 	# Applies asteroid speed
