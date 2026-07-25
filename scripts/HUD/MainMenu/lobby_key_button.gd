@@ -86,7 +86,7 @@ func _on_pressed() -> void:
 	used = true
 
 	# Play the button click sound.
-	AudioManager.play_ui_sound("button")
+	AudioManager.play_ui_sound("UIClick2")
 
 	# Click animation.
 	var tween := create_tween()

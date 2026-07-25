@@ -15,11 +15,30 @@ var music = {
 
 # UI sound effects library.
 var UIsounds = {
-	"button": preload("res://assets/Sounds/ButtonPressed.ogg")
+	"button": preload("res://assets/Sounds/ButtonPressed.ogg"),
+	"UIClick1": preload("res://assets/Sounds/UIClick1.ogg"),
+	"UIClick2": preload("res://assets/Sounds/UIClick2.ogg"),
+	"UIClick3": preload("res://assets/Sounds/UIClick3.ogg")
 }
 
 var gameSounds = {
-	"explosion": preload("res://assets/Sounds/explosion.ogg")
+	"explosion": preload("res://assets/Sounds/explosion.ogg"),
+	"openMetal": preload("res://assets/Sounds/OpenMetal.ogg"),
+	"closeMetal": preload("res://assets/Sounds/CloseMetal.ogg"),
+	"crash": preload("res://assets/Sounds/Crash.ogg")
+}
+
+var gameSoundVolumes = {
+	"explosion": 10.5,
+	"openMetal": -4.0,
+	"closeMetal": -8.0
+}
+
+var gameSoundSpeeds = {
+	"explosion": 1.0,
+	"openMetal": 1,
+	"closeMetal": 1,
+	"crash": 3.5
 }
 
 
@@ -80,6 +99,9 @@ func play_game_sound(name: String):
 	
 	
 	var player := AudioStreamPlayer.new()
+	
+	player.volume_db = gameSoundVolumes.get(name, 0.0)
+	player.pitch_scale = gameSoundSpeeds.get(name, 1.0)
 	
 	player.process_mode = Node.PROCESS_MODE_ALWAYS
 	

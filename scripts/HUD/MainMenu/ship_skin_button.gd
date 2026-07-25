@@ -72,7 +72,7 @@ func _on_pressed():
 	used = true
 
 	# Plays the click sound if one is assigned
-	AudioManager.play_ui_sound("button")
+	AudioManager.play_ui_sound("UIClick1")
 
 	# Temporarily speeds up the button idle animation
 	button_animation.speed_scale = default_animation_speed * 2.0

@@ -60,7 +60,7 @@ func _on_pressed():
 
 	used = true
 
-	AudioManager.play_ui_sound("button")
+	AudioManager.play_ui_sound("UIClick2")
 
 	# Temporarily speeds up button animation
 	button_animation.speed_scale = default_animation_speed * 2.0

@@ -284,7 +284,7 @@ texture = ExtResource("1_rtw2f")
 position = Vector2(90, 160)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
-frame_progress = 0.31110132
+frame_progress = 0.975581
 
 [node name="PlayButton" parent="." unique_id=1862010026 instance=ExtResource("3_tbmy8")]
 layout_mode = 0
@@ -328,13 +328,13 @@ position = Vector2(88, 171)
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_jk1qb")
 animation = &"online"
-frame_progress = 0.022772124
+frame_progress = 0.18243922
 
 [node name="UsernameEditField" type="AnimatedSprite2D" parent="." unique_id=42983275]
 position = Vector2(89, 200)
 sprite_frames = SubResource("SpriteFrames_dj67d")
 autoplay = "default"
-frame_progress = 0.07385083
+frame_progress = 0.67985857
 
 [node name="LineEdit" type="LineEdit" parent="UsernameEditField" unique_id=1438651761]
 anchors_preset = -1

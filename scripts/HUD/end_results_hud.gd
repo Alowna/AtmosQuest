@@ -43,6 +43,7 @@ func _ready() -> void:
 # Triggers the initial end-game sequence.
 # Designed to be called externally (e.g., from main game scene) when the match concludes.
 func start_results_sequence() -> void:
+	AudioManager.play_game_sound("closeMetal")
 	hull_transition.visible = true
 	hull_transition.play("EndTransition")
 	
@@ -70,6 +71,7 @@ func update_final_status() -> void:
 # Handler for the Continue button on the first results screen.
 # Transitions the UI to the detailed statistics panel.
 func _on_continue_button_static_pressed() -> void:
+	AudioManager.play_game_sound("openMetal")
 	hud_end_static.visible = false
 	
 	# Compile and instantiate UI labels prior to rendering the final screen.

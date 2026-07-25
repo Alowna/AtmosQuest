@@ -51,7 +51,7 @@ func _on_pressed() -> void:
 	used = true
 
 	# Play click sound.
-	AudioManager.play_ui_sound("button")
+	AudioManager.play_ui_sound("UIClick3")
 	
 	# Extract skin IDs safely.
 	var ship_id: int = PlayerConfig.ship_skin.get("id", 0)

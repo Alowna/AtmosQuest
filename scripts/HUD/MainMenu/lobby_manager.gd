@@ -45,7 +45,7 @@ func update_lobby_ships(players: Array) -> void:
 	for player in players:
 
 		var current_id := int(player.get("id", -1))
-		var current_ship_skin := int(player.get("playerSkin", 0))
+		var current_ship_skin := int(player.get("pilotSkin", 0))
 
 		var slot_already_occupied := false
 		var skin_needs_update := false
@@ -64,10 +64,7 @@ func update_lobby_ships(players: Array) -> void:
 				# changed while they were in the lobby.
 				var active_skin = SkinManager.get_ship_skin_by_id(current_ship_skin)
 
-				var expected_texture_path: String = active_skin.get(
-					"example",
-					active_skin.get("body", "")
-				)
+				var expected_texture_path: String = active_skin.get("example", "")
 
 				if ship.ship_visual.texture == null \
 				or ship.ship_visual.texture.resource_path != expected_texture_path:

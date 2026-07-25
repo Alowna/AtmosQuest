@@ -29,7 +29,7 @@ func _ready() -> void:
 	# Hide UI elements initially for the entrance animation sequence.
 	lobby_key_button.visible = false
 	back_button.visible = false
-	
+	AudioManager.play_game_sound("crash")
 	# Connect view entry animations.
 	$Base.animation_finished.connect(_on_entrance_animation_finished)
 	$Skies.animation_finished.connect(_on_entrance_animation_finished)

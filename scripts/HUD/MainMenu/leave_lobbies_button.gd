@@ -58,7 +58,7 @@ func _on_pressed() -> void:
 	used = true
 
 	#Play sound
-	AudioManager.play_ui_sound("button")
+	AudioManager.play_ui_sound("UIClick3")
 
 	# ==================================================
 	# BUTTON ANIMATION

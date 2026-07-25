@@ -40,7 +40,7 @@ func _on_pressed():
 	used = true
 
 	# Play the click sound, 
-	AudioManager.play_ui_sound("button")
+	AudioManager.play_ui_sound("UIClick3")
 
 	# Creates the press animation:
 	# The button shrinks slightly and then returns to its original size

@@ -21,7 +21,7 @@ func create_click_mask():
 
 func _on_pressed():
 	# Click sound
-	AudioManager.play_ui_sound("button")
+	AudioManager.play_ui_sound("UIClick1")
 
 	# Animation
 	var tween := create_tween()
