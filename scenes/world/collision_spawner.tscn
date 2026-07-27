@@ -22,7 +22,7 @@ troposphere_obstacle_scenes = Array[PackedScene]([ExtResource("6_vpiq8"), ExtRes
 stratosphere_obstacle_scenes = Array[PackedScene]([ExtResource("7_rkc0y"), ExtResource("8_d2swm")])
 mesosphere_obstacle_scenes = Array[PackedScene]([ExtResource("9_8xjfi")])
 termosphere_obstacle_scenes = Array[PackedScene]([ExtResource("10_u5e5f"), ExtResource("11_joplt"), ExtResource("12_e431a"), ExtResource("13_bmyo0")])
-exosphere_obstacle_scenes = Array[PackedScene]([ExtResource("14_e431a"), ExtResource("15_bmyo0")])
+exosphere_obstacle_scenes = Array[PackedScene]([ExtResource("15_bmyo0")])
+space_station_scene = ExtResource("14_e431a")
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=1388962130]
-wait_time = 1.822

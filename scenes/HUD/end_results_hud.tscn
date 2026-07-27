@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://b8kqetcsfyonk" path="res://assets/HUD/EndResults/HudEndStatic.png" id="6_jwt1i"]
 [ext_resource type="Script" uid="uid://2dqul0oj72ot" path="res://scripts/HUD/export_results_button.gd" id="7_uxtl3"]
 [ext_resource type="Texture2D" uid="uid://dpskk80jgq58" path="res://assets/HUD/Questions/BlackScreen.png" id="8_gbss6"]
+[ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="9_1gjik"]
+[ext_resource type="Texture2D" uid="uid://bmphlr3wr3e70" path="res://assets/HUD/MainMenu/MainMenuSoundAlpha.png" id="10_abx5m"]
+[ext_resource type="Script" uid="uid://buush2gikjqdl" path="res://scripts/HUD/MainMenu/sound_button.gd" id="11_omqj2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ncbw"]
 atlas = ExtResource("1_njukm")
@@ -171,7 +174,6 @@ grow_vertical = 2
 script = ExtResource("1_5a2xp")
 
 [node name="EndResultsHullTransition" type="AnimatedSprite2D" parent="." unique_id=446854060]
-visible = false
 position = Vector2(90, 160)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 animation = &"EndTransition"
@@ -246,8 +248,16 @@ layout_mode = 2
 theme = SubResource("Theme_gbss6")
 theme_type_variation = &"Label"
 
+[node name="SoundButton" parent="HudEndStaticResults" unique_id=1862010026 instance=ExtResource("9_1gjik")]
+z_index = 1
+offset_left = -69.0
+offset_top = 122.0
+offset_right = -48.0
+offset_bottom = 143.0
+texture_normal = ExtResource("10_abx5m")
+script = ExtResource("11_omqj2")
+
 [node name="HudEndStatic" type="Sprite2D" parent="." unique_id=1268483016]
-visible = false
 position = Vector2(90, 160)
 texture = ExtResource("6_jwt1i")
 
@@ -287,3 +297,12 @@ vertical_alignment = 1
 z_index = -2
 position = Vector2(0, 1)
 texture = ExtResource("8_gbss6")
+
+[node name="SoundButton" parent="HudEndStatic" unique_id=751344224 instance=ExtResource("9_1gjik")]
+z_index = 1
+offset_left = -70.0
+offset_top = -151.0
+offset_right = -49.0
+offset_bottom = -130.0
+texture_normal = ExtResource("10_abx5m")
+script = ExtResource("11_omqj2")

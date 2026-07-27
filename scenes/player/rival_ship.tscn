@@ -29,7 +29,18 @@ texture = null
 [node name="ShipCoffer" parent="Coffer" parent_id_path=PackedInt32Array(137743845) index="0" unique_id=1088578168]
 texture = null
 
+[node name="CofferFire" parent="Fire" parent_id_path=PackedInt32Array(466268621) index="2" unique_id=1493150331]
+animation = &"LoopFire"
+
+[node name="FinalFire" parent="Fire" parent_id_path=PackedInt32Array(466268621) index="3" unique_id=486105763]
+position = Vector2(0, 33)
+animation = &"LoopFire"
+centered = true
+
 [node name="ShipDeath" parent="." index="9" unique_id=224717227]
 animation = &"Boom"
 frame = 13
 frame_progress = 1.0
+
+[node name="WarningAnimation" parent="." index="10" unique_id=625156027]
+visible = false

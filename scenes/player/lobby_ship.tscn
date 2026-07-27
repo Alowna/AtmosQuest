@@ -197,7 +197,7 @@ vertical_alignment = 1
 
 [node name="PropellerFire" type="AnimatedSprite2D" parent="." unique_id=618692496]
 z_index = -1
-position = Vector2(-1, 40)
+position = Vector2(-2, 39)
 sprite_frames = SubResource("SpriteFrames_skfkf")
 animation = &"LoopFire"
 autoplay = "LoopFire"

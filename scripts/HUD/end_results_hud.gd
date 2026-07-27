@@ -124,7 +124,7 @@ func generate_results_text() -> void:
 	if PlayerConfig.isAlive:
 		_add_simple_label("Concluiu com %d vidas!" % PlayerConfig.lives)
 		
-	_add_simple_label("Sua altitude máxima foi %d km!" % PlayerConfig.maxAltitude)
+	_add_simple_label("Sua altitude máxima foi %d km!" % PlayerConfig.altitude)
 	_add_simple_label("Pontuou %d pontos!" % PlayerConfig.points)
 	
 	# 6. ENCOUNTERS & COLLISIONS

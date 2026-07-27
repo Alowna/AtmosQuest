@@ -4,6 +4,9 @@ extends Node
 # Stores player customization and account data between scenes.
 # Also provides the player's information when communicating with the server.
 
+#Check if games paused or not and locks control
+var controls_locked := false
+
 # Player display name.
 # Used as the player's identity in the lobby and server data.
 var username = "Jogador(e)"
@@ -24,7 +27,7 @@ var isAlive: bool = true
 var finished: bool = false
 
 # Check players lives
-var lives: int = 1#6 #1 of testing
+var lives: int = 6 #1 for testing
 
 #Check player altitude
 var altitude: int = 0
@@ -122,6 +125,8 @@ func clear() -> void:
 	wrongAnswersIds.clear()
 	answeredQuestions.clear()
 	
+	controls_locked = false
+	
 var all_questions: Array = []
 
 func _ready() -> void:
@@ -157,6 +162,7 @@ func wrongAnswer(question_id: int) -> void:
 	lives -= 1
 	if lives < 1:
 		isAlive = false
+
 	
 # ==================================================
 # GLOBAL NETWORK MONITOR (HEARTBEAT)

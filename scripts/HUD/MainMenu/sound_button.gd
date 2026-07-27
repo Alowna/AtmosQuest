@@ -1,13 +1,13 @@
 extends TextureButton
 
+# Stores the original button scale.
+var original_scale: Vector2
 
 func _ready():
 	await get_tree().process_frame
+	original_scale = scale
 
 	create_click_mask()
-
-	if texture_normal:
-		pivot_offset = texture_normal.get_size() / 2
 
 	pressed.connect(_on_pressed)
 
@@ -36,9 +36,37 @@ func _on_pressed():
 	tween.tween_property(
 		self,
 		"scale",
-		Vector2.ONE,
-		0.1
-	)
+		original_scale,
+		0.15
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)
 
 	# turn music on and off
 	AudioManager.toggle_music()
+
+
+
+func appear() -> void:
+	# Show the button.
+	visible = true
+
+	# Start almost invisible.
+	scale = Vector2.ONE * 0.1
+
+	# Create the appearance animation.
+	var tween := create_tween()
+
+	# Grow past the final size for a pop effect.
+	tween.tween_property(
+		self,
+		"scale",
+		Vector2.ONE * 1.5,
+		0.2
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+	# Return to the original size.
+	tween.tween_property(
+		self,
+		"scale",
+		original_scale,
+		0.15
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)

@@ -8,12 +8,13 @@ var firstHealthCheck: bool = true
 var health_check_running: bool = false
 
 
+
 func _ready() -> void:
 	get_tree().paused = false
-	
+	AudioManager.play_music("menu")
 	_update_username()
 	_update_visual_status()
-	
+
 	_check_server_once()
 	
 	print("Menu ready")

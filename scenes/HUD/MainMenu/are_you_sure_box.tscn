@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://dadtb23r6fow1"]
+
+[ext_resource type="Script" uid="uid://ciuu46rbxcgwc" path="res://scripts/HUD/MainMenu/are_you_sure_box.gd" id="1_j3hbi"]
+[ext_resource type="Texture2D" uid="uid://bm5jjjqqqko0w" path="res://assets/HUD/ConfirmBox.png" id="1_ubfk2"]
+[ext_resource type="FontFile" uid="uid://nsywhfovxtus" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-SemiBold.ttf" id="3_j17hk"]
+[ext_resource type="FontFile" uid="uid://dv687cqmns33c" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-Medium.ttf" id="4_1yc63"]
+
+[sub_resource type="Theme" id="Theme_1kice"]
+
+[sub_resource type="Theme" id="Theme_264po"]
+
+[node name="AreYouSureBox" type="Control" unique_id=737388493]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j3hbi")
+
+[node name="ConfirmBox" type="Sprite2D" parent="." unique_id=368455921]
+position = Vector2(4.7683716e-07, 0)
+scale = Vector2(2.2625, 1)
+texture = ExtResource("1_ubfk2")
+
+[node name="BackToMenu" type="Button" parent="." unique_id=1860580593]
+layout_mode = 0
+offset_left = -83.0
+offset_top = -35.0
+offset_right = 81.0
+offset_bottom = -1.0
+theme = SubResource("Theme_1kice")
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_color = Color(0.88235295, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_j17hk")
+theme_override_font_sizes/font_size = 21
+text = "Voltar ao menu"
+
+[node name="ContinueGame" type="Button" parent="." unique_id=659241299]
+layout_mode = 0
+offset_left = -72.0
+offset_top = 4.0
+offset_right = 73.0
+offset_bottom = 35.0
+theme = SubResource("Theme_264po")
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_color = Color(0, 0.9764706, 0, 1)
+theme_override_fonts/font = ExtResource("4_1yc63")
+theme_override_font_sizes/font_size = 18
+text = "Continuar Jogo"

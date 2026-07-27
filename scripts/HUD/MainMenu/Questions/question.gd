@@ -14,6 +14,9 @@ func _ready() -> void:
 	QuestionPop.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	
 func start() -> void:
+	if not PlayerConfig.isAlive:
+		return
+	
 	visible = true
 	
 

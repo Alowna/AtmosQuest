@@ -1,20 +1,22 @@
 extends TextureButton
 
 # The directory where reports will be saved. Must use user:// for exported games.
-const REPORTS_DIR = "/storage/emulated/0/Download/GameReports"
+const REPORTS_DIR = "user://GameReports"
 const MAX_REPORTS = 3
 
 func _ready() -> void:
 	# Connects the button's own pressed signal to the handler function
 	pressed.connect(_on_pressed)
-
+	if OS.get_name() == "Android":
+		OS.request_permissions()
+		
 func _on_pressed() -> void:
 	# Ensure the directory exists before trying to read/write
-	var dir = DirAccess.open("/storage/emulated/0/Download")
+	var dir = DirAccess.open("user://")
 	if dir:
 		dir.make_dir("GameReports")
 	else:
-		print("Não foi possível acessar a pasta Downloads")
+		print("Não foi possível criar a pasta de relatórios")
 		return
 	
 	# Clean up old reports to maintain the limit
@@ -136,7 +138,8 @@ func manage_report_history() -> void:
 
 # Uses the OS to open the file in the default application
 func open_report_externally(local_path: String) -> void:
-	var error = OS.shell_open("file://" + local_path)
+	var absolute_path = ProjectSettings.globalize_path(local_path)
+	var error = OS.shell_open("file://" + absolute_path)
 	
 	if error != OK:
 		print("Falha ao abrir o relatório externamente. Código: ", error)

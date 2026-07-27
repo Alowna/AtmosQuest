@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://5eorpnqta7ev" path="res://assets/HUD/ShipHud/HullLights/HUDLightsAlpha-Sheet.png" id="2_q8w1o"]
 [ext_resource type="PackedScene" uid="uid://c5ghwi67akuft" path="res://scenes/player/rival_ship.tscn" id="3_o1ts6"]
 [ext_resource type="Script" uid="uid://b0tydwnv1orwp" path="res://scripts/HUD/end_results_hud_multiplayer.gd" id="4_jxfkk"]
+[ext_resource type="Script" uid="uid://cff5pgt7gk7a3" path="res://scripts/HUD/MainMenu/are_you_sure_box_mp.gd" id="5_a1oyb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gee14"]
 atlas = ExtResource("2_q8w1o")
@@ -42,7 +43,7 @@ region = Rect2(1260, 0, 180, 320)
 atlas = ExtResource("2_q8w1o")
 region = Rect2(1440, 0, 180, 320)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_jxfkk"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_a1oyb"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -81,11 +82,14 @@ animations = [{
 [node name="MultiplayerGame" unique_id=1309740570 instance=ExtResource("1_vo66o")]
 script = ExtResource("2_o1ts6")
 
-[node name="HullLightsAlphaAnimated" parent="CanvasLayer/Hull" parent_id_path=PackedInt32Array(243477001) index="1" unique_id=1450636312]
-sprite_frames = SubResource("SpriteFrames_jxfkk")
+[node name="HullLightsAlphaAnimated" parent="CanvasLayer/Hull" parent_id_path=PackedInt32Array(243477001) index="2" unique_id=1450636312]
+sprite_frames = SubResource("SpriteFrames_a1oyb")
 
-[node name="EndResultsHud" parent="CanvasLayer" parent_id_path=PackedInt32Array(1465176994) index="2" unique_id=95842773]
+[node name="EndResultsHud" parent="CanvasLayer" parent_id_path=PackedInt32Array(1465176994) index="3" unique_id=95842773]
 script = ExtResource("4_jxfkk")
+
+[node name="AreYouSureBox" parent="CanvasLayer" parent_id_path=PackedInt32Array(1465176994) index="4" unique_id=737388493]
+script = ExtResource("5_a1oyb")
 
 [node name="RivalShip1" parent="." index="5" unique_id=1983180390 instance=ExtResource("3_o1ts6")]
 position = Vector2(-50, 12)

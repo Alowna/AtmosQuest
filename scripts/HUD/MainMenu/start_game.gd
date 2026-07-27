@@ -6,11 +6,13 @@ var used := false
 # ==================================================
 # INITIALIZATION
 # ==================================================
+# Stores the original button scale.
+var original_scale: Vector2
 
 func _ready() -> void:
 	# Creates a pixel-perfect click area based on the button texture transparency.
 	create_click_mask()
-	
+	original_scale = scale
 
 	# Connect the button press event.
 	pressed.connect(_on_pressed)
@@ -55,8 +57,13 @@ func _on_pressed() -> void:
 	
 	# Create a quick press animation immediately: shrinks slightly, then bounces back.
 	var tween := create_tween()
-	tween.tween_property(self, "scale", Vector2(0.85, 0.85), 0.12)
-	tween.tween_property(self, "scale", Vector2.ONE, 0.15)
+	tween.tween_property(self, "scale", Vector2(0.65, 0.65), 0.12)
+	tween.tween_property(
+		self,
+		"scale",
+		original_scale,
+		0.15
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)
 	
 	# ==================================================
 	# API CALL
@@ -85,3 +92,33 @@ func _on_pressed() -> void:
 		# Allow the user to try again if an error occurred (e.g., 400 or 500).
 		used = false
 		push_error("StartGameButton: Failed to tell the server to start the game.")
+
+
+
+
+func appear() -> void:
+	# Show the button.
+	visible = true
+
+	# Start almost invisible.
+	scale = Vector2.ONE * 0.1
+
+	# Create the appearance animation.
+	var tween := create_tween()
+
+	# Grow past the final size for a pop effect.
+	tween.tween_property(
+		self,
+		"scale",
+		Vector2.ONE * 1.2,
+		0.2
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+	# Return to the original size.
+	tween.tween_property(
+		self,
+		"scale",
+		original_scale,
+		0.15
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)
+	

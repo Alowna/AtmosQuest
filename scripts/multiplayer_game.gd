@@ -6,6 +6,7 @@ extends Node2D
 
 # Reference to the local player's ship.
 @onready var local_player = $PlayerShip
+@onready var PlayerCamera = $PlayerShip/Camera2D
 
 # Rival ship slots placed in the scene.
 @onready var rival_1 = $RivalShip1
@@ -14,6 +15,7 @@ extends Node2D
 # CanvasLayer HUD references.
 @onready var hull_hud = $CanvasLayer/Hull
 @onready var end_result_hud = $CanvasLayer/EndResultsHud
+@onready var LeftOrbit = $CanvasLayer/LeftOrbit
 
 @onready var CollisionSpawner = $CollisionSpawner
 
@@ -51,6 +53,8 @@ func _ready() -> void:
 	AudioManager.play_music("gameSong")
 	CollisionSpawner.start()
 	
+	tree_exiting.connect(_on_game_exit)
+	
 	# Set initial UI visibility states for gameplay.
 	hull_hud.visible = true
 	end_result_hud.visible = false
@@ -64,6 +68,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if local_game_ended:
+		return
+		
 	poll_timer += delta
 
 	# Poll the server at fixed intervals.
@@ -119,9 +126,10 @@ func _send_local_finish() -> void:
 		"playerId": PlayerConfig.online_id,
 		"action": "finish"
 	}
-
-	# Send finish request through Api autoload.
-	Api.send_game_action(payload)
+	
+	print("[DEBUG] Avisando servidor que a partida acabou...")
+	# Adicionado AWAIT
+	await Api.send_game_action(payload)
 
 # ==================================================
 # NETWORK INBOUND
@@ -231,7 +239,6 @@ func _on_atmos_layer_changed(layer: int):
 		
 		
 func _on_question_finished(is_correct: bool):
-
 	if question_manager.question_finished.is_connected(_on_question_finished):
 		question_manager.question_finished.disconnect(_on_question_finished)
 		
@@ -241,12 +248,90 @@ func _on_question_finished(is_correct: bool):
 
 # Handles end of local gameplay session and triggers results presentation.
 func finish_local_game() -> void:
-	# Hide gameplay HUD and display results container.
-	hull_hud.visible = false
-	end_result_hud.visible = true
+	PlayerConfig.speed = 0
+	CollisionSpawner.clear_obstacles()
 	CollisionSpawner.stop()
+	print("Terminei?", PlayerConfig.finished)
+	await _send_local_finish()
+	
+	await AudioManager.stop_all_game_sounds()
+	# Notify server of local completion status.
+	
+	
+	get_tree().paused = true
+	
+	hull_hud.visible = false
+	
+	if PlayerConfig.isAlive:
+		AudioManager.play_music("happyEnding")
+		await zoom_into_player_ship()
+		await LeftOrbit.start()
+	else:
+		AudioManager.play_music("sadEnding")
+
+	end_result_hud.visible = true
+	
+	# Keep the final camera position after the transition
+	var camera_position = PlayerCamera.global_position
+
+	PlayerCamera.top_level = true
+	PlayerCamera.global_position = camera_position
+	PlayerCamera.enabled = true
+	
 	# Start end sequence animation / polling transition.
 	end_result_hud.start_results_sequence()
 	
-	# Notify server of local completion status.
-	_send_local_finish()
+
+
+
+func zoom_into_player_ship() -> void:
+	# Enable camera and focus on the ship
+	PlayerCamera.enabled = true
+	PlayerCamera.zoom = Vector2.ONE
+	
+	var camera_tween = create_tween()
+	camera_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	
+	camera_tween.tween_property(
+		PlayerCamera,
+		"zoom",
+		Vector2(8, 8),
+		0.5
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	
+	await camera_tween.finished
+	
+	# Detach camera from the ship and keep its current position
+	PlayerCamera.top_level = true
+	PlayerCamera.global_position = local_player.global_position
+	PlayerCamera.position_smoothing_enabled = false
+	
+	# Rotate ship 30 degrees to the right and fly away
+	var ship_tween = create_tween()
+	ship_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	
+	ship_tween.parallel().tween_property(
+		local_player,
+		"rotation",
+		deg_to_rad(30),
+		0.5
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	
+	ship_tween.parallel().tween_property(
+		local_player,
+		"position",
+		local_player.position + Vector2(1000, -300),
+		2.0
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	AudioManager.play_game_sound("swoosh")
+	await ship_tween.finished
+
+
+func _on_game_exit() -> void:
+	if not CurrentGame.is_active():
+		return
+
+	Api.leave_game(
+		CurrentGame.game_key,
+		PlayerConfig.online_id
+	)

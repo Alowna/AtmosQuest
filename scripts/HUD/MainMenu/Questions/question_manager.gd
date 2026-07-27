@@ -94,7 +94,8 @@ func getRandomQuestion(layer_id: int) -> Dictionary:
 
 
 func _on_answer_button_pressed(selected_option: String) -> void:
-
+	
+	
 	# Stop the timer when the player answers
 	timer_active = false
 

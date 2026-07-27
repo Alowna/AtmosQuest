@@ -8,11 +8,14 @@ extends Node
 	# HEALTH CHECK / PING
 # Checks if the server is online and reachable.
 # ==================================================
-
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 func check_connection() -> bool:
-	var url: String = "http://" + Env.api_base_url + "/health"
+	var url: String = "https://" + Env.api_base_url + "/health"
 	
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	# Set a short timeout (3 seconds) so it fails quickly if the server is down.
 	http_request.timeout = 3.0
 	add_child(http_request)
@@ -41,10 +44,11 @@ func check_connection() -> bool:
 	return response_code == 200
 
 func get_game_state(game_key: String) -> Dictionary:
-	var url: String = "http://" + Env.api_base_url + "/get_game_state/" + game_key
+	var url: String = "https://" + Env.api_base_url + "/get_game_state/" + game_key
 	
 	# Create a HTTPRequest node dynamically for this request
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(
@@ -88,9 +92,10 @@ func get_game_state(game_key: String) -> Dictionary:
 		return {}
 		
 func send_game_action(payload: Dictionary) -> void:
-	var url: String = "http://" + Env.api_base_url + "/game_action"
-	
+	var url: String = "https://" + Env.api_base_url + "/game_action"
+	print("To inviano..")
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(
@@ -105,9 +110,19 @@ func send_game_action(payload: Dictionary) -> void:
 		http_request.queue_free()
 		return
 	
-	# Wait for request completion and auto-free the request node
-	await http_request.request_completed
+	# Aguardamos a resposta completa do servidor
+	var result = await http_request.request_completed
+	
 	if is_instance_valid(http_request):
+		var response_code: int = result[1]
+		var body: PackedByteArray = result[3]
+		
+		# Se a resposta não for 200, mostramos o erro que a API (Pydantic/FastAPI) devolveu.
+		if response_code != 200:
+			push_error("API: send_game_action falhou. Status " + str(response_code) + " | Erro: " + body.get_string_from_utf8())
+		else:
+			print("Deu bão dimais")
+		
 		http_request.queue_free()
 
 # ==================================================
@@ -116,9 +131,10 @@ func send_game_action(payload: Dictionary) -> void:
 
 # Fetches the current state of a lobby. Returns a special flag if not found (404).
 func get_lobby(lobby_key: String) -> Dictionary:
-	var url: String = "http://" + Env.api_base_url + "/get_lobby/" + lobby_key
+	var url: String = "https://" + Env.api_base_url + "/get_lobby/" + lobby_key
 	
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(
@@ -164,9 +180,10 @@ func get_lobby(lobby_key: String) -> Dictionary:
 # ==================================================
 
 func leave_lobby(lobby_key: String, player_id: int) -> bool:
-	var url: String = "http://" + Env.api_base_url + "/leave_lobby?lobbyKey=" + lobby_key + "&playerId=" + str(player_id)
+	var url: String = "https://" + Env.api_base_url + "/leave_lobby?lobbyKey=" + lobby_key + "&playerId=" + str(player_id)
 	
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(
@@ -202,9 +219,10 @@ func leave_lobby(lobby_key: String, player_id: int) -> bool:
 # ==================================================
 
 func leave_server(player_id: int) -> bool:
-	var url: String = "http://" + Env.api_base_url + "/leave_server?id=" + str(player_id)
+	var url: String = "https://" + Env.api_base_url + "/leave_server?id=" + str(player_id)
 	
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(
@@ -242,9 +260,10 @@ func leave_server(player_id: int) -> bool:
 # ==================================================
 
 func join_lobby(lobby_key: String, player_id: int) -> Dictionary:
-	var url: String = "http://" + Env.api_base_url + "/join_lobby?lobbyKey=" + lobby_key + "&playerId=" + str(player_id)
+	var url: String = "https://" + Env.api_base_url + "/join_lobby?lobbyKey=" + lobby_key + "&playerId=" + str(player_id)
 	
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(
@@ -287,9 +306,10 @@ func join_lobby(lobby_key: String, player_id: int) -> Dictionary:
 # ==================================================
 
 func create_lobby(owner_id: int) -> Dictionary:
-	var url: String = "http://" + Env.api_base_url + "/create_lobby?ownerId=" + str(owner_id)
+	var url: String = "https://" + Env.api_base_url + "/create_lobby?ownerId=" + str(owner_id)
 	
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(
@@ -332,9 +352,10 @@ func create_lobby(owner_id: int) -> Dictionary:
 # ==================================================
 
 func leave_game(game_key: String, player_id: int) -> bool:
-	var url: String = "http://" + Env.api_base_url + "/leave_game?gameKey=" + game_key + "&playerId=" + str(player_id)
+	var url: String = "https://" + Env.api_base_url + "/leave_game?gameKey=" + game_key + "&playerId=" + str(player_id)
 	
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(
@@ -370,9 +391,10 @@ func leave_game(game_key: String, player_id: int) -> bool:
 # ==================================================
 
 func create_game(lobby_key: String) -> bool:
-	var url: String = "http://" + Env.api_base_url + "/create_game?lobbyKey=" + lobby_key
+	var url: String = "https://" + Env.api_base_url + "/create_game?lobbyKey=" + lobby_key
 	
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(
@@ -409,7 +431,7 @@ func create_game(lobby_key: String) -> bool:
 # ==================================================
 
 func join_server(username: String, ship_skin_id: int, pilot_skin_id: int) -> Dictionary:
-	var url: String = "http://" + Env.api_base_url + "/join_server"
+	var url: String = "https://" + Env.api_base_url + "/join_server"
 	
 	var player_data: Dictionary = {
 		"id": 0,
@@ -419,6 +441,7 @@ func join_server(username: String, ship_skin_id: int, pilot_skin_id: int) -> Dic
 	}
 	
 	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	
 	var error = http_request.request(

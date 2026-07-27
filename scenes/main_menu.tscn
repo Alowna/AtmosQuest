@@ -284,7 +284,7 @@ texture = ExtResource("1_rtw2f")
 position = Vector2(90, 160)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
-frame_progress = 0.975581
+frame_progress = 0.6100823
 
 [node name="PlayButton" parent="." unique_id=1862010026 instance=ExtResource("3_tbmy8")]
 layout_mode = 0
@@ -308,9 +308,9 @@ target_scene = "uid://bjwr5jwn67hxu"
 [node name="OptionsButton" parent="." unique_id=876353857 instance=ExtResource("3_tbmy8")]
 layout_mode = 0
 offset_left = 72.0
-offset_top = 222.0
+offset_top = 186.0
 offset_right = 105.0
-offset_bottom = 249.0
+offset_bottom = 213.0
 texture_normal = ExtResource("6_lgwnu")
 target_scene = "uid://dwaw05mi1fffk"
 
@@ -328,13 +328,13 @@ position = Vector2(88, 171)
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_jk1qb")
 animation = &"online"
-frame_progress = 0.18243922
+frame_progress = 0.7499578
 
 [node name="UsernameEditField" type="AnimatedSprite2D" parent="." unique_id=42983275]
-position = Vector2(89, 200)
+position = Vector2(88, 64)
 sprite_frames = SubResource("SpriteFrames_dj67d")
 autoplay = "default"
-frame_progress = 0.67985857
+frame_progress = 0.40315533
 
 [node name="LineEdit" type="LineEdit" parent="UsernameEditField" unique_id=1438651761]
 anchors_preset = -1

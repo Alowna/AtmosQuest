@@ -14,8 +14,8 @@ config/name="AtmosQuest"
 run/main_scene="uid://wqrdil6xl6vq"
 config/features=PackedStringArray("4.7", "Mobile")
 boot_splash/stretch_mode=4
-boot_splash/image="uid://dcpu7uxa5wmv7"
-config/icon="res://icon.svg"
+boot_splash/image="uid://bh8g4ccdskx4g"
+config/icon="uid://da0nuit711l7w"
 
 [autoload]
 

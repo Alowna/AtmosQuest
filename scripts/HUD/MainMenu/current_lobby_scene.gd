@@ -10,6 +10,8 @@ var entrance_over: int = 0
 # UI References.
 @onready var lobby_key_button: TextureButton = $LobbyKeyButton
 @onready var back_button: TextureButton = $BackButton
+@onready var play_button := $StartGame
+@onready var sound_button := $SoundButton
 
 # --- POLLING SYSTEM ---
 var poll_timer := 0.0
@@ -29,6 +31,8 @@ func _ready() -> void:
 	# Hide UI elements initially for the entrance animation sequence.
 	lobby_key_button.visible = false
 	back_button.visible = false
+	sound_button.visible = false
+	play_button.visible = false
 	AudioManager.play_game_sound("crash")
 	# Connect view entry animations.
 	$Base.animation_finished.connect(_on_entrance_animation_finished)
@@ -42,6 +46,10 @@ func _on_entrance_animation_finished() -> void:
 	if entrance_over >= 2:
 		lobby_key_button.appear()
 		back_button.appear()
+		await get_tree().create_timer(0.5).timeout
+		sound_button.appear()
+		await get_tree().create_timer(0.5).timeout
+		play_button.appear()
 
 
 # ==================================================

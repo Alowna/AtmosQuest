@@ -90,7 +90,7 @@ func _sync_with_server_state():
 	
 	var remote_alt_km = player_data["altitude"]
 	var atmosLayer = player_data["atmosLayer"]
-	print("atmoslayer rival: ", player_data["atmosLayer"])
+
 	_check_remote_detach_events(remote_alt_km)
 	_check_remote_fire_event(atmosLayer)
 
@@ -111,7 +111,7 @@ func _check_remote_detach_events(remote_alt: float):
 	if remote_alt >= 12 and not propeller_detached:
 
 		propeller_detached = true
-		print("propeller detached")
+
 		if propeller:
 			propeller.detach(0)
 
