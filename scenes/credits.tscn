@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://d8gb7o5dcd7t"]
+
+[ext_resource type="FontFile" uid="uid://nsywhfovxtus" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-SemiBold.ttf" id="1_2fbfq"]
+[ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="2_8gwij"]
+[ext_resource type="Texture2D" uid="uid://cwgvu5t47sn1s" path="res://assets/HUD/MainMenu/BackButton.png" id="3_mah5v"]
+[ext_resource type="Texture2D" uid="uid://dpskk80jgq58" path="res://assets/HUD/Questions/BlackScreen.png" id="4_kyhnv"]
+
+[node name="Credits" type="Control" unique_id=1315029579]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1773174912]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 173.0
+offset_bottom = 289.0
+
+[node name="Créditos" type="Label" parent="ScrollContainer" unique_id=1538309769]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0.007843138, 1)
+theme_override_fonts/font = ExtResource("1_2fbfq")
+theme_override_font_sizes/font_size = 12
+text = "=== DESENVOLVIMENTO ===
+
+[SPRITES E ASSETS]
+Responsavel: Alona Nicolau (devAlowna) e Luna Morgana
+Atividade: Desenvolvimento de software e criação dos assets em sprite utilizando Aseprite
+
+
+[REGRAS DO JOGO]
+Responsaveis:
+- Luna Morgana Fernandes Rodrigues
+- Alona Nicolau
+
+Atividade:
+- Ideias do jogo
+- Estruturacao das regras
+
+
+=== BANCO DE QUESTOES ===
+
+[REVISAO]
+Responsaveis:
+Luna Morgana Fernandes Rodrigues
+Alona Nicolau de Oliveira
+
+Atividade:
+Luna Morgana:
+Revisao das questoes desenvolvidas da Troposfera, Estratosfera e Mesosfera, verificacao da factualidade dos fatos e bibliografia envolvida.
+
+Alona Nicolau:
+Revisao das questoes desenvolvidas da Termosfera e Exosfera, verificacao da factualidade dos fatos e bibliografia envolvida.
+
+[DESENVOLVIMENTO DAS QUESTOES]
+
+
+Troposfera:
+Responsavel: Fernando Henrique de Andrade
+Quantidade: 10 questoes
+
+
+Estratosfera:
+Responsavel: Fernando Henrique de Andrade
+Quantidade: 9 questoes
+
+
+Mesosfera:
+Responsavel: Fernando Henrique de Andrade
+Quantidade: 10 questoes
+
+
+Termosfera:
+Responsavel: Guilherme Arce
+Quantidade: 10 questoes
+
+
+Exosfera:
+Responsavel: Amanda Gabrielle de Lima Vallerio
+Quantidade: 9 questoes
+
+
+=== RELATORIO ACADEMICO ===
+
+Responsaveis:
+- Luna Morgana Fernandes Rodrigues
+- Alona Nicolau
+
+=== CREDITOS DE AUDIO ===
+
+[UI SOUND]
+Nome: GUI Notification Alert
+Autor: Headphaze
+Licenca: CC BY 4.0
+Uso: Som de notificacao da interface
+Fonte: https://freesound.org/people/Headphaze/sounds/277031/
+
+[MENU MUSIC]
+Nome: Boo (I Got You Good)
+Autor: Victor_Natas
+Direitos: Copyright © Victor_Natas. All rights reserved.
+Uso: Musica principal do menu
+Fonte: https://freesound.org/people/Victor_Natas/sounds/653475/
+
+[SOUND EFFECT]
+Nome: Bass & Noise.wav
+Autor: D_A_G_A_Z
+Licenca: Attribution 3.0
+Uso: Efeito sonoro
+Fonte: https://freesound.org/s/369270/
+
+[SOUND EFFECT]
+Nome: explosion.wav
+Autor: IdkMrGarcia
+Licenca: Creative Commons 0
+Uso: Efeito sonoro
+Fonte: https://freesound.org/s/446625/
+
+[SOUND EFFECT]
+Nome: Sci Fi HUD Screen Select FX 1
+Autor: deadrobotmusic
+Licenca: Creative Commons 0
+Uso: Efeito sonoro de selecao de HUD
+Fonte: https://freesound.org/s/750610/
+
+[SOUND EFFECT]
+Nome: Spaceship compartment door.With pneumatics(8lrs,mltprcssng).wav
+Autor: newlocknew
+Licenca: Attribution 4.0
+Uso: Porta de nave espacial
+Fonte: https://freesound.org/s/546922/
+
+[SOUND EFFECT]
+Nome: PlaneCrash.wav
+Autor: mikhalin1992
+Licenca: Creative Commons 0
+Uso: Efeito sonoro
+Fonte: https://freesound.org/s/668549/
+
+[SOUND EFFECT]
+Nome: Commack Fire Alarm
+Autor: disquiet
+Licenca: Attribution NonCommercial 4.0
+Uso: Alarme
+Fonte: https://freesound.org/s/844471/
+
+[SOUND EFFECT]
+Nome: M142 HIMARS Rocket Launch 8
+Autor: qubodup
+Licenca: Creative Commons 0
+Uso: Lancamento de foguete
+Fonte: https://freesound.org/s/854476/
+
+[SOUND EFFECT]
+Nome: Fire Flame Burner
+Autor: qubodup
+Licenca: Creative Commons 0
+Uso: Fogo/chama
+Fonte: https://freesound.org/s/176724/
+
+[SOUND EFFECT]
+Nome: swish/whoosh
+Autor: JSilverSound
+Licenca: Creative Commons 0
+Uso: Movimento/passagem de ar
+Fonte: https://freesound.org/s/568834/
+
+[SOUND EFFECT]
+Nome: meteor flyby
+Autor: humanoide9000
+Licenca: Creative Commons 0
+Uso: Passagem de meteoro
+Fonte: https://freesound.org/s/329029/
+
+[MUSIC]
+Nome: loop-sad-dejected-synth-2020-12-04-0.wav
+Autor: Gerent
+Licenca: Creative Commons 0
+Uso: Musica ambiente
+Fonte: https://freesound.org/s/558743/
+
+[MUSIC]
+Nome: Happy Loop #2
+Autor: danlucaz
+Licenca: Creative Commons 0
+Uso: Musica ambiente
+Fonte: https://freesound.org/s/569858/"
+
+[node name="MenuButton" parent="." unique_id=1862010026 instance=ExtResource("2_8gwij")]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 293.0
+offset_right = 167.0
+offset_bottom = 310.0
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("3_mah5v")
+target_scene = "uid://wqrdil6xl6vq"
+
+[node name="BlackScreen" type="Sprite2D" parent="." unique_id=1748851329]
+z_index = -1
+position = Vector2(90, 160)
+texture = ExtResource("4_kyhnv")

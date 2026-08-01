@@ -275,21 +275,21 @@ func generate_results_text() -> void:
 
 	# Inject local player data.
 	# The server might have older values, so local values are authoritative.
-	for i in range(sorted_players.size()):
+#	for i in range(sorted_players.size()):
+#
+#		if int(sorted_players[i].get("id", 0)) == PlayerConfig.online_id:
 
-		if int(sorted_players[i].get("id", 0)) == PlayerConfig.online_id:
+#			sorted_players[i]["isAlive"] = PlayerConfig.isAlive
+#			sorted_players[i]["atmosLayer"] = PlayerConfig.atmosLayer
+#			sorted_players[i]["lives"] = PlayerConfig.lives
+#			sorted_players[i]["maxAltitude"] = PlayerConfig.maxAltitude
+#			sorted_players[i]["points"] = PlayerConfig.points
+#			sorted_players[i]["collisions"] = PlayerConfig.collisions
+#			sorted_players[i]["correctAnswers"] = PlayerConfig.correctAnswers
+#			sorted_players[i]["wrongAnswers"] = PlayerConfig.wrongAnswers
+#			sorted_players[i]["collisionDeathObject"] = PlayerConfig.collisionDeathObject
 
-			sorted_players[i]["isAlive"] = PlayerConfig.isAlive
-			sorted_players[i]["atmosLayer"] = PlayerConfig.atmosLayer
-			sorted_players[i]["lives"] = PlayerConfig.lives
-			sorted_players[i]["maxAltitude"] = PlayerConfig.maxAltitude
-			sorted_players[i]["points"] = PlayerConfig.points
-			sorted_players[i]["collisions"] = PlayerConfig.collisions
-			sorted_players[i]["correctAnswers"] = PlayerConfig.correctAnswers
-			sorted_players[i]["wrongAnswers"] = PlayerConfig.wrongAnswers
-			sorted_players[i]["collisionDeathObject"] = PlayerConfig.collisionDeathObject
-
-			break
+#			break
 
 
 

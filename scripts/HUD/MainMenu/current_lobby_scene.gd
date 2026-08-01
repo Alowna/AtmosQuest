@@ -28,6 +28,7 @@ var is_fetching_state := false
 # ==================================================
 
 func _ready() -> void:
+	
 	# Hide UI elements initially for the entrance animation sequence.
 	lobby_key_button.visible = false
 	back_button.visible = false
@@ -117,6 +118,7 @@ func _transition_everyone(g_key: String) -> void:
 	
 	if not game_data.is_empty():
 		# Store current structural simulation attributes.
+		
 		CurrentGame.update_from_dict(game_data)
 		CurrentLobby.clear() 
 		

@@ -33,7 +33,7 @@ func start() -> void:
 	Background.visible = true
 	
 	# Load player customization skins
-	var ShipSkin = SkinManager.get_ship_skin_by_id(PlayerConfig.get_rocket_skin_id())
+	var ShipSkin = SkinManager.get_ship_skin_by_id(PlayerConfig.get_ship_skin_id())
 	var PilotSkin = SkinManager.get_pilot_skin_by_id(PlayerConfig.get_pilot_skin_id())
 	
 	ShipFinalTexture.texture = load(ShipSkin["body"])

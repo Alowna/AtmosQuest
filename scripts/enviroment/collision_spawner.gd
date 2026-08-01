@@ -100,7 +100,7 @@ func update_spawn_rate() -> void:
 
 	else:
 
-		spawn_timer.wait_time = 4.0
+		spawn_timer.wait_time = 12.0
 
 
 
@@ -141,7 +141,16 @@ func spawn_obstacle():
 
 	# Select obstacle pool based on actual world position.
 	var obstacle_pool = get_obstacle_pool_from_position(spawn_y)
-
+	
+	#only allows spawns in limit of  layer
+	if PlayerConfig.atmosLayer == 0 and -(spawn_y+100) > TROPOSPHERE_LIMIT:
+		return
+	if PlayerConfig.atmosLayer == 1 and -(spawn_y+100) > STRATOSPHERE_LIMIT:
+		return
+	if PlayerConfig.atmosLayer == 2 and -(spawn_y+100) > MESOSPHERE_LIMIT:
+		return
+	if PlayerConfig.atmosLayer == 3 and -(spawn_y+100) > THERMOSPHERE_LIMIT:
+		return
 
 	var obstacle_scene: PackedScene = obstacle_pool.pick_random()
 
@@ -184,7 +193,7 @@ func spawn_obstacle():
 		"Spawned ",
 		obstacle.name,
 		" | Spawn world Y: ",
-		spawn_y,
+		-spawn_y,
 		" | Player altitude: ",
 		PlayerConfig.altitude
 	)
@@ -268,6 +277,8 @@ func get_obstacle_pool_from_position(world_y: float) -> Array[PackedScene]:
 	else:
 
 		return exosphere_obstacle_scenes
+
+
 
 
 

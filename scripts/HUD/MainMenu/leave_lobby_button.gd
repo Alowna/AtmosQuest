@@ -88,7 +88,7 @@ func _on_pressed() -> void:
 		print("Player successfully left the lobby!")
 
 		# Reset local lobby data.
-		PlayerConfig.online_id = 0
+		PlayerConfig.online_id = -1
 		CurrentLobby.clear()
 
 		# Return to the target scene.

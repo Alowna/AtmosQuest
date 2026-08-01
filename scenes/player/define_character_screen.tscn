@@ -1,0 +1,210 @@
+[gd_scene format=3 uid="uid://con32gde58csf"]
+
+[ext_resource type="Script" uid="uid://bkuefu0umv7do" path="res://scripts/player/define_character_screen.gd" id="1_3d6og"]
+[ext_resource type="Texture2D" uid="uid://bm5jjjqqqko0w" path="res://assets/HUD/ConfirmBox.png" id="1_peyje"]
+[ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="2_3d6og"]
+[ext_resource type="Texture2D" uid="uid://ch05ktxuxj0h6" path="res://assets/HUD/MainMenu/Online/OnlineLobbyButtonAlpha-Sheet.png" id="2_jhh35"]
+[ext_resource type="Texture2D" uid="uid://c7gj3bk28yheh" path="res://assets/HUD/MainMenu/Config/ConfigAlphaButton-Sheet-Transparent.png" id="3_jhh35"]
+[ext_resource type="Script" uid="uid://f700q5wj7sa6" path="res://scripts/HUD/MainMenu/ship_skin_button.gd" id="4_cyy4m"]
+[ext_resource type="Script" uid="uid://csvt5n8lv1ish" path="res://scripts/HUD/MainMenu/pilot_skin_button.gd" id="5_68gdh"]
+[ext_resource type="FontFile" uid="uid://dv687cqmns33c" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-Medium.ttf" id="6_mj8ra"]
+[ext_resource type="Texture2D" uid="uid://b75qqoudskvrg" path="res://assets/HUD/MainMenu/EnterButton.png" id="8_tm0t1"]
+[ext_resource type="Texture2D" uid="uid://dpskk80jgq58" path="res://assets/HUD/Questions/BlackScreen.png" id="10_jhh35"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr8o3"]
+atlas = ExtResource("2_jhh35")
+region = Rect2(0, 0, 68, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1a85y"]
+atlas = ExtResource("2_jhh35")
+region = Rect2(68, 0, 68, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hl5e0"]
+atlas = ExtResource("2_jhh35")
+region = Rect2(136, 0, 68, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_engjn"]
+atlas = ExtResource("2_jhh35")
+region = Rect2(204, 0, 68, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6h3lr"]
+atlas = ExtResource("2_jhh35")
+region = Rect2(272, 0, 68, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cyy4m"]
+animations = [{
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_vr8o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1a85y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hl5e0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_engjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6h3lr")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 14.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68gdh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gvuq"]
+atlas = ExtResource("3_jhh35")
+region = Rect2(0, 0, 63, 67.272)
+
+[sub_resource type="Animation" id="Animation_y6n8j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 63, 67.272)]
+}
+
+[sub_resource type="Animation" id="Animation_1dbib"]
+resource_name = "idle_animation"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 63, 67.272), Rect2(63, 0, 63, 67.272), Rect2(126, 0, 63, 67.272), Rect2(189, 0, 63, 67.272), Rect2(252, 0, 63, 67.272)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6vo2h"]
+_data = {
+&"RESET": SubResource("Animation_y6n8j"),
+&"idle_animation": SubResource("Animation_1dbib")
+}
+
+[node name="DefineCharacterScreen" type="Control" unique_id=1295418731]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3d6og")
+
+[node name="UsernameEditField" type="AnimatedSprite2D" parent="." unique_id=1049359049]
+z_index = 2
+position = Vector2(0, -87)
+sprite_frames = SubResource("SpriteFrames_cyy4m")
+autoplay = "default"
+
+[node name="LineEdit" type="LineEdit" parent="UsernameEditField" unique_id=885709544]
+anchors_preset = -1
+anchor_left = 0.44117647
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -24.5
+offset_bottom = -0.5
+theme_override_colors/font_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
+theme_override_colors/font_selected_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
+theme_override_colors/font_placeholder_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
+theme_override_colors/caret_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
+theme_override_colors/selection_color = Color(0.8901961, 0.22745098, 0.28627452, 0.33333334)
+theme_override_colors/clear_button_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
+theme_override_colors/clear_button_color_pressed = Color(0.8901961, 0.22745098, 0.28627452, 1)
+theme_override_constants/caret_width = 1
+theme_override_constants/minimum_character_width = 1
+theme_override_fonts/font = ExtResource("6_mj8ra")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxFlat_68gdh")
+placeholder_text = "Jogador"
+alignment = 1
+max_length = 8
+context_menu_enabled = false
+flat = true
+caret_blink = true
+caret_blink_interval = 0.25
+metadata/_edit_use_anchors_ = true
+
+[node name="ConfirmBox" type="Sprite2D" parent="." unique_id=68975190]
+scale = Vector2(2.24375, 3.2875)
+texture = ExtResource("1_peyje")
+
+[node name="OkGoButton" type="Button" parent="." unique_id=1058053176]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 93.0
+offset_right = 80.0
+offset_bottom = 121.0
+icon = ExtResource("8_tm0t1")
+
+[node name="BlackScreen" type="Sprite2D" parent="." unique_id=261140133]
+z_index = -1
+texture = ExtResource("10_jhh35")
+
+[node name="ShipSkinButton" parent="." unique_id=1862010026 instance=ExtResource("2_3d6og")]
+z_index = 2
+layout_mode = 0
+offset_left = 12.000004
+offset_top = -34.999977
+offset_right = 75.00001
+offset_bottom = 32.000023
+texture_normal = SubResource("AtlasTexture_3gvuq")
+script = ExtResource("4_cyy4m")
+
+[node name="ShipExample" type="Sprite2D" parent="ShipSkinButton" unique_id=673064610]
+z_index = -1
+position = Vector2(33, 33)
+scale = Vector2(0.85, 0.85)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ShipSkinButton" unique_id=1350596420]
+libraries/ = SubResource("AnimationLibrary_6vo2h")
+autoplay = &"idle_animation"
+
+[node name="PilotSkinButton" parent="." unique_id=815233876 instance=ExtResource("2_3d6og")]
+z_index = 2
+layout_mode = 0
+offset_left = -71.0
+offset_top = -35.0
+offset_right = -8.0
+offset_bottom = 32.0
+texture_normal = SubResource("AtlasTexture_3gvuq")
+script = ExtResource("5_68gdh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PilotSkinButton" unique_id=812129130]
+libraries/ = SubResource("AnimationLibrary_6vo2h")
+autoplay = &"idle_animation"
+
+[node name="PilotExample" type="Sprite2D" parent="PilotSkinButton" unique_id=765184511]
+position = Vector2(32.857143, 31.428598)
+scale = Vector2(3.5, 3.5)
+
+[node name="Label" type="Label" parent="." unique_id=417558307]
+layout_mode = 0
+offset_left = -18.0
+offset_top = -113.0
+offset_right = 17.0
+offset_bottom = -100.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("6_mj8ra")
+theme_override_font_sizes/font_size = 10
+text = "Apelido"

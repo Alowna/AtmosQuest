@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var QuestionControl = $"../.."
 
-@onready var Statement: Label = $Statement
+@onready var Statement: Label = $ScrollContainer/Statement
 @onready var AnswerA: Button = $AnswerA
 @onready var AnswerB: Button = $AnswerB
 @onready var AnswerC: Button = $AnswerC
@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 		time_left -= delta
 
 		# Update the timer text on screen
-		TimerLabel.text = str(ceil(time_left))
+		TimerLabel.text = str(ceil(int((time_left))))
 
 		# If time reaches zero, the question is automatically wrong
 		if time_left <= 0:
@@ -47,8 +47,22 @@ func _process(delta: float) -> void:
 
 
 func load_question() -> void:
+	
+	var atmosQuestion = 0
 	# Fetch a random question from the Autoload memory
-	current_question = getRandomQuestion(PlayerConfig.atmosLayer)
+	if PlayerConfig.altitude < 14:
+		atmosQuestion = 0
+	elif PlayerConfig.altitude < 54:
+		atmosQuestion = 1
+
+	elif PlayerConfig.altitude < 84:
+		atmosQuestion = 2
+
+	elif PlayerConfig.altitude < 710:
+		atmosQuestion = 3
+	else:
+		atmosQuestion = 4
+	current_question = getRandomQuestion(atmosQuestion)
 
 	if not current_question.is_empty():
 

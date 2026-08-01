@@ -444,20 +444,27 @@ texture = ExtResource("4_rib8t")
 [node name="QuestionManager" type="Node2D" parent="QuestionScreen" unique_id=85720393]
 script = ExtResource("5_h0i28")
 
-[node name="Statement" type="Label" parent="QuestionScreen/QuestionManager" unique_id=1866147620]
+[node name="ScrollContainer" type="ScrollContainer" parent="QuestionScreen/QuestionManager" unique_id=904892147]
+custom_maximum_size = Vector2(158, -1)
+propagate_maximum_size = true
+offset_left = 12.0
+offset_top = 34.0
+offset_right = 170.0
+offset_bottom = 106.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Statement" type="Label" parent="QuestionScreen/QuestionManager/ScrollContainer" unique_id=1866147620]
 z_index = 2
 custom_minimum_size = Vector2(119, 74)
-offset_left = 12.0
-offset_top = 33.0
-offset_right = 170.0
-offset_bottom = 107.0
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.039215688, 0.023529412, 1)
 theme_override_constants/line_spacing = -1
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 7
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
 autowrap_mode = 3
-justification_flags = 1
+justification_flags = 3
 
 [node name="AnswerA" type="Button" parent="QuestionScreen/QuestionManager" unique_id=1033420052]
 z_index = 2

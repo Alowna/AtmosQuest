@@ -431,7 +431,7 @@ func create_game(lobby_key: String) -> bool:
 # ==================================================
 
 func join_server(username: String, ship_skin_id: int, pilot_skin_id: int) -> Dictionary:
-	var url: String = "https://" + Env.api_base_url + "/join_server"
+	var url: String = "https://" + Env.api_base_url + "/join_server" 
 	
 	var player_data: Dictionary = {
 		"id": 0,
@@ -439,7 +439,7 @@ func join_server(username: String, ship_skin_id: int, pilot_skin_id: int) -> Dic
 		"shipSkin": ship_skin_id,
 		"pilotSkin": pilot_skin_id
 	}
-	
+	print("SHIP SKIN ID NO LOBBY:" , ship_skin_id)
 	var http_request = HTTPRequest.new()
 	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
@@ -469,7 +469,76 @@ func join_server(username: String, ship_skin_id: int, pilot_skin_id: int) -> Dic
 	if response_code == 200:
 		var response_data = JSON.parse_string(body.get_string_from_utf8())
 		if typeof(response_data) == TYPE_DICTIONARY:
+			#print("id do response data join:", response_data["id"])
+			start_heartbeat(int(response_data["id"]))
 			return response_data
 			
 	push_error("API: Failed to join server. Server status: " + str(response_code))
 	return {}
+
+var heartbeat_timer: Timer
+var connected_to_server: bool = true
+
+
+func start_heartbeat(player_id: int):
+	
+	if heartbeat_timer:
+		heartbeat_timer.queue_free()
+
+	heartbeat_timer = Timer.new()
+	heartbeat_timer.wait_time = 2.0
+	heartbeat_timer.autostart = true
+	heartbeat_timer.timeout.connect(func():
+		send_heartbeat(player_id)
+	)
+
+	add_child(heartbeat_timer)
+
+func send_heartbeat(player_id: int):
+	# if id invalid or not mp active returns
+	if player_id <= 0 or not PlayerConfig.is_multiplayer_active():
+		return
+
+	var url = "https://" + Env.api_base_url + "/heartbeat?id=" + str(player_id)
+
+	var http_request = HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(http_request)
+
+	var error = http_request.request(
+		url,
+		["Content-Type: application/json"],
+		HTTPClient.METHOD_POST,
+		""
+	)
+
+	if error != OK:
+		http_request.queue_free()
+		connection_lost()
+		return
+
+	var result = await http_request.request_completed
+
+	if not is_instance_valid(http_request):
+		return
+
+	var response_code = result[1]
+	http_request.queue_free()
+
+	if response_code != 200:
+		connection_lost()
+	else:
+		connected_to_server = true
+
+func connection_lost():
+	if not connected_to_server:
+		return
+
+	connected_to_server = false
+
+	print("Servidor desconectado, voltando ao menu")
+
+	if heartbeat_timer:
+		heartbeat_timer.stop()
+
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

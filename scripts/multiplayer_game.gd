@@ -50,6 +50,8 @@ var death_decline_speed := 20.0
 # ==================================================
 
 func _ready() -> void:
+	PlayerConfig.in_lobby = false
+	PlayerConfig.in_game = true
 	AudioManager.play_music("gameSong")
 	CollisionSpawner.start()
 	
@@ -103,6 +105,7 @@ func _send_local_altitude() -> void:
 		"action": "altitude",
 		"atmosLayer": PlayerConfig.atmosLayer,
 		"altitude": int(PlayerConfig.altitude),
+		"maxAltitude": int(PlayerConfig.maxAltitude),
 		"isAlive": PlayerConfig.isAlive,
 		"lives": PlayerConfig.lives,
 		"points": PlayerConfig.points,
@@ -121,6 +124,25 @@ func _send_local_finish() -> void:
 	if not CurrentGame.is_active():
 		return
 
+	var lastPayload: Dictionary = {
+		"gameKey": CurrentGame.game_key,
+		"playerId": PlayerConfig.online_id,
+		"action": "altitude",
+		"atmosLayer": PlayerConfig.atmosLayer,
+		"altitude": int(PlayerConfig.altitude),
+		"maxAltitude": int(PlayerConfig.maxAltitude),
+		"isAlive": PlayerConfig.isAlive,
+		"lives": PlayerConfig.lives,
+		"points": PlayerConfig.points,
+		"collisions": PlayerConfig.collisions,
+		"correctAnswers": PlayerConfig.correctAnswers,
+		"wrongAnswers": PlayerConfig.wrongAnswers,
+		"collisionObject": PlayerConfig.collisionDeathObject
+	}
+
+	# Send request through the Api autoload.
+	Api.send_game_action(lastPayload)
+	
 	var payload: Dictionary = {
 		"gameKey": CurrentGame.game_key,
 		"playerId": PlayerConfig.online_id,
@@ -330,8 +352,9 @@ func zoom_into_player_ship() -> void:
 func _on_game_exit() -> void:
 	if not CurrentGame.is_active():
 		return
-
+	
 	Api.leave_game(
 		CurrentGame.game_key,
 		PlayerConfig.online_id
 	)
+	PlayerConfig.in_game = false

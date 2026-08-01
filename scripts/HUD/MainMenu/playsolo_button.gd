@@ -1,11 +1,8 @@
 extends TextureButton
 
-# The scene that will be loaded after this button animation finishes
-@export_file("*.tscn") var target_scene: String
-
 # Prevents the button from being pressed multiple times while transitioning
 var used := false
-
+@onready var DefineCharacterScreen = $"../DefineCharacterScreen"
 
 func _ready():
 	# Creates a pixel-perfect click area based on the button texture transparency
@@ -62,7 +59,5 @@ func _on_pressed():
 
 	# Wait until the button animation finishes before changing scenes
 	await tween.finished
-
-	# Load the assigned scene if one was configured in the Inspector
-	if target_scene:
-		get_tree().change_scene_to_file(target_scene)
+	
+	DefineCharacterScreen.visible=true

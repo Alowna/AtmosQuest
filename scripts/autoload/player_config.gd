@@ -7,6 +7,13 @@ extends Node
 #Check if games paused or not and locks control
 var controls_locked := false
 
+var in_game := false
+var in_lobby := false
+
+func is_multiplayer_active() -> bool:
+	#print("estado mp: ", online_id != -1 and (in_lobby or in_game))
+	return online_id != -1 and (in_lobby or in_game)
+	
 # Player display name.
 # Used as the player's identity in the lobby and server data.
 var username = "Jogador(e)"
@@ -85,7 +92,7 @@ var ship_skin = {
 # Returns the selected ship skin ID.
 # ==================================================
 
-func get_rocket_skin_id() -> int:
+func get_ship_skin_id() -> int:
 
 	return ship_skin.get("id", 0)
 	
@@ -126,6 +133,8 @@ func clear() -> void:
 	answeredQuestions.clear()
 	
 	controls_locked = false
+	in_game = false
+	in_lobby = false
 	
 var all_questions: Array = []
 

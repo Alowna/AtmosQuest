@@ -42,7 +42,7 @@ func assign_player(player: Dictionary):
 	# Get the selected ship and pilot skin IDs.
 	var ship_skin_id = int(player.get("shipSkin", 0))
 	var pilot_skin_id = int(player.get("pilotSkin", 0))
-
+	#print("Ship Skin: ", ship_skin_id)
 	# Retrieve the skin data.
 	var ship_skin = SkinManager.get_ship_skin_by_id(ship_skin_id)
 	var pilot_skin = SkinManager.get_pilot_skin_by_id(pilot_skin_id)

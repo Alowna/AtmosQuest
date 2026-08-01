@@ -3,18 +3,20 @@
 [ext_resource type="Script" uid="uid://wexsi3xvjii1" path="res://scripts/main_menu.gd" id="1_flqon"]
 [ext_resource type="Texture2D" uid="uid://birmqrhikxdx1" path="res://assets/HUD/MainMenu/Main/MainMenuBaseAlpha.png" id="1_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://jlrxu47bkdmp" path="res://assets/HUD/MainMenu/Main/MainMenuNeonAlpha-Sheet.png" id="2_oa1go"]
+[ext_resource type="Script" uid="uid://cyen7uoe4beda" path="res://scenes/player/define_character_screen_mp.gd" id="3_8egab"]
 [ext_resource type="PackedScene" uid="uid://b8jgf88uft0jk" path="res://scenes/HUD/MainMenu/menu_button.tscn" id="3_tbmy8"]
 [ext_resource type="Texture2D" uid="uid://doqi71gfedcat" path="res://assets/HUD/MainMenu/Main/MainMenuPlaySolo.png" id="4_jk1qb"]
 [ext_resource type="Texture2D" uid="uid://dje4f6js4kiqk" path="res://assets/HUD/MainMenu/Main/MainMenuOnline.png" id="5_5dd4i"]
 [ext_resource type="Script" uid="uid://b44kij3ie02cc" path="res://scripts/HUD/MainMenu/join_server_button.gd" id="6_flqon"]
-[ext_resource type="Texture2D" uid="uid://l80s2cbm7ap4" path="res://assets/HUD/MainMenu/MainMenuOptions.png" id="6_lgwnu"]
+[ext_resource type="Script" uid="uid://d1t8qqorqs41y" path="res://scripts/HUD/MainMenu/playsolo_button.gd" id="7_hstxw"]
 [ext_resource type="Texture2D" uid="uid://bmphlr3wr3e70" path="res://assets/HUD/MainMenu/MainMenuSoundAlpha.png" id="7_jk1qb"]
 [ext_resource type="Script" uid="uid://buush2gikjqdl" path="res://scripts/HUD/MainMenu/sound_button.gd" id="8_5dd4i"]
 [ext_resource type="Texture2D" uid="uid://di0hi1kjccqqq" path="res://assets/HUD/MainMenu/online_light_off-Sheet.png" id="10_lgwnu"]
 [ext_resource type="Texture2D" uid="uid://bewx8ocea6r4f" path="res://assets/HUD/MainMenu/check_light-Sheet.png" id="11_7b55j"]
 [ext_resource type="Texture2D" uid="uid://bqctc8kvi42ab" path="res://assets/HUD/MainMenu/online_light_on-Sheet.png" id="11_flqon"]
-[ext_resource type="Texture2D" uid="uid://ch05ktxuxj0h6" path="res://assets/HUD/MainMenu/Online/OnlineLobbyButtonAlpha-Sheet.png" id="13_1ajci"]
-[ext_resource type="FontFile" uid="uid://dv687cqmns33c" path="res://assets/fonts/Doto,Pixelify_Sans/Pixelify_Sans/static/PixelifySans-Medium.ttf" id="14_7b55j"]
+[ext_resource type="PackedScene" uid="uid://con32gde58csf" path="res://scenes/player/define_character_screen.tscn" id="16_a8gd2"]
+[ext_resource type="Texture2D" uid="uid://ct42buohqldy5" path="res://assets/HUD/EndResults/HudEndContinueButton.png" id="16_j7ex8"]
+[ext_resource type="FontFile" uid="uid://bh4na30hkhckp" path="res://assets/fonts/Doto,Pixelify_Sans/Doto/static/Doto_Rounded-Black.ttf" id="17_a8gd2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0o4t1"]
 atlas = ExtResource("2_oa1go")
@@ -224,57 +226,29 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vr8o3"]
-atlas = ExtResource("13_1ajci")
-region = Rect2(0, 0, 68, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1a85y"]
-atlas = ExtResource("13_1ajci")
-region = Rect2(68, 0, 68, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hl5e0"]
-atlas = ExtResource("13_1ajci")
-region = Rect2(136, 0, 68, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_engjn"]
-atlas = ExtResource("13_1ajci")
-region = Rect2(204, 0, 68, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6h3lr"]
-atlas = ExtResource("13_1ajci")
-region = Rect2(272, 0, 68, 25)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_dj67d"]
-animations = [{
-"frames": [{
-"duration": 0.1,
-"texture": SubResource("AtlasTexture_vr8o3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1a85y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hl5e0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_engjn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6h3lr")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 14.0
-}]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b55j"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_color = Color(0.8, 0.8, 0.8, 0)
-
 [node name="MainMenu" type="Control" unique_id=535924887]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_flqon")
+
+[node name="DefineCharacterScreen" parent="." unique_id=1295418731 instance=ExtResource("16_a8gd2")]
+visible = false
+z_index = 2
+layout_mode = 1
+offset_left = 89.0
+offset_top = 160.0
+offset_right = 270.0
+offset_bottom = 485.0
+
+[node name="DefineCharacterScreenMP" parent="." unique_id=1860577871 instance=ExtResource("16_a8gd2")]
+visible = false
+z_index = 2
+layout_mode = 1
+offset_left = 89.0
+offset_top = 160.0
+offset_right = 270.0
+offset_bottom = 485.0
+script = ExtResource("3_8egab")
 
 [node name="MainMenuBaseAlpha" type="Sprite2D" parent="." unique_id=314799007]
 position = Vector2(90, 160)
@@ -293,7 +267,7 @@ offset_top = 99.0
 offset_right = 123.0
 offset_bottom = 124.0
 texture_normal = ExtResource("4_jk1qb")
-target_scene = "uid://cm73thr6ugt6p"
+script = ExtResource("7_hstxw")
 
 [node name="OnlineButton" type="TextureButton" parent="." unique_id=295234190]
 layout_mode = 0
@@ -303,16 +277,6 @@ offset_right = 123.0
 offset_bottom = 157.0
 texture_normal = ExtResource("5_5dd4i")
 script = ExtResource("6_flqon")
-target_scene = "uid://bjwr5jwn67hxu"
-
-[node name="OptionsButton" parent="." unique_id=876353857 instance=ExtResource("3_tbmy8")]
-layout_mode = 0
-offset_left = 72.0
-offset_top = 186.0
-offset_right = 105.0
-offset_bottom = 213.0
-texture_normal = ExtResource("6_lgwnu")
-target_scene = "uid://dwaw05mi1fffk"
 
 [node name="SoundButton" parent="." unique_id=722179466 instance=ExtResource("3_tbmy8")]
 layout_mode = 0
@@ -324,44 +288,28 @@ texture_normal = ExtResource("7_jk1qb")
 script = ExtResource("8_5dd4i")
 
 [node name="OnlineCheck" type="AnimatedSprite2D" parent="." unique_id=2138483355]
-position = Vector2(88, 171)
-scale = Vector2(0.4, 0.4)
+position = Vector2(90, 194)
 sprite_frames = SubResource("SpriteFrames_jk1qb")
 animation = &"online"
 frame_progress = 0.7499578
 
-[node name="UsernameEditField" type="AnimatedSprite2D" parent="." unique_id=42983275]
-position = Vector2(88, 64)
-sprite_frames = SubResource("SpriteFrames_dj67d")
-autoplay = "default"
-frame_progress = 0.40315533
+[node name="MenuButton" parent="." unique_id=1252414803 instance=ExtResource("3_tbmy8")]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 235.0
+offset_right = 143.0
+offset_bottom = 275.0
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("16_j7ex8")
+target_scene = "uid://d8gb7o5dcd7t"
 
-[node name="LineEdit" type="LineEdit" parent="UsernameEditField" unique_id=1438651761]
-anchors_preset = -1
-anchor_left = 0.44117647
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -24.5
-offset_bottom = -0.5
-theme_override_colors/font_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_colors/font_selected_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_colors/font_placeholder_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_colors/caret_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_colors/selection_color = Color(0.8901961, 0.22745098, 0.28627452, 0.33333334)
-theme_override_colors/clear_button_color = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_colors/clear_button_color_pressed = Color(0.8901961, 0.22745098, 0.28627452, 1)
-theme_override_constants/caret_width = 1
-theme_override_constants/minimum_character_width = 1
-theme_override_fonts/font = ExtResource("14_7b55j")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/focus = SubResource("StyleBoxFlat_7b55j")
-placeholder_text = "Apelido"
-alignment = 1
-max_length = 8
-context_menu_enabled = false
-flat = true
-caret_blink = true
-caret_blink_interval = 0.25
-metadata/_edit_use_anchors_ = true
+[node name="Label" type="Label" parent="MenuButton" unique_id=744166498]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 83.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("17_a8gd2")
+theme_override_font_sizes/font_size = 16
+text = "CRÉDITOS"
